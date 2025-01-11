@@ -29,7 +29,7 @@ export default function Header() {
                 alt="Space Bazaar"
                 width={40}
                 height={40}
-                className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 "
+                className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-full"
                 onError={() => setLogoError(true)}
                 priority
               />
