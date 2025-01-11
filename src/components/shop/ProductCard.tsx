@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import AddToCart from "@/components/shop/AddToCart";
 import { Star } from "lucide-react";
-import { image } from "framer-motion/client";
 
 type Product = {
   id: number;
@@ -22,12 +21,9 @@ type Product = {
   rating?: number; // Make it optional
 };
 
-
 interface ProductCardProps {
   product: Product;
 }
-
-console.log(image)
 
 export default function ProductCard({ product }: ProductCardProps) {
   return (
