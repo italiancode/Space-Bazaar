@@ -3,19 +3,38 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Deep Space Theme */
+  --background: #030014;
+  --foreground: #E6E7FF;
+  
+  /* Primary Accent Colors */
+  --accent-blue: #4F46E5;    /* Electric Indigo */
+  --accent-purple: #7C3AED;  /* Royal Purple */
+  --accent-red: #EF4444;     /* Cosmic Red */
+  
+  /* Supporting Colors */
+  --space-gray: #1E1B4B;     /* Deep Space Gray */
+  --nebula-pink: #EC4899;    /* Nebula Pink */
+  --cosmic-gold: #F59E0B;    /* Cosmic Gold */
+  
+  /* Gradient Stops */
+  --gradient-start: #030014;  /* Deep Space Black */
+  --gradient-mid: #1E1B4B;    /* Midnight Blue */
+  --gradient-end: #312E81;    /* Deep Indigo */
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans);
+  /* Enhanced gradient for more depth */
+  background-image: radial-gradient(
+    circle at center,
+    var(--gradient-mid) 0%,
+    var(--gradient-start) 100%
+  );
+}
+
+.perspective-1500 {
+  perspective: 1500px;
 }
