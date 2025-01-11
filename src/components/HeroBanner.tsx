@@ -2,13 +2,7 @@
 
 import { motion, useAnimation, Variants } from "framer-motion";
 import { StarryBackground } from "./background-effect/StarryBackground";
-import {
-  SpaceIcon as Planet,
-  ShoppingCart,
-  Star,
-  CompassIcon as Comet,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ShoppingCart, Star } from "lucide-react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import SpaceBazaarBanner from "./SpaceBazaarBanner";

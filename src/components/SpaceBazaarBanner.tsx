@@ -2,33 +2,12 @@
 
 import { motion } from "framer-motion";
 import { ShoppingCart, Star } from "lucide-react";
-import { Button } from "./ui/button";
 import Link from "next/link";
 
 const floatingAnimation = {
   y: [0, -5, 0],
   transition: {
     duration: 4,
-    repeat: Infinity,
-    ease: "easeInOut",
-  },
-};
-
-const pulseAnimation = {
-  scale: [1, 1.05, 1],
-  transition: {
-    duration: 2,
-    repeat: Infinity,
-    ease: "easeInOut",
-  },
-};
-
-const rocketAnimation = {
-  x: [0, 10, 0],
-  y: [0, -5, 0],
-  rotate: [0, 5, 0],
-  transition: {
-    duration: 5,
     repeat: Infinity,
     ease: "easeInOut",
   },

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { motion, animationControls, useAnimation } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { useEffect } from "react";
 
 const categories = [

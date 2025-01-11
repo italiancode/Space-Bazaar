@@ -6,7 +6,7 @@ import AddToCart from "@/components/shop/AddToCart";
 import { Star } from "lucide-react";
 import { image } from "framer-motion/client";
 
-interface Product {
+type Product = {
   id: number;
   name: string;
   image: string;
@@ -19,7 +19,9 @@ interface Product {
   sku: string;
   dimensions: string;
   weight: string;
-}
+  rating?: number; // Make it optional
+};
+
 
 interface ProductCardProps {
   product: Product;

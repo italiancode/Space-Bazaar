@@ -5,20 +5,6 @@ import ProductCard from "@/components/shop/ProductCard";
 import productsData from "@/products.json";
 
 
-interface Product {
-  id: number;
-  name: string;
-  image: string;
-  price: number;
-  category: string;
-  stock: number;
-  description: string;
-  ratings: number;
-  reviews: number;
-  sku: string;
-  dimensions: string;
-  weight: string;
-}
 
 export default function ProductsPage() {
   return (

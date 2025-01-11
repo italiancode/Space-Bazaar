@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { TypeIcon as type, LucideIcon } from 'lucide-react';
+import { LucideIcon } from "lucide-react";
 
 interface ProductIconProps {
   icon: LucideIcon;
@@ -18,4 +18,3 @@ export function ProductIcon({ icon: Icon, delay }: ProductIconProps) {
     </motion.div>
   );
 }
-

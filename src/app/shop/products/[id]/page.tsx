@@ -6,22 +6,6 @@ import AddToCart from "@/components/shop/AddToCart";
 
 import productsData from "@/products.json"; // Import the JSON data
 
-interface Product {
-  id: number;
-  name: string;
-  image: string;
-  price: number;
-  category: string;
-  stock: number;
-  description: string;
-  ratings: number;
-  reviews: number;
-  sku: string;
-  dimensions: string;
-  weight: string;
-}
-
-
 
 export default function ProductDetailPage() {
   const { id } = useParams();
