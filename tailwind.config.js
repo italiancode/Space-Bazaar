@@ -11,6 +11,7 @@ module.exports = {
         'space-dark': "var(--space-dark)",
         'space-mid': "var(--space-mid)",
         'space-light': "var(--space-light)",
+        "space-gray": "var(--space-gray)",
       },
       animation: {
         'float': 'float 5s ease-in-out infinite',

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ShoppingCart, Star } from "lucide-react";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
 const floatingAnimation = {
   y: [0, -5, 0],
@@ -35,7 +36,7 @@ const rocketAnimation = {
 
 export default function SpaceBazaarBanner() {
   return (
-    <div className="relative overflow-hidden text-white px-4 py-3 sm:py-4 md:py-5 lg:py-6 bg-gradient-to-r from-[#0a1128] to-[#1c3a70]/50">
+    <div className="relative overflow-hidden text-white px-4 py-3 md:mt-3 lg:mt-4 bg-gradient-to-r from-[#0a1128] to-[#1c3a70]/50">
       <div className="relative z-10 flex flex-row items-center justify-between max-w-7xl mx-auto">
         <div className="flex flex-row items-center mb-4 sm:mb-0">
           <div>
@@ -45,7 +46,7 @@ export default function SpaceBazaarBanner() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-sm sm:text-base text-gray-300 mt-1"
             >
-              Explore the Universe of SpaceX Collectibles
+              Your SpaceX Merchandise Marketplace
             </motion.p>
 
             <motion.div
@@ -66,13 +67,13 @@ export default function SpaceBazaarBanner() {
             whileTap={{ scale: 0.95 }}
             className="ml-4"
           >
-            <Button
-              size="sm"
+            <Link
+              href="/shop"
               className="bg-[var(--accent-blue)] text-white hover:bg-[var(--accent-blue)]/90 text-xs sm:text-sm px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center whitespace-nowrap"
             >
               <ShoppingCart className="w-4 h-4 mr-2" />
               Shop Now
-            </Button>
+            </Link>
           </motion.div>
           {/* <motion.div animate={pulseAnimation}>
             <span className="text-xs sm:text-sm font-medium bg-gradient-to-r from-yellow-400 to-yellow-200 text-black px-2 py-1 rounded-full">

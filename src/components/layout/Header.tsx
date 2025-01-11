@@ -3,29 +3,25 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { Menu, X, Search, ShoppingCart, User } from 'lucide-react';
+import { Menu, X, Search, ShoppingCart, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useCart } from "@/context/CartContext";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [logoError, setLogoError] = useState(false);
-
   const navItems = ["Shop", "Categories", "About", "Contact"];
+  const { cart } = useCart();
+  const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <header className="fixed top-0 max-w-7xl mx-auto w-full z-50">
-      {/* Glow Effect Container */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-background/80 backdrop-blur-md" />
-        <div className="absolute inset-x-0 bottom-0 h-px bg-white/10" />
-        <div className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-accent-blue/50 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-accent-blue/20 to-transparent" />
+      <div className=" flex flex-row">
+        <div className="absolute inset-0 bg-space-dark backdrop-blur-md h-2/3" />
+        <div className="absolute inset-0 bg-background/50 backdrop-blur-lg" />
       </div>
-
-      {/* Main Content - remains mostly the same but wrapped in relative container */}
       <div className="relative px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 sm:h-18 lg:h-20">
-          {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             {!logoError ? (
               <Image
@@ -33,13 +29,15 @@ export default function Header() {
                 alt="Space Bazaar"
                 width={40}
                 height={40}
-                className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-full"
+                className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 "
                 onError={() => setLogoError(true)}
                 priority
               />
             ) : (
               <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-accent-blue rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-sm sm:text-base lg:text-lg">SB</span>
+                <span className="text-white font-bold text-sm sm:text-base lg:text-lg">
+                  SB
+                </span>
               </div>
             )}
             <span className="text-lg sm:text-xl lg:text-2xl font-bold whitespace-nowrap">
@@ -47,7 +45,6 @@ export default function Header() {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-4 lg:space-x-8">
             {navItems.map((item) => (
               <Link
@@ -60,16 +57,20 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* User Actions */}
           <div className="flex items-center space-x-2 sm:space-x-4">
             <button className="p-1 sm:p-2 hover:text-accent-blue transition-colors">
               <Search className="w-5 h-5" />
             </button>
             <Link
-              href="/cart"
-              className="p-1 sm:p-2 hover:text-accent-blue transition-colors"
+              href="/shop/cart"
+              className="relative p-1 sm:p-2 hover:text-accent-blue transition-colors"
             >
               <ShoppingCart className="w-5 h-5" />
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full text-xs px-1">
+                  {cartCount}
+                </span>
+              )}
             </Link>
             <Link
               href="/account"
@@ -77,8 +78,6 @@ export default function Header() {
             >
               <User className="w-5 h-5" />
             </Link>
-
-            {/* Mobile Menu Button */}
             <button
               className="md:hidden p-1 sm:p-2 hover:text-accent-blue transition-colors"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -94,7 +93,6 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu - update the background to match the glow theme */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -105,10 +103,6 @@ export default function Header() {
             className="relative md:hidden"
           >
             <div className="absolute inset-0 bg-background/95 backdrop-blur-md" />
-            <div className="absolute inset-x-0 bottom-0 h-px bg-white/10" />
-            <div className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-accent-blue/50 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-accent-blue/20 to-transparent" />
-            
             <nav className="relative flex flex-col px-4 py-4 space-y-4">
               {navItems.map((item) => (
                 <Link
@@ -130,4 +124,3 @@ export default function Header() {
     </header>
   );
 }
-

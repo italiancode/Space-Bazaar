@@ -3,6 +3,7 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Layout from "@/components/layout/Layout";
 import { StarryBackground } from "@/components/background-effect/StarryBackground";
+import { CartProvider } from "@/context/CartContext";
 
 export const metadata: Metadata = {
   title: "Space Bazaar | SpaceX Merchandise Marketplace",
@@ -17,8 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={GeistSans.className}>
-        <StarryBackground />
-        <Layout>{children}</Layout>
+        <CartProvider>
+          <StarryBackground />
+          <Layout>{children}</Layout>
+        </CartProvider>
       </body>
     </html>
   );

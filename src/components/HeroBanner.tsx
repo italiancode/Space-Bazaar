@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import SpaceBazaarBanner from "./SpaceBazaarBanner";
+import Link from "next/link";
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -57,7 +58,7 @@ export default function HeroBanner() {
             animate="visible"
             transition={{ delay: 0.4, duration: 0.8 }}
           >
-            Your SpaceX Merchandise Marketplace
+            Explore the Universe of SpaceX Collectibles
           </motion.p>
 
           <motion.div
@@ -66,22 +67,22 @@ export default function HeroBanner() {
             transition={{ delay: 1.2, duration: 0.5 }}
             className="flex flex-row items-center justify-center gap-4 mb-8"
           >
-            <Button
-              size="lg"
+            <Link
+              href="/shop"
               className={cn(
                 "bg-[var(--accent-blue)] text-white hover:bg-[var(--accent-blue)]/90",
                 "px-6 py-2 sm:px-8 sm:py-3 lg:px-10 lg:py-4",
                 "text-sm sm:text-base lg:text-lg font-semibold",
-                "rounded-full shadow-md hover:shadow-lg transition-all duration-300",
+                "rounded-full shadow-md hover:shadow-xl transition-all duration-300",
                 "flex items-center justify-center gap-2 whitespace-nowrap"
               )}
             >
               <ShoppingCart className="group-hover:animate-bounce w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
               Start Shopping
-            </Button>
+            </Link>
 
-            <Button
-              size="lg"
+            <Link
+              href="/about"
               className={cn(
                 "border border-white text-white hover:bg-white hover:text-[var(--accent-blue)]",
                 "px-6 py-2 sm:px-8 sm:py-3 lg:px-10 lg:py-4",
@@ -92,7 +93,7 @@ export default function HeroBanner() {
             >
               <Star className="group-hover:animate-spin w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
               Learn More
-            </Button>
+            </Link>
           </motion.div>
 
           <motion.p

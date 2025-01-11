@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <>
       <FadeGlowEffect />
-      <footer className="bg-space-gray mt-auto">
+      <footer className="bg-space-dark mt-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {/* Company Info */}
@@ -70,7 +70,6 @@ const socialLinks = [
       </svg>
     ),
   },
-  // Add more social links as needed
 ];
 
 const footerLinks = [
@@ -79,8 +78,8 @@ const footerLinks = [
     links: [
       { name: "All Products", href: "/shop" },
       { name: "Categories", href: "/categories" },
-      { name: "New Arrivals", href: "/new-arrivals" },
-      { name: "Best Sellers", href: "/best-sellers" },
+      // { name: "New Arrivals", href: "/new-arrivals" },
+      // { name: "Best Sellers", href: "/best-sellers" },
     ],
   },
   {
@@ -88,15 +87,15 @@ const footerLinks = [
     links: [
       { name: "Contact Us", href: "/contact" },
       { name: "FAQs", href: "/faqs" },
-      { name: "Shipping", href: "/shipping" },
-      { name: "Returns", href: "/returns" },
+      // { name: "Shipping", href: "/shipping" },
+      // { name: "Returns", href: "/returns" },
     ],
   },
   {
     title: "Company",
     links: [
       { name: "About Us", href: "/about" },
-      { name: "Mission", href: "/mission" },
+      // { name: "Mission", href: "/mission" },
       { name: "Privacy Policy", href: "/privacy" },
       { name: "Terms of Service", href: "/terms" },
     ],
