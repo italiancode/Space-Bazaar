@@ -38,3 +38,14 @@ body {
 .perspective-1500 {
   perspective: 1500px;
 }
+
+/* Optional: Add this if you want smoother animations */
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+.parent-container {
+  position: relative; /* Ensure positioning context for absolute children */
+  width: 100vw; /* Full viewport width */
+  height: 100vh; /* Full viewport height */
+}
