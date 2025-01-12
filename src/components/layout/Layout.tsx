@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div className="relative min-h-screen flex flex-col max-w-7xl mx-auto">
       <StarryBackground className="z-[0]" />
       <Header />
-      <main className="flex-grow pt-16 h-full bg-background">{children}</main>
+      <main className="flex-grow pt-16 h-auto bg-background">{children}</main>
       <Footer />
     </div>
   );

@@ -11,7 +11,7 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="h-[80vh] flex items-center justify-center">
       <div className="bg-space-gray p-8 rounded-xl shadow-lg max-w-md w-full mx-4 border border-text-secondary/10">
         <h1 className="text-2xl font-bold text-center mb-6 bg-gradient-to-r from-white to-[var(--accent-blue)] bg-clip-text text-transparent">
           Welcome to Space Bazaar

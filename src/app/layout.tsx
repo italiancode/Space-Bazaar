@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Layout from "@/components/layout/Layout";
-import { StarryBackground } from "@/components/effects/StarryBackground";
 import { Providers } from "@/components/providers/index";
 
 export const metadata: Metadata = {
@@ -20,7 +19,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={GeistSans.className}>
         <Providers>
-          <StarryBackground />
           <Layout>{children}</Layout>
         </Providers>
       </body>
