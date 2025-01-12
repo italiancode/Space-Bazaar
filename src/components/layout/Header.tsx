@@ -55,12 +55,6 @@ export default function Header() {
                 {item}
               </Link>
             ))}
-            <Link
-              href="/dashboard"
-              className="text-sm lg:text-base hover:text-accent-blue transition-colors whitespace-nowrap"
-            >
-              Dashboard
-            </Link>
           </nav>
 
           <div className="flex items-center space-x-2 sm:space-x-4 gap-1">
