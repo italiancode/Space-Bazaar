@@ -20,7 +20,7 @@ interface CustomUser {
 
 interface AuthContextType {
   currentUser: CustomUser | null;
-  signInWithGoogle: (token?: any) => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
   logout: () => Promise<void>;
   isLoggingOut: boolean;
   isLoggingIn: boolean;
@@ -87,7 +87,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const signInWithGoogle = async (token?: any): Promise<void> => {
+  const signInWithGoogle = async (): Promise<void> => {
     setIsLoggingIn(true);
     setAuthError(null);
     try {
