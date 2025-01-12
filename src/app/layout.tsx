@@ -19,12 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={GeistSans.className}>
-
         <Providers>
-          
-            <StarryBackground />
-            <Layout>{children}</Layout>
-          
+          <StarryBackground />
+          <Layout>{children}</Layout>
         </Providers>
       </body>
     </html>

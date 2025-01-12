@@ -15,7 +15,7 @@ const floatingAnimation = {
 
 export default function SpaceBazaarBanner() {
   return (
-    <div className="relative overflow-hidden text-white px-4 py-3 md:mt-3 lg:mt-4 bg-gradient-to-r from-[#0a1128] to-[#1c3a70]/50">
+    <div className="relative overflow-hidden text-white px-4 py-3 md:mt-auto lg:mt-4 bg-gradient-to-r from-[#0a1128] to-[#1c3a70]/50">
       <div className="relative z-10 flex flex-row items-center justify-between max-w-7xl mx-auto">
         <div className="flex flex-row items-center mb-4 sm:mb-0">
           <div>

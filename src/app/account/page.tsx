@@ -19,17 +19,13 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
+import ProtectedRoute from "@/components/route/ProtectedRoute";
 
 interface Activity {
   id: string;
@@ -43,112 +39,88 @@ interface User {
   photoURL?: string;
 }
 
+interface ProfileTabProps {
+  user: User | null;
+  logout: () => Promise<void>;
+}
+
 export default function AccountPage() {
-  const { user, loading, logout } = useAuth();
+  const { user, logout } = useAuth();
   const [activities, setActivities] = useState<Activity[]>([]);
 
-  useEffect(() => {
-    const fetchActivities = async () => {
-      if (user) {
-        const activitiesCollection = collection(db, "activities");
-        const activitiesQuery = query(
-          activitiesCollection,
-          orderBy("timestamp", "desc"),
-          limit(5)
-        );
-        const activitySnapshot = await getDocs(activitiesQuery);
-        const activityList = activitySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        })) as Activity[];
-        setActivities(activityList);
-      }
-    };
-
-    fetchActivities();
-  }, [user]);
-
-  if (loading) {
-    return <LoadingSkeleton />;
-  }
-
-  if (!user) {
-    return (
-      <p className="text-center text-lg text-gray-300">
-        User not found. Please log in.
-      </p>
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-7xl mx-auto space-y-8"
-      >
-        <header className="text-center">
-          <h1 className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-400">
-            Secure Account Dashboard
-          </h1>
-          <p className="text-xl text-gray-300">
-            Manage your account with confidence
-          </p>
-        </header>
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="max-w-7xl mx-auto space-y-8"
+        >
+          <header className="text-center">
+            <h1 className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-teal-400">
+              Secure Account Dashboard
+            </h1>
+            <p className="text-xl text-gray-300">
+              Manage your account with confidence
+            </p>
+          </header>
 
-        <Tabs defaultValue="profile" className="w-full">
-          <TabsList className="flex justify-center space-x-8 mb-8 border-b border-gray-700">
-            <TabsTrigger
-              value="profile"
-              className="px-6 py-2 text-sm font-semibold"
-            >
-              Profile
-            </TabsTrigger>
-            <TabsTrigger
-              value="security"
-              className="px-6 py-2 text-sm font-semibold"
-            >
-              Security
-            </TabsTrigger>
-            <TabsTrigger
-              value="activity"
-              className="px-6 py-2 text-sm font-semibold"
-            >
-              Activity
-            </TabsTrigger>
-          </TabsList>
+          <Tabs defaultValue="profile" className="w-full">
+            <TabsList className="flex justify-center space-x-8 mb-8 border-b border-gray-700">
+              <TabsTrigger
+                value="profile"
+                className="px-6 py-2 text-sm font-semibold"
+              >
+                Profile
+              </TabsTrigger>
+              <TabsTrigger
+                value="security"
+                className="px-6 py-2 text-sm font-semibold"
+              >
+                Security
+              </TabsTrigger>
+              <TabsTrigger
+                value="activity"
+                className="px-6 py-2 text-sm font-semibold"
+              >
+                Activity
+              </TabsTrigger>
+            </TabsList>
 
-          <TabsContent value="profile">
-            <ProfileTab user={user} logout={logout} />
-          </TabsContent>
+            <TabsContent value="profile">
+              <ProfileTab user={user} logout={logout} />
+            </TabsContent>
 
-          <TabsContent value="security">
-            <SecurityTab />
-          </TabsContent>
+            <TabsContent value="security">
+              <SecurityTab />
+            </TabsContent>
 
-          <TabsContent value="activity">
-            <ActivityTab activities={activities} />
-          </TabsContent>
-        </Tabs>
+            <TabsContent value="activity">
+              <ActivityTab activities={activities} />
+            </TabsContent>
+          </Tabs>
 
-        <div className="text-center mt-12">
-          <Link href="/dashboard">
-            <Button
-              variant="default"
-              size="lg"
-              className="bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 text-white transition-all duration-300"
-            >
-              <Rocket className="mr-2 h-5 w-5" /> Launch Dashboard
-            </Button>
-          </Link>
-        </div>
-      </motion.div>
-    </div>
+          <div className="text-center mt-12">
+            <Link href="/account/dashboard">
+              <Button
+                variant="default"
+                size="lg"
+                className="bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 text-white transition-all duration-300"
+              >
+                <Rocket className="mr-2 h-5 w-5" /> Launch Dashboard
+              </Button>
+            </Link>
+          </div>
+        </motion.div>
+      </div>
+    </ProtectedRoute>
   );
 }
 
-function ProfileTab({ user, logout }: { user: User; logout: () => void }) {
+function ProfileTab({ user, logout }: ProfileTabProps) {
+  if (!user) return null;
+
   return (
     <Card className="bg-gray-800/50 border-gray-700 backdrop-blur-sm">
       <CardHeader>

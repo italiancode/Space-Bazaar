@@ -2,25 +2,27 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  // Get the user's authentication status from cookies or headers
-  const isAuthenticated = request.cookies.get('authenticated');
+  // Get the auth cookie
+  const token = request.cookies.get('auth-token');
+  const isAuthPage = request.nextUrl.pathname === '/auth';
 
-  // List of protected paths
-  const protectedPaths = ['/account'];
+  // If user is on auth page and has token, redirect to account
+  if (isAuthPage && token) {
+    return NextResponse.redirect(new URL('/account', request.url));
+  }
 
-  // Check if the current path is protected
-  const isProtectedPath = protectedPaths.some(path => 
-    request.nextUrl.pathname.startsWith(path)
-  );
-
-  if (isProtectedPath && !isAuthenticated) {
-    // Redirect to login page if trying to access protected route while not authenticated
-    return NextResponse.redirect(new URL('/auth', request.url));
+  // If accessing protected routes without token, redirect to auth
+  if (request.nextUrl.pathname.startsWith('/account')) {
+    if (!token) {
+      const redirectUrl = new URL('/auth', request.url);
+      redirectUrl.searchParams.set('callbackUrl', request.nextUrl.pathname);
+      return NextResponse.redirect(redirectUrl);
+    }
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*']
-}; 
+  matcher: ['/account/:path*', '/auth']
+};

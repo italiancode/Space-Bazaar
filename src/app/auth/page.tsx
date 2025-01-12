@@ -1,22 +1,14 @@
 "use client";
 
-import { useAuth } from '@/contexts/AuthContext';
-import { useRouter } from 'next/navigation';
-import { FcGoogle } from 'react-icons/fc';
+import { useAuth } from "@/contexts/AuthContext";
+import { FcGoogle } from "react-icons/fc";
 
 const AuthPage = () => {
   const { signInWithGoogle, isLoggingIn } = useAuth();
-  const router = useRouter();
 
   const handleGoogleSignIn = async () => {
-    try {
-      await signInWithGoogle();
-      router.push('/dashboard'); // Redirect after successful login
-    } catch (error) {
-      console.error('Google sign-in error:', error); // Log the error object
-    }
+    await signInWithGoogle();
   };
-
 
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -24,7 +16,7 @@ const AuthPage = () => {
         <h1 className="text-2xl font-bold text-center mb-6 bg-gradient-to-r from-white to-[var(--accent-blue)] bg-clip-text text-transparent">
           Welcome to Space Bazaar
         </h1>
-        
+
         <div className="space-y-4">
           <button
             onClick={handleGoogleSignIn}
@@ -44,4 +36,4 @@ const AuthPage = () => {
   );
 };
 
-export default AuthPage; 
+export default AuthPage;

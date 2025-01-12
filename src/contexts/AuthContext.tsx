@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+"use client";
+
+import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import {
   signInWithPopup,
   GoogleAuthProvider,
@@ -8,6 +10,8 @@ import {
 } from "firebase/auth";
 import { auth, db } from "../config/firebase";
 import { doc, setDoc } from "firebase/firestore";
+import { setCookie, deleteCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 
 interface CustomUser {
   uid: string;
@@ -27,6 +31,7 @@ interface AuthContextType {
   isLoggingIn: boolean;
   user: CustomUser | null;
   loading: boolean;
+  initiateAuth: (destination?: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -39,36 +44,58 @@ export const useAuth = () => {
   return context;
 };
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const router = useRouter();
   const [currentUser, setCurrentUser] = useState<CustomUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser: FirebaseUser | null) => {
-      if (firebaseUser) {
-        // Map FirebaseUser to your custom User interface
-        const user: CustomUser = {
-          uid: firebaseUser.uid,
-          id: firebaseUser.uid,
-          name: firebaseUser.displayName || "",
-          email: firebaseUser.email || "",
-          role: "user",
-          photoURL: firebaseUser.photoURL || undefined,
-        };
-        setCurrentUser(user);
-      } else {
-        setCurrentUser(null);
+    setIsMounted(true);
+  }, []);
+
+  const initiateAuth = (destination?: string) => {
+    const redirectUrl = destination || window.location.pathname;
+    router.push(`/auth?callbackUrl=${encodeURIComponent(redirectUrl)}`);
+  };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      async (firebaseUser: FirebaseUser | null) => {
+        if (firebaseUser) {
+          const token = await firebaseUser.getIdToken();
+          setCookie("auth-token", token);
+
+          const user: CustomUser = {
+            uid: firebaseUser.uid,
+            id: firebaseUser.uid,
+            name: firebaseUser.displayName || "",
+            email: firebaseUser.email || "",
+            role: "user",
+            photoURL: firebaseUser.photoURL || undefined,
+          };
+          setCurrentUser(user);
+
+          const params = new URLSearchParams(window.location.search);
+          const callbackUrl = params.get("callbackUrl");
+
+          if (callbackUrl && isMounted) {
+            router.push(callbackUrl);
+          }
+        } else {
+          setCurrentUser(null);
+          deleteCookie("auth-token");
+        }
+        setLoading(false);
       }
-      setLoading(false);
-    });
+    );
 
     return unsubscribe;
-  }, []);
+  }, [router, isMounted]);
 
   const updateUserInFirestore = async (user: CustomUser) => {
     try {
@@ -157,6 +184,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const value = {
     currentUser,
     signInWithGoogle,
+    initiateAuth, // Add this to the context value
+
     logout,
     isLoggingOut,
     isLoggingIn,
