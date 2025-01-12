@@ -5,7 +5,7 @@ import {
   GithubAuthProvider,
   signOut,
   onAuthStateChanged,
-  User,
+  User as FirebaseUser,
   signInWithCredential,
   AuthCredential,
   signInWithRedirect,
@@ -14,12 +14,23 @@ import {
 import { auth, db } from "../config/firebase";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 
+interface CustomUser {
+  uid: string;
+  id: string;
+  name: string;
+  email: string;
+  role: string; // Add a role field to differentiate users
+  photoURL?: string; // Optional property for user's profile picture URL
+}
+
 interface AuthContextType {
-  currentUser: User | null;
+  currentUser: CustomUser | null;
   signInWithGoogle: (token?: any) => Promise<void>;
   logout: () => Promise<void>;
   isLoggingOut: boolean;
   isLoggingIn: boolean;
+  user: CustomUser | null;
+  loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -35,28 +46,41 @@ export const useAuth = () => {
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState<CustomUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser: FirebaseUser | null) => {
+      if (firebaseUser) {
+        // Map FirebaseUser to your custom User interface
+        const user: CustomUser = {
+          uid: firebaseUser.uid,
+          id: firebaseUser.uid,
+          name: firebaseUser.displayName || "",
+          email: firebaseUser.email || "",
+          role: "user",
+          photoURL: firebaseUser.photoURL || undefined,
+        };
+        setCurrentUser(user);
+      } else {
+        setCurrentUser(null);
+      }
       setLoading(false);
     });
 
     return unsubscribe;
   }, []);
 
-  const updateUserInFirestore = async (user: User) => {
+  const updateUserInFirestore = async (user: CustomUser) => {
     try {
       await setDoc(
         doc(db, "users", user.uid),
         {
           email: user.email,
-          name: user.displayName,
+          name: user.name,
           photoURL: user.photoURL,
           lastLogin: new Date().toISOString(),
         },
@@ -73,16 +97,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     setAuthError(null);
     try {
       const provider = new GoogleAuthProvider();
-      await signInWithRedirect(auth, provider);
-
-      // After the page redirects back
-      const userCred = await getRedirectResult(auth);
-      console.log("User Credential:", userCred); // Log user credential
+      const userCred = await signInWithPopup(auth, provider);
 
       if (userCred) {
-        // Use userCred to update user information in Firestore
-        await updateUserInFirestore(userCred.user);
-        console.log("User added to Firestore:", userCred.user); // Log success
+        // Map Firebase User to your custom User interface
+        const user: CustomUser = {
+          uid: userCred.user.uid,
+          id: userCred.user.uid, // Assuming you want to use uid as id
+          name: userCred.user.displayName || "", // Use displayName from Firebase User
+          email: userCred.user.email || "", // Use email from Firebase User
+          role: "user", // Set a default role or fetch it from your database
+          photoURL: userCred.user.photoURL || undefined, // Use photoURL from Firebase User
+        };
+
+        // Use the mapped user object to update user information in Firestore
+        await updateUserInFirestore(user);
+        console.log("User added to Firestore:", user); // Log success
       } else {
         console.error("No user credential returned."); // Log if no user
       }
@@ -134,6 +164,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     logout,
     isLoggingOut,
     isLoggingIn,
+    user: currentUser,
+    loading,
   };
 
   return (

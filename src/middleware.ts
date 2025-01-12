@@ -6,7 +6,7 @@ export function middleware(request: NextRequest) {
   const isAuthenticated = request.cookies.get('authenticated');
 
   // List of protected paths
-  const protectedPaths = ['/dashboard'];
+  const protectedPaths = ['/account'];
 
   // Check if the current path is protected
   const isProtectedPath = protectedPaths.some(path => 

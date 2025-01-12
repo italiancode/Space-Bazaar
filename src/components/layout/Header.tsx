@@ -55,9 +55,15 @@ export default function Header() {
                 {item}
               </Link>
             ))}
+            <Link
+              href="/dashboard"
+              className="text-sm lg:text-base hover:text-accent-blue transition-colors whitespace-nowrap"
+            >
+              Dashboard
+            </Link>
           </nav>
 
-          <div className="flex items-center space-x-2 sm:space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4 gap-1">
             <button className="p-1 sm:p-2 hover:text-accent-blue transition-colors">
               <Search className="w-5 h-5" />
             </button>
@@ -78,6 +84,7 @@ export default function Header() {
             >
               <User className="w-5 h-5" />
             </Link>
+
             <button
               className="md:hidden p-1 sm:p-2 hover:text-accent-blue transition-colors"
               onClick={() => setIsMenuOpen(!isMenuOpen)}

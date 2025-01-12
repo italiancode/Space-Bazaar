@@ -1,8 +1,10 @@
 import { cn } from "@/lib/utils";
 
+type ButtonVariant = "outline" | "default" | "ghost" | "destructive" | undefined;
+
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'sm' | 'md' | 'lg';
-  variant?: 'default' | 'outline' | 'ghost';
+  variant?: ButtonVariant;
   children: React.ReactNode;
 }
 

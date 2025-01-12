@@ -4,23 +4,26 @@
 
 :root {
   /* Deep Space Theme */
-  --background: #030014;
-  --foreground: #E6E7FF;
-  
+  --background: #030014; /* Deep Space Black */
+  --foreground: #e6e7ff; /* Light Color for Text */
+
   /* Primary Accent Colors */
-  --accent-blue: #4F46E5;    /* Electric Indigo */
-  --accent-purple: #7C3AED;  /* Royal Purple */
-  --accent-red: #EF4444;     /* Cosmic Red */
-  
+  --accent-blue: #4f46e5; /* Electric Indigo */
+  --accent-purple: #7c3aed; /* Royal Purple */
+  --accent-red: #ef4444; /* Cosmic Red */
+
   /* Supporting Colors */
-  --space-gray: #1E1B4B;     /* Deep Space Gray */
-  --nebula-pink: #EC4899;    /* Nebula Pink */
-  --cosmic-gold: #F59E0B;    /* Cosmic Gold */
-  
+  --space-gray: #1e1b4b; /* Deep Space Gray */
+  --nebula-pink: #ec4899; /* Nebula Pink */
+  --cosmic-gold: #f59e0b; /* Cosmic Gold */
+
   /* Gradient Stops */
-  --gradient-start: #030014;  /* Deep Space Black */
-  --gradient-mid: #1E1B4B;    /* Midnight Blue */
-  --gradient-end: #312E81;    /* Deep Indigo */
+  --gradient-start: #030014; /* Deep Space Black */
+  --gradient-mid: #1e1b4b; /* Midnight Blue */
+  --gradient-end: #312e81; /* Deep Indigo */
+
+  /* Font Settings */
+  --font-geist-sans: "Geist Sans", sans-serif; /* Add your font here */
 }
 
 body {
@@ -49,3 +52,5 @@ body {
   width: 100vw; /* Full viewport width */
   height: 100vh; /* Full viewport height */
 }
+
+
