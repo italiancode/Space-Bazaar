@@ -37,6 +37,12 @@ interface Activity {
   timestamp: string;
 }
 
+interface User {
+  name: string;
+  email: string;
+  photoURL?: string;
+}
+
 export default function AccountPage() {
   const { user, loading, logout } = useAuth();
   const [activities, setActivities] = useState<Activity[]>([]);
@@ -142,7 +148,7 @@ export default function AccountPage() {
   );
 }
 
-function ProfileTab({ user, logout }: { user: any; logout: () => void }) {
+function ProfileTab({ user, logout }: { user: User; logout: () => void }) {
   return (
     <Card className="bg-gray-800/50 border-gray-700 backdrop-blur-sm">
       <CardHeader>

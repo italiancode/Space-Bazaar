@@ -64,9 +64,7 @@ export default function HeroBanner() {
             }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            An online marketplace where users can buy and sell SpaceX
-            merchandise, with a portion of the profits going towards funding
-            future space exploration missions.
+            An online marketplace where users can buy and sell SpaceX merchandise, with a portion of the profits going towards funding future space exploration missions.
           </motion.p>
 
           <motion.div
