@@ -98,7 +98,7 @@ export default function HeroBanner() {
               )}
             >
               <Store className="group-hover:animate-spin w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
-              I'm a Seller
+              I&apos;m a Seller
             </Link>
           </motion.div>
         </div>

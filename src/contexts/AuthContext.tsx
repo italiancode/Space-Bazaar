@@ -16,6 +16,7 @@ interface CustomUser {
   email: string;
   role: string; // Add a role field to differentiate users
   photoURL?: string; // Optional property for user's profile picture URL
+  // Add any new properties here if needed
 }
 
 interface AuthContextType {
