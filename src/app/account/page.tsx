@@ -171,7 +171,7 @@ function ProfileTab({ user, logout }: { user: any; logout: () => void }) {
         </div>
         <div className="grid grid-cols-2 gap-4 mt-6">
           <QuickAccessButton
-            href="/cart"
+            href="/shop/cart"
             icon={<ShoppingCart className="mr-2 h-4 w-4" />}
             label="My Cart"
           />
