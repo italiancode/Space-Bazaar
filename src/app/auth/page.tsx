@@ -24,7 +24,7 @@ const AuthPage = () => {
             className="w-full flex items-center justify-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 transition-colors"
           >
             <FcGoogle className="w-5 h-5" />
-            Continue with Google
+            {isLoggingIn ? "Signing in..." : "Continue with Google"}
           </button>
         </div>
 

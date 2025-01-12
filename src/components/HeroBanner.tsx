@@ -31,7 +31,7 @@ export default function HeroBanner() {
   }, [controls]);
 
   return (
-    <div className="h-[70vh] sm:h-[80vh] max-h-[800px] overflow-auto relative bg-gradient-to-b from-[#0a1128] to-[#1c3a70]">
+    <div className="h-[80vh] max-h-[800px] overflow-auto relative bg-gradient-to-b from-[#0a1128] to-[#1c3a70] z-10">
       <StarryBackground />
       <SpaceBazaarBanner />
 

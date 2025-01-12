@@ -30,10 +30,10 @@ export default function FeaturedCategories() {
   return (
     <section className="relative py-24 px-4">
       {/* Top fade & glow effect - blending with hero */}
-      <div className="absolute inset-x-0 top-0 h-96">
+      <div className="absolute inset-x-0 top-0 h-40 z-0">
         <div className="absolute inset-x-0 top-0 h-full bg-gradient-to-b from-[#1c3a70] via-background/10 to-transparent" />
 
-        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#4F46E5]to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-auto bg-gradient-to-b from-[#4F46E5]to-transparent" />
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto">

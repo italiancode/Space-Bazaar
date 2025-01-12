@@ -43,7 +43,7 @@ interface ProfileTabProps {
 }
 
 export default function AccountPage() {
-  const { user, logout } = useAuth();
+  const { currentUser, logout } = useAuth();
 
   return (
     <ProtectedRoute>
@@ -86,7 +86,7 @@ export default function AccountPage() {
             </TabsList>
 
             <TabsContent value="profile">
-              <ProfileTab user={user} logout={logout} />
+              <ProfileTab user={currentUser} logout={logout} />
             </TabsContent>
 
             <TabsContent value="security">
