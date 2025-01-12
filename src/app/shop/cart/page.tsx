@@ -1,6 +1,6 @@
 "use client"; // Ensure this is a client component
 
-import { useCart } from "@/context/CartContext"; // Import the useCart hook
+import { useCart } from "@/contexts/CartContext"; // Import the useCart hook
 import Link from "next/link";
 
 export default function CartPage() {

@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { useMemo } from "react";
 import { motion } from "framer-motion";
 
@@ -15,7 +16,11 @@ function mulberry32(a: number) {
 
 const FIXED_SEED = 123; // Use a constant seed
 
-export function StarryBackground() {
+interface StarryBackgroundProps {
+  className?: string; // Add className prop
+}
+
+export function StarryBackground({ className }: StarryBackgroundProps) {
   const stars = useMemo(() => {
     const random = mulberry32(FIXED_SEED);
     return Array.from({ length: 100 }, () => ({
@@ -28,7 +33,7 @@ export function StarryBackground() {
   }, []); // Empty dependency array ensures this only runs once
 
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div className={`starry-background ${className}`}>
       {stars.map((star, i) => (
         <motion.div
           key={i}
@@ -54,4 +59,6 @@ export function StarryBackground() {
     </div>
   );
 }
+
+export default StarryBackground;
 

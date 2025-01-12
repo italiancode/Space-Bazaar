@@ -1,8 +1,8 @@
 "use client";
 
 import { motion, useAnimation, Variants } from "framer-motion";
-import { StarryBackground } from "./background-effect/StarryBackground";
-import { ShoppingCart, Star } from "lucide-react";
+import { StarryBackground } from "./effects/StarryBackground";
+import { ShoppingCart, Star, Store } from "lucide-react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import SpaceBazaarBanner from "./SpaceBazaarBanner";
@@ -55,11 +55,25 @@ export default function HeroBanner() {
             Explore the Universe of SpaceX Collectibles
           </motion.p>
 
+          <motion.p
+            className="text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{
+              opacity: showDescription ? 1 : 0,
+              y: showDescription ? 0 : 20,
+            }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            An online marketplace where users can buy and sell SpaceX
+            merchandise, with a portion of the profits going towards funding
+            future space exploration missions.
+          </motion.p>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2, duration: 0.5 }}
-            className="flex flex-row items-center justify-center gap-4 mb-8"
+            className="flex flex-row items-center justify-center gap-4"
           >
             <Link
               href="/shop"
@@ -85,24 +99,10 @@ export default function HeroBanner() {
                 "flex items-center justify-center gap-2 whitespace-nowrap"
               )}
             >
-              <Star className="group-hover:animate-spin w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
-              Learn More
+              <Store className="group-hover:animate-spin w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
+              I'm a Seller
             </Link>
           </motion.div>
-
-          <motion.p
-            className="text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{
-              opacity: showDescription ? 1 : 0,
-              y: showDescription ? 0 : 20,
-            }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            An online marketplace where users can buy and sell SpaceX
-            merchandise, with a portion of the profits going towards funding
-            future space exploration missions.
-          </motion.p>
         </div>
       </div>
     </div>

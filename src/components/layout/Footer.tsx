@@ -1,5 +1,5 @@
 import Link from "next/link";
-import FadeGlowEffect from './FadeGlowEffect';
+import FadeGlowEffect from '../effects/FadeGlowEffect';
 
 export default function Footer() {
   return (
