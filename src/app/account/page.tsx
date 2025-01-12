@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
-import { useEffect, useState } from "react";
-import { db } from "@/config/firebase";
-import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
+import { useState } from "react";
+
 import { motion } from "framer-motion";
 import {
   User,
