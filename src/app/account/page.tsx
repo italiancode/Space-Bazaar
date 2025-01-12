@@ -22,7 +22,6 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -171,7 +170,7 @@ function ProfileTab({ user, logout }: { user: any; logout: () => void }) {
         </div>
         <div className="grid grid-cols-2 gap-4 mt-6">
           <QuickAccessButton
-            href="/shop/cart"
+            href="/cart"
             icon={<ShoppingCart className="mr-2 h-4 w-4" />}
             label="My Cart"
           />

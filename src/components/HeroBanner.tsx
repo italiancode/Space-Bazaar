@@ -2,7 +2,7 @@
 
 import { motion, useAnimation, Variants } from "framer-motion";
 import { StarryBackground } from "./effects/StarryBackground";
-import { ShoppingCart, Star, Store } from "lucide-react";
+import { ShoppingCart, Store } from "lucide-react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import SpaceBazaarBanner from "./SpaceBazaarBanner";

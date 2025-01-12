@@ -2,14 +2,9 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import {
   signInWithPopup,
   GoogleAuthProvider,
-  GithubAuthProvider,
   signOut,
   onAuthStateChanged,
   User as FirebaseUser,
-  signInWithCredential,
-  AuthCredential,
-  signInWithRedirect,
-  getRedirectResult,
 } from "firebase/auth";
 import { auth, db } from "../config/firebase";
 import { doc, setDoc, getDoc } from "firebase/firestore";

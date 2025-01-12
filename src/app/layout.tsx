@@ -3,7 +3,6 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Layout from "@/components/layout/Layout";
 import { StarryBackground } from "@/components/effects/StarryBackground";
-import { CartProvider } from "@/contexts/CartContext";
 import { Providers } from "@/components/providers/index";
 
 export const metadata: Metadata = {
