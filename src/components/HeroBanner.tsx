@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useAnimation, Variants } from "framer-motion";
-// import { StarryBackground } from "./effects/StarryBackground";
+import { StarryBackground } from "./effects/StarryBackground";
 import { ShoppingCart, Store } from "lucide-react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
@@ -32,7 +32,7 @@ export default function HeroBanner() {
 
   return (
     <section className="h-[90vh] max-h-[800px] overflow-auto relative bg-gradient-to-b from-[#0a1128] to-[#1c3a70] z-10">
-      {/* <StarryBackground /> */}
+      <StarryBackground />
       <SpaceBazaarBanner />
 
       <div className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 mt-14 ">
