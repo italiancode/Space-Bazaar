@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useAnimation, Variants } from "framer-motion";
-import { StarryBackground } from "./effects/StarryBackground";
+// import { StarryBackground } from "./effects/StarryBackground";
 import { ShoppingCart, Store } from "lucide-react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
@@ -32,7 +32,7 @@ export default function HeroBanner() {
 
   return (
     <section className="h-[90vh] max-h-[800px] overflow-auto relative bg-gradient-to-b from-[#0a1128] to-[#1c3a70] z-10">
-      <StarryBackground />
+      {/* <StarryBackground /> */}
       <SpaceBazaarBanner />
 
       <div className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 mt-14 ">
@@ -64,7 +64,9 @@ export default function HeroBanner() {
             }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            An online marketplace where users can buy and sell SpaceX merchandise, with a portion of the profits going towards funding future space exploration missions.
+            An online marketplace where users can buy and sell SpaceX
+            merchandise, with a portion of the profits going towards funding
+            future space exploration missions.
           </motion.p>
 
           <motion.div
@@ -98,7 +100,7 @@ export default function HeroBanner() {
               )}
             >
               <Store className="group-hover:animate-spin w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
-              I'm a Seller
+              {" I'm a Seller"}
             </Link>
           </motion.div>
         </div>

@@ -16,7 +16,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto flex justify-end items-center">
         <div className="flex items-center space-x-2 z-10">
           {/* <Rocket className="w-8 h-8 text-yellow-400" /> */}
-          <h1 className="text-xl font-bold text-gradient-to-r from-white to-[var(--accent-blue)] bg-clip-text text-transparent">
+          <h1 className="text-xl font-bold bg-gradient-to-r from-white to-[var(--accent-blue)] bg-clip-text text-transparent">
             Hi, {currentUser?.name ? getFirstName(currentUser.name) : "Guest"}
           </h1>
         </div>

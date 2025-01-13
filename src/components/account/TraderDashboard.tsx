@@ -24,7 +24,7 @@ export default function TraderDashboard() {
   return (
     <Card className="bg-indigo-800 rounded-xl shadow-lg border border-indigo-600">
       <CardContent className="p-6">
-        <h2 className="text-2xl font-bold mb-4 text-yellow-400">Trader's Dashboard</h2>
+        <h2 className="text-2xl font-bold mb-4 text-yellow-400">{"Trader's Dashboard"}</h2>
         <div className="space-y-6">
           <div>
             <div className="flex justify-between mb-2">
