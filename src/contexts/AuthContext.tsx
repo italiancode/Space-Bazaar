@@ -17,7 +17,7 @@ import { auth, db } from "../config/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { setCookie, deleteCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
-import { FirebaseError } from "firebase/app";
+
 
 interface CustomUser {
   uid: string;
