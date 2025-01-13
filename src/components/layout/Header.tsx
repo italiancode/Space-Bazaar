@@ -18,10 +18,11 @@ export default function Header() {
     <header className="fixed top-0 max-w-7xl mx-auto w-full z-50">
       <div className=" flex flex-row">
         <div className="absolute inset-0 bg-space-dark backdrop-blur-md h-2/3" />
-        <div className="absolute inset-0 bg-background/50 backdrop-blur-lg" />
+        <div className="absolute inset-0 bg-accent-purple/10 backdrop-blur-lg" />
+        <div className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-[#4F46E5]/50 to-transparent shadow-neon-intense" />
       </div>
       <div className="relative px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 sm:h-18 lg:h-20">
+        <div className="flex justify-between items-center h-16 sm:h-18">
           <Link href="/" className="flex items-center space-x-2">
             {!logoError ? (
               <Image
@@ -40,7 +41,7 @@ export default function Header() {
                 </span>
               </div>
             )}
-            <span className="text-lg sm:text-xl lg:text-2xl font-bold whitespace-nowrap">
+            <span className="text-lg sm:text-xl lg:text-2xl font-bold whitespace-nowrap ">
               Space Bazaar
             </span>
           </Link>

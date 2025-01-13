@@ -28,7 +28,7 @@ export default function FeaturedCategories() {
   }, [controls]);
 
   return (
-    <section className="relative py-24 px-4">
+    <section className="relative py-14 px-4">
       {/* Top fade & glow effect - blending with hero */}
       <div className="absolute inset-x-0 top-0 h-40 z-0">
         <div className="absolute inset-x-0 top-0 h-full bg-gradient-to-b from-[#1c3a70] via-background/10 to-transparent" />

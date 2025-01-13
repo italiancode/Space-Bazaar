@@ -31,12 +31,12 @@ export default function HeroBanner() {
   }, [controls]);
 
   return (
-    <div className="h-[80vh] max-h-[800px] overflow-auto relative bg-gradient-to-b from-[#0a1128] to-[#1c3a70] z-10">
+    <section className="h-[90vh] max-h-[800px] overflow-auto relative bg-gradient-to-b from-[#0a1128] to-[#1c3a70] z-10">
       <StarryBackground />
       <SpaceBazaarBanner />
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div className="text-center z-10 max-w-4xl mx-auto mt-32">
+      <div className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 mt-14 ">
+        <div className="text-center z-10 max-w-4xl mx-auto my-auto">
           <motion.h1
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 sm:mb-8 bg-gradient-to-r from-white to-[var(--accent-blue)] bg-clip-text text-transparent"
             initial={{ opacity: 0, y: -50 }}
@@ -98,11 +98,11 @@ export default function HeroBanner() {
               )}
             >
               <Store className="group-hover:animate-spin w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
-              I&apos;m a Seller
+              I'm a Seller
             </Link>
           </motion.div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

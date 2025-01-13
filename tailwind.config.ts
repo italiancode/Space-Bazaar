@@ -12,11 +12,22 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
         "accent-blue": "var(--accent-blue)",
-        "accent-purple": "var(--accent-purple)",
-        "space-dark": "var(--space-dark)",
+        "accent-purple": "#7c3aed",
+        "space-dark": "#030014",
         "space-mid": "var(--space-mid)",
-        "space-light": "var(--space-light)",
-        "space-gray": "var(--space-gray)",
+
+        // "space-gray": "var(--space-gray)",
+
+        "space-gray": "#0a0a1e",
+        "space-light": "#e2e8f0",
+
+        "gradient-start": "#030014",
+
+        "gradient-mid": "#1e1b4b" /* Midnight Blue */,
+        "gradient-end": "#312e81" /* Deep Indigo */,
+      },
+      fontFamily: {
+        "space-mono": ['"Space Mono"', "monospace"],
       },
       animation: {
         float: "float 5s ease-in-out infinite",

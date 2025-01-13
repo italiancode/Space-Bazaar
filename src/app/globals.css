@@ -13,7 +13,8 @@
   --accent-red: #ef4444; /* Cosmic Red */
 
   /* Supporting Colors */
-  --space-gray: #1e1b4b; /* Deep Space Gray */
+  --space-gray: #0a0a1e; /* Deep Space Gray */
+  --space-light: #e2e8f0;
   --nebula-pink: #ec4899; /* Nebula Pink */
   --cosmic-gold: #f59e0b; /* Cosmic Gold */
 
@@ -23,14 +24,14 @@
   --gradient-end: #312e81; /* Deep Indigo */
 
   /* Font Settings */
-  --font-geist-sans: "Geist Sans", sans-serif; /* Add your font here */
+  --font-geist-sans: "Geist Sans", sans-serif;
 }
 
 body {
-  color: var(--foreground);
+  background-color: var(--space-gray);
+  color: var(--space-light);
+  font-family: "Space Mono", monospace;
   background: var(--background);
-  font-family: var(--font-geist-sans);
-  /* Enhanced gradient for more depth */
   background-image: radial-gradient(
     circle at center,
     var(--gradient-mid) 0%,
@@ -38,19 +39,37 @@ body {
   );
 }
 
+.shadow-neon {
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.shadow-neon-intense {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.7), 0 0 40px rgba(59, 130, 246, 0.5);
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
 .perspective-1500 {
   perspective: 1500px;
 }
 
-/* Optional: Add this if you want smoother animations */
+.parent-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.toggle-checkbox:checked {
+  right: 0;
+  border-color: #68d391;
+}
+
+.toggle-checkbox:checked + .toggle-label {
+  background-color: #68d391;
+}
+
 * {
   transition: all 0.2s ease-in-out;
 }
-
-.parent-container {
-  position: relative; /* Ensure positioning context for absolute children */
-  width: 100vw; /* Full viewport width */
-  height: 100vh; /* Full viewport height */
-}
-
-

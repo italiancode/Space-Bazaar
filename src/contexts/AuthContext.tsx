@@ -1,5 +1,18 @@
-import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
-import { getRedirectResult, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, signInWithRedirect } from "firebase/auth";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
+import {
+  getRedirectResult,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut,
+  onAuthStateChanged,
+  signInWithRedirect,
+} from "firebase/auth";
 import { auth, db } from "../config/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { setCookie, deleteCookie } from "cookies-next";
@@ -118,7 +131,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       await updateUserInFirestore(user);
     } catch (error) {
       console.error("Error signing in:", (error as FirebaseError).message);
-      if ((error as FirebaseError).code === 'auth/popup-blocked') {
+      if ((error as FirebaseError).code === "auth/popup-blocked") {
         await signInWithRedirect(auth, provider);
       } else {
         setAuthError("Sign-in was unavailable. Please try again later.");
@@ -144,7 +157,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           };
           await updateUserInFirestore(user);
         } else {
-          console.warn("No user credential returned. Redirecting to login...");
           initiateAuth();
         }
       } catch (error) {
