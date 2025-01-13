@@ -2,7 +2,6 @@ import React, {
   createContext,
   useContext,
   useState,
-  ReactNode,
   useEffect,
   useCallback,
 } from "react";
@@ -164,7 +163,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     handleRedirectResult();
-  }, []);
+  }, [initiateAuth]);
 
   // Logout function
   const logout = async () => {

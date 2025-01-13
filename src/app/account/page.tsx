@@ -9,7 +9,7 @@ import RecentActivity from "@/components/account/RecentActivity";
 import TraderDashboard from "@/components/account/TraderDashboard";
 import { useAuth } from "@/contexts/AuthContext";
 
-import { User } from "@/components/types/customer_user";
+
 import Header from "@/components/account/Header";
 import ProtectedRoute from "@/components/route/ProtectedRoute";
 
