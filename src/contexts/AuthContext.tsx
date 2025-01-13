@@ -78,9 +78,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const initiateAuth = useCallback((returnPath?: string) => {
+    // Only redirect if:
+    // 1. We're not already on the auth page
+    // 2. We're not loading
+    // 3. There's no current user
+    // 4. We're not on the public pages
     if (!loading && !currentUser) {
       const currentPath = returnPath || window.location.pathname;
-      if (!currentPath.includes('/auth')) {
+      const publicPaths = ['/', '/shop', '/about', '/contact']; // Add any public routes here
+      
+      if (!currentPath.includes('/auth') && !publicPaths.includes(currentPath)) {
         router.push(`/auth?returnUrl=${encodeURIComponent(currentPath)}`);
       }
     }
@@ -154,8 +161,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             photoURL: result.user.photoURL || undefined,
           };
           await updateUserInFirestore(user);
-        } else {
-          initiateAuth();
         }
       } catch (error) {
         console.error("Error handling redirect result:", error);
@@ -163,7 +168,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     handleRedirectResult();
-  }, [initiateAuth]);
+  }, []);  // Remove initiateAuth from here since we don't want to trigger it on mount
 
   // Logout function
   const logout = async () => {
