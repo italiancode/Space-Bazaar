@@ -82,51 +82,48 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const signInWithGoogle = async (): Promise<void> => {
-    if (isLoggingIn) return; // Prevent multiple login attempts
-    
-    setIsLoggingIn(true);
-    const provider = new GoogleAuthProvider();
+    if (isLoggingIn) return;
     
     try {
-      const result = await signInWithPopup(auth, provider);
-      const user: CustomUser = {
-        uid: result.user.uid,
-        id: result.user.uid,
-        name: result.user.displayName || "",
-        email: result.user.email || "",
-        role: "user",
-        photoURL: result.user.photoURL || undefined,
-      };
+      setIsLoggingIn(true);
+      const provider = new GoogleAuthProvider();
       
-      await updateUserInFirestore(user);
-      
-      // Get return URL from query parameters
-      const searchParams = new URLSearchParams(window.location.search);
-      const returnUrl = searchParams.get('returnUrl');
-      
-      // Only redirect if there's a valid return URL
-      if (returnUrl && !returnUrl.includes('/auth')) {
-        router.push(returnUrl);
-      } else {
-        router.push('/account'); // Default to account page if no valid return URL
+      // Try popup first
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user: CustomUser = {
+          uid: result.user.uid,
+          id: result.user.uid,
+          name: result.user.displayName || "",
+          email: result.user.email || "",
+          role: "user",
+          photoURL: result.user.photoURL || undefined,
+        };
+        
+        await updateUserInFirestore(user);
+        setCurrentUser(user);
+        setCookie('user', JSON.stringify(user));
+        
+        // Handle redirect
+        const searchParams = new URLSearchParams(window.location.search);
+        const returnUrl = searchParams.get('returnUrl');
+        router.push(returnUrl && !returnUrl.includes('/auth') ? returnUrl : '/account');
+        
+      } catch (popupError) {
+        console.error("Popup error:", popupError);
+        // If popup fails, try redirect (especially for mobile)
+        await signInWithRedirect(auth, provider);
       }
     } catch (error) {
-      console.error("Error signing in:", (error as FirebaseError).message);
-      if ((error as FirebaseError).code === "auth/popup-blocked") {
-        try {
-          await signInWithRedirect(auth, provider);
-        } catch (redirectError) {
-          console.error("Redirect error:", redirectError);
-        }
-      }
+      console.error("Sign in error:", error);
     } finally {
       setIsLoggingIn(false);
     }
   };
 
-  // Handle redirect result after OAuth login
+  // Handle redirect result
   useEffect(() => {
-    if (!loading) {
+    if (!loading && !currentUser) {
       const handleRedirectResult = async () => {
         try {
           const result = await getRedirectResult(auth);
@@ -139,26 +136,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
               role: "user",
               photoURL: result.user.photoURL || undefined,
             };
-            await updateUserInFirestore(user);
             
-            // Get return URL from query parameters
+            await updateUserInFirestore(user);
+            setCurrentUser(user);
+            setCookie('user', JSON.stringify(user));
+            
             const searchParams = new URLSearchParams(window.location.search);
             const returnUrl = searchParams.get('returnUrl');
-            
-            if (returnUrl && !returnUrl.includes('/auth')) {
-              router.push(returnUrl);
-            } else {
-              router.push('/account');
-            }
+            router.push(returnUrl && !returnUrl.includes('/auth') ? returnUrl : '/account');
           }
         } catch (error) {
-          console.error("Error handling redirect result:", error);
+          console.error("Redirect result error:", error);
         }
       };
 
       handleRedirectResult();
     }
-  }, [loading, router]);
+  }, [loading, currentUser, router]);
 
   // Update user information in Firestore
   const updateUserInFirestore = async (user: CustomUser) => {
@@ -192,7 +186,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const initiateAuth = useCallback((returnPath?: string) => {
     if (!loading && !currentUser) {
       const currentPath = returnPath || window.location.pathname;
-      const publicPaths = ['/', '/shop', '/about', '/contact'];
+      // Only include paths that actually exist
+      const publicPaths = ['/'];
       
       if (!currentPath.includes('/auth') && !publicPaths.includes(currentPath)) {
         router.push(`/auth?returnUrl=${encodeURIComponent(currentPath)}`);
