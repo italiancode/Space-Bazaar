@@ -12,18 +12,21 @@ export default function ProtectedRoute({
   const { currentUser, loading, initiateAuth } = useAuth();
 
   useEffect(() => {
+    // Only redirect if we're sure there's no user and loading is complete
     if (!loading && !currentUser) {
-      initiateAuth(window.location.pathname); // Redirect to auth page if not authenticated
+      initiateAuth();
     }
   }, [currentUser, loading, initiateAuth]);
 
   if (loading) {
-    return <LoadingSkeleton />; // Display loading skeleton while checking auth status
+    return <LoadingSkeleton />;
   }
 
+  // Show protected content only if user is authenticated
   if (!loading && currentUser) {
-    return <>{children}</>; // Render protected content
+    return <>{children}</>;
   }
 
-  return <LoadingSkeleton />; // Display loading skeleton during redirect
+  // Show loading while redirecting
+  return <LoadingSkeleton />;
 }

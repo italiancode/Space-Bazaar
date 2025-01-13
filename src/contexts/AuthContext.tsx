@@ -4,6 +4,7 @@ import React, {
   useState,
   ReactNode,
   useEffect,
+  useCallback,
 } from "react";
 import {
   getRedirectResult,
@@ -49,52 +50,42 @@ export const useAuth = () => {
   return context;
 };
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const router = useRouter();
+export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [currentUser, setCurrentUser] = useState<CustomUser | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
-  const [authError, setAuthError] = useState<string | null>(null);
+  const router = useRouter();
 
-  // Redirect to login page with the destination URL as a query parameter
-  const initiateAuth = (destination?: string) => {
-    const redirectUrl = destination || window.location.pathname;
-    router.push(`/auth?callbackUrl=${encodeURIComponent(redirectUrl)}`);
-  };
-
-  // Monitor authentication state
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-      if (firebaseUser) {
-        const token = await firebaseUser.getIdToken();
-        setCookie("auth-token", token);
-
-        const user: CustomUser = {
-          uid: firebaseUser.uid,
-          id: firebaseUser.uid,
-          name: firebaseUser.displayName || "",
-          email: firebaseUser.email || "",
-          role: "user",
-          photoURL: firebaseUser.photoURL || undefined,
+    // Listen to auth state changes
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // Transform Firebase user to your User type
+        const transformedUser: CustomUser = {
+          uid: user.uid,
+          id: user.uid,
+          name: user.displayName || 'Anonymous',
+          email: user.email || '',
+          role: 'user', // Set default role or fetch from your backend
         };
-        setCurrentUser(user);
-        await updateUserInFirestore(user);
-
-        const params = new URLSearchParams(window.location.search);
-        const callbackUrl = params.get("callbackUrl");
-        if (callbackUrl) {
-          router.push(callbackUrl);
-        }
+        setCurrentUser(transformedUser);
       } else {
         setCurrentUser(null);
-        deleteCookie("auth-token");
       }
       setLoading(false);
     });
 
-    return unsubscribe;
-  }, [router]);
+    return () => unsubscribe();
+  }, []);
+
+  const initiateAuth = useCallback((returnPath?: string) => {
+    if (!loading && !currentUser) {
+      const currentPath = returnPath || window.location.pathname;
+      if (!currentPath.includes('/auth')) {
+        router.push(`/auth?returnUrl=${encodeURIComponent(currentPath)}`);
+      }
+    }
+  }, [currentUser, loading, router]);
 
   // Update user information in Firestore
   const updateUserInFirestore = async (user: CustomUser) => {
@@ -116,7 +107,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const signInWithGoogle = async (): Promise<void> => {
     setIsLoggingIn(true);
-    setAuthError(null);
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
@@ -129,12 +119,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         photoURL: result.user.photoURL || undefined,
       };
       await updateUserInFirestore(user);
+      setCookie('user', JSON.stringify(user));
+      
+      // Get return URL from query parameters
+      const searchParams = new URLSearchParams(window.location.search);
+      const returnUrl = searchParams.get('returnUrl') || '/';
+      
+      router.push(returnUrl);
     } catch (error) {
       console.error("Error signing in:", (error as FirebaseError).message);
       if ((error as FirebaseError).code === "auth/popup-blocked") {
-        await signInWithRedirect(auth, provider);
-      } else {
-        setAuthError("Sign-in was unavailable. Please try again later.");
+        try {
+          await signInWithRedirect(auth, provider);
+        } catch (redirectError) {
+          console.error("Redirect error:", redirectError);
+        }
       }
     } finally {
       setIsLoggingIn(false);
@@ -169,14 +168,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // Logout function
   const logout = async () => {
-    setIsLoggingOut(true);
     try {
       await signOut(auth);
-      window.location.reload();
+      deleteCookie('user');
+      router.push('/');
     } catch (error) {
       console.error("Logout error:", error);
-    } finally {
-      setIsLoggingOut(false);
     }
   };
 
@@ -185,7 +182,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     signInWithGoogle,
     initiateAuth,
     logout,
-    isLoggingOut,
+    isLoggingOut: false,
     isLoggingIn,
     user: currentUser,
     loading,
@@ -193,25 +190,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
-      {(isLoggingIn || isLoggingOut) && (
-        <div className="fixed inset-0 bg-bg-primary/50 backdrop-blur-sm flex items-center justify-center z-[100]">
-          <div className="bg-bg-secondary p-6 rounded-xl shadow-xl max-w-md w-full mx-4 border border-text-secondary/10">
-            <h3 className="text-xl font-semibold text-accent mb-2">
-              {isLoggingIn ? "Signing in..." : "Logging out..."}
-            </h3>
-            {authError ? (
-              <p className="text-text-danger">{authError}</p>
-            ) : (
-              <p className="text-text-primary">
-                {isLoggingIn
-                  ? "Sign-in in progress. Please wait..."
-                  : "Clearing all stored data and signing out. Please wait..."}
-              </p>
-            )}
-          </div>
-        </div>
-      )}
+      {children}
     </AuthContext.Provider>
   );
-};
+}
