@@ -5,17 +5,17 @@ import { useEffect } from "react";
 const categories = [
   {
     name: "Apparel",
-    image: "/categories/apparel.webp",
+    image: "/images/categories/apparel.webp",
     itemCount: 42,
   },
   {
     name: "Collectibles",
-    image: "/categories/collectibles.webp",
+    image: "/images/categories/collectibles.webp",
     itemCount: 28,
   },
   {
     name: "Accessories",
-    image: "/categories/accessories.webp",
+    image: "/images/categories/accessories.webp",
     itemCount: 35,
   },
 ];

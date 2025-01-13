@@ -16,7 +16,7 @@ import {
 import { auth, db } from "../config/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { setCookie, deleteCookie } from "cookies-next";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 
 interface CustomUser {
@@ -54,6 +54,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
+
+  const publicPaths = [
+    '/',
+    '/auth',
+    '/products',
+    '/categories',
+    '/about',
+    '/contact',
+    '/privacy',
+    '/terms',
+    '/faqs'
+  ];
 
   // Handle auth state changes
   useEffect(() => {
@@ -185,15 +198,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const initiateAuth = useCallback((returnPath?: string) => {
     if (!loading && !currentUser) {
-      const currentPath = returnPath || window.location.pathname;
-      // Only include paths that actually exist
-      const publicPaths = ['/'];
+      const currentPath = returnPath || pathname;
       
-      if (!currentPath.includes('/auth') && !publicPaths.includes(currentPath)) {
-        router.push(`/auth?returnUrl=${encodeURIComponent(currentPath)}`);
+      if (!currentPath?.includes('/auth') && !publicPaths.includes(currentPath || '')) {
+        router.push(`/auth?returnUrl=${encodeURIComponent(currentPath || '/')}`);
       }
     }
-  }, [currentUser, loading, router]);
+  }, [currentUser, loading, router, pathname]);
 
   const value = {
     currentUser,
