@@ -14,16 +14,16 @@ const protectedPaths = [
 const authPaths = ['/auth'];
 
 // Public paths that don't need authentication
-const publicPaths = [
-  '/',
-  '/products',
-  '/categories',
-  '/about',
-  '/contact',
-  '/privacy',
-  '/terms',
-  '/faqs'
-];
+// const publicPaths = [
+//   '/',
+//   '/products',
+//   '/categories',
+//   '/about',
+//   '/contact',
+//   '/privacy',
+//   '/terms',
+//   '/faqs'
+// ];
 
 export function middleware(request: NextRequest) {
   const currentUser = request.cookies.get('user');
