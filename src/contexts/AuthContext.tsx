@@ -6,7 +6,6 @@ import React, {
   useCallback,
 } from "react";
 import {
-  getRedirectResult,
   signInWithPopup,
   GoogleAuthProvider,
   signOut,
@@ -14,10 +13,9 @@ import {
   signInWithRedirect,
 } from "firebase/auth";
 import { auth, db } from "../config/firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { setCookie, deleteCookie } from "cookies-next";
 import { useRouter, usePathname } from "next/navigation";
-
 
 interface CustomUser {
   uid: string;
@@ -53,37 +51,41 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [currentUser, setCurrentUser] = useState<CustomUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
-
-  const publicPaths = [
-    '/',
-    '/auth',
-    '/products',
-    '/categories',
-    '/about',
-    '/contact',
-    '/privacy',
-    '/terms',
-    '/faqs'
-  ];
 
   // Handle auth state changes
   useEffect(() => {
     setLoading(true);
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const transformedUser: CustomUser = {
-          uid: user.uid,
-          id: user.uid,
-          name: user.displayName || 'Anonymous',
-          email: user.email || '',
-          role: 'user',
-          photoURL: user.photoURL || undefined,
-        };
-        setCurrentUser(transformedUser);
-        // Update cookie when auth state changes
-        setCookie('user', JSON.stringify(transformedUser));
+        try {
+          // Get user data from Firestore
+          const userDoc = await getDoc(doc(db, "users", user.uid));
+          const userData = userDoc.data();
+
+          const transformedUser: CustomUser = {
+            uid: user.uid,
+            id: user.uid,
+            name: user.displayName || userData?.name || 'Anonymous',
+            email: user.email || userData?.email || '',
+            role: userData?.role || 'user',
+            photoURL: user.photoURL || userData?.photoURL,
+          };
+
+          setCurrentUser(transformedUser);
+          setCookie('user', JSON.stringify(transformedUser), {
+            maxAge: 30 * 24 * 60 * 60, // 30 days
+            path: '/',
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax'
+          });
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+          setCurrentUser(null);
+          deleteCookie('user');
+        }
       } else {
         setCurrentUser(null);
         deleteCookie('user');
@@ -100,6 +102,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       setIsLoggingIn(true);
       const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({
+        prompt: 'select_account'
+      });
       
       // Try popup first
       try {
@@ -115,94 +120,71 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         
         await updateUserInFirestore(user);
         setCurrentUser(user);
-        setCookie('user', JSON.stringify(user));
+        setCookie('user', JSON.stringify(user), {
+          maxAge: 30 * 24 * 60 * 60,
+          path: '/',
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'lax'
+        });
         
-        // Handle redirect
         const searchParams = new URLSearchParams(window.location.search);
         const returnUrl = searchParams.get('returnUrl');
-        router.push(returnUrl && !returnUrl.includes('/auth') ? returnUrl : '/account');
+        if (returnUrl && !returnUrl.includes('/auth')) {
+          router.push(returnUrl);
+        } else {
+          router.push('/account');
+        }
         
       } catch (popupError) {
         console.error("Popup error:", popupError);
-        // If popup fails, try redirect (especially for mobile)
         await signInWithRedirect(auth, provider);
       }
     } catch (error) {
       console.error("Sign in error:", error);
+      throw error;
     } finally {
       setIsLoggingIn(false);
     }
   };
 
-  // Handle redirect result
-  useEffect(() => {
-    if (!loading && !currentUser) {
-      const handleRedirectResult = async () => {
-        try {
-          const result = await getRedirectResult(auth);
-          if (result?.user) {
-            const user: CustomUser = {
-              uid: result.user.uid,
-              id: result.user.uid,
-              name: result.user.displayName || "",
-              email: result.user.email || "",
-              role: "user",
-              photoURL: result.user.photoURL || undefined,
-            };
-            
-            await updateUserInFirestore(user);
-            setCurrentUser(user);
-            setCookie('user', JSON.stringify(user));
-            
-            const searchParams = new URLSearchParams(window.location.search);
-            const returnUrl = searchParams.get('returnUrl');
-            router.push(returnUrl && !returnUrl.includes('/auth') ? returnUrl : '/account');
-          }
-        } catch (error) {
-          console.error("Redirect result error:", error);
-        }
-      };
-
-      handleRedirectResult();
-    }
-  }, [loading, currentUser, router]);
-
-  // Update user information in Firestore
   const updateUserInFirestore = async (user: CustomUser) => {
     try {
-      await setDoc(
-        doc(db, "users", user.uid),
-        {
-          email: user.email,
-          name: user.name,
-          photoURL: user.photoURL,
-          lastLogin: new Date().toISOString(),
-        },
-        { merge: true }
-      );
+      const userRef = doc(db, "users", user.uid);
+      const userDoc = await getDoc(userRef);
+      
+      await setDoc(userRef, {
+        email: user.email,
+        name: user.name,
+        photoURL: user.photoURL,
+        role: userDoc.exists() ? userDoc.data().role : 'user',
+        lastLogin: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        ...(userDoc.exists() ? {} : { createdAt: new Date().toISOString() })
+      }, { merge: true });
     } catch (error) {
       console.error("Error updating user in Firestore:", error);
+      throw error;
     }
   };
 
-  // Logout function
   const logout = async () => {
     try {
+      setIsLoggingOut(true);
       await signOut(auth);
       deleteCookie('user');
       router.push('/');
     } catch (error) {
       console.error("Logout error:", error);
+      throw error;
+    } finally {
+      setIsLoggingOut(false);
     }
   };
 
-  const initiateAuth = useCallback((returnPath?: string) => {
+  const initiateAuth = useCallback((destination?: string) => {
     if (!loading && !currentUser) {
-      const currentPath = returnPath || pathname;
-      
-      if (!currentPath?.includes('/auth') && !publicPaths.includes(currentPath || '')) {
-        router.push(`/auth?returnUrl=${encodeURIComponent(currentPath || '/')}`);
-      }
+      const returnPath = destination || pathname;
+      router.push(`/auth?returnUrl=${encodeURIComponent(returnPath || '/')}`);
     }
   }, [currentUser, loading, router, pathname]);
 
@@ -211,7 +193,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     signInWithGoogle,
     initiateAuth,
     logout,
-    isLoggingOut: false,
+    isLoggingOut,
     isLoggingIn,
     user: currentUser,
     loading,
