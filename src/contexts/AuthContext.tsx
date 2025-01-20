@@ -10,7 +10,8 @@ import {
   GoogleAuthProvider,
   signOut,
   onAuthStateChanged,
-  signInWithRedirect,
+  getRedirectResult,
+  User,
 } from "firebase/auth";
 import { auth, db } from "../config/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -68,27 +69,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           const transformedUser: CustomUser = {
             uid: user.uid,
             id: user.uid,
-            name: user.displayName || userData?.name || 'Anonymous',
-            email: user.email || userData?.email || '',
-            role: userData?.role || 'user',
+            name: user.displayName || userData?.name || "Anonymous",
+            email: user.email || userData?.email || "",
+            role: userData?.role || "user",
             photoURL: user.photoURL || userData?.photoURL,
           };
 
           setCurrentUser(transformedUser);
-          setCookie('user', JSON.stringify(transformedUser), {
+          setCookie("user", JSON.stringify(transformedUser), {
             maxAge: 30 * 24 * 60 * 60, // 30 days
-            path: '/',
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'lax'
+            path: "/",
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
           });
         } catch (error) {
           console.error("Error fetching user data:", error);
           setCurrentUser(null);
-          deleteCookie('user');
+          deleteCookie("user");
         }
       } else {
         setCurrentUser(null);
-        deleteCookie('user');
+        deleteCookie("user");
       }
       setLoading(false);
     });
@@ -96,16 +97,55 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    const handleRedirectResult = async () => {
+      try {
+        const result = await getRedirectResult(auth);
+        const user = result?.user as User;
+        if (user) {
+          const customUser: CustomUser = {
+            uid: user.uid,
+            id: user.uid,
+            name: user.displayName || "",
+            email: user.email || "",
+            role: "user",
+            photoURL: user.photoURL || undefined,
+          };
+          await updateUserInFirestore(customUser);
+          setCurrentUser(customUser);
+          setCookie("user", JSON.stringify(customUser), {
+            maxAge: 30 * 24 * 60 * 60,
+            path: "/",
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+          });
+
+          const searchParams = new URLSearchParams(window.location.search);
+          const returnUrl = searchParams.get("returnUrl");
+          if (returnUrl && !returnUrl.includes("/auth")) {
+            router.push(returnUrl);
+          } else {
+            router.push("/account");
+          }
+        }
+      } catch (error) {
+        console.error("Error handling redirect result:", error);
+      }
+    };
+
+    handleRedirectResult();
+  }, [router]);
+
   const signInWithGoogle = async (): Promise<void> => {
     if (isLoggingIn) return;
-    
+
     try {
       setIsLoggingIn(true);
       const provider = new GoogleAuthProvider();
       provider.setCustomParameters({
-        prompt: 'select_account'
+        prompt: "select_account",
       });
-      
+
       // Try popup first
       try {
         const result = await signInWithPopup(auth, provider);
@@ -117,27 +157,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           role: "user",
           photoURL: result.user.photoURL || undefined,
         };
-        
+
         await updateUserInFirestore(user);
         setCurrentUser(user);
-        setCookie('user', JSON.stringify(user), {
+        setCookie("user", JSON.stringify(user), {
           maxAge: 30 * 24 * 60 * 60,
-          path: '/',
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: 'lax'
+          path: "/",
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "lax",
         });
-        
+
         const searchParams = new URLSearchParams(window.location.search);
-        const returnUrl = searchParams.get('returnUrl');
-        if (returnUrl && !returnUrl.includes('/auth')) {
+        const returnUrl = searchParams.get("returnUrl");
+        if (returnUrl && !returnUrl.includes("/auth")) {
           router.push(returnUrl);
         } else {
-          router.push('/account');
+          router.push("/account");
         }
-        
       } catch (popupError) {
         console.error("Popup error:", popupError);
-        await signInWithRedirect(auth, provider);
+        // await signInWithRedirect(auth, provider);
       }
     } catch (error) {
       console.error("Sign in error:", error);
@@ -151,16 +190,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const userRef = doc(db, "users", user.uid);
       const userDoc = await getDoc(userRef);
-      
-      await setDoc(userRef, {
-        email: user.email,
-        name: user.name,
-        photoURL: user.photoURL,
-        role: userDoc.exists() ? userDoc.data().role : 'user',
+
+      const userData = {
+        email: user.email || null,
+        name: user.name || null,
+        photoURL: user.photoURL || null,
+        role: userDoc.exists() ? userDoc.data()?.role || "user" : "user",
         lastLogin: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
-        ...(userDoc.exists() ? {} : { createdAt: new Date().toISOString() })
-      }, { merge: true });
+        ...(userDoc.exists() ? {} : { createdAt: new Date().toISOString() }),
+      };
+
+      await setDoc(userRef, userData, { merge: true });
     } catch (error) {
       console.error("Error updating user in Firestore:", error);
       throw error;
@@ -171,8 +212,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       setIsLoggingOut(true);
       await signOut(auth);
-      deleteCookie('user');
-      router.push('/');
+      deleteCookie("user");
+      router.push("/");
     } catch (error) {
       console.error("Logout error:", error);
       throw error;
@@ -181,12 +222,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const initiateAuth = useCallback((destination?: string) => {
-    if (!loading && !currentUser) {
-      const returnPath = destination || pathname;
-      router.push(`/auth?returnUrl=${encodeURIComponent(returnPath || '/')}`);
-    }
-  }, [currentUser, loading, router, pathname]);
+  const initiateAuth = useCallback(
+    (destination?: string) => {
+      if (!loading && !currentUser) {
+        const returnPath = destination || pathname;
+        router.push(`/auth?returnUrl=${encodeURIComponent(returnPath || "/")}`);
+      }
+    },
+    [currentUser, loading, router, pathname]
+  );
 
   const value = {
     currentUser,
@@ -199,9 +243,5 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     loading,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
