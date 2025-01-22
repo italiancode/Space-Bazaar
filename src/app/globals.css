@@ -74,7 +74,6 @@ body {
   transition: all 0.2s ease-in-out;
 }
 
-
 @keyframes scroll-rtl {
   0% {
     transform: translateX(100%);
@@ -95,3 +94,15 @@ body {
   animation-play-state: paused;
 }
 
+.notice {
+  position: fixed; /* Make it fixed to the viewport */
+  top: 20px; /* Position it at the top */
+  left: 50%; /* Center it horizontally */
+  transform: translateX(-50%); /* Adjust for centering */
+  background-color: #4caf50; /* Green background */
+  color: white; /* White text */
+  padding: 10px 20px; /* Some padding */
+  border-radius: 5px; /* Rounded corners */
+  z-index: 1000; /* Ensure it appears above other content */
+  transition: opacity 0.5s; /* Smooth transition */
+}
