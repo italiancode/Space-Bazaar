@@ -12,6 +12,7 @@ import {
   onAuthStateChanged,
   getRedirectResult,
   User,
+  signInWithCredential,
 } from "firebase/auth";
 import { auth, db } from "../config/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -176,7 +177,37 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
       } catch (popupError) {
         console.error("Popup error:", popupError);
-        // await signInWithRedirect(auth, provider);
+        // If the popup fails, you can try to get the credential from the token
+        const token = await auth.currentUser?.getIdToken(); // Get the token from the current user
+        if (token) {
+          const credential = GoogleAuthProvider.credential(null, token);
+          const result = await signInWithCredential(auth, credential);
+          const user: CustomUser = {
+            uid: result.user.uid,
+            id: result.user.uid,
+            name: result.user.displayName || "",
+            email: result.user.email || "",
+            role: "user",
+            photoURL: result.user.photoURL || undefined,
+          };
+
+          await updateUserInFirestore(user);
+          setCurrentUser(user);
+          setCookie("user", JSON.stringify(user), {
+            maxAge: 30 * 24 * 60 * 60,
+            path: "/",
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+          });
+
+          const searchParams = new URLSearchParams(window.location.search);
+          const returnUrl = searchParams.get("returnUrl");
+          if (returnUrl && !returnUrl.includes("/auth")) {
+            router.push(returnUrl);
+          } else {
+            router.push("/account");
+          }
+        }
       }
     } catch (error) {
       console.error("Sign in error:", error);
