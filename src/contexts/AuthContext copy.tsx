@@ -150,17 +150,63 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // Try popup first
       try {
         const result = await signInWithPopup(auth, provider);
-        await handleUserAuthentication(result.user);
+        const user: CustomUser = {
+          uid: result.user.uid,
+          id: result.user.uid,
+          name: result.user.displayName || "",
+          email: result.user.email || "",
+          role: "user",
+          photoURL: result.user.photoURL || undefined,
+        };
+
+        await updateUserInFirestore(user);
+        setCurrentUser(user);
+        setCookie("user", JSON.stringify(user), {
+          maxAge: 30 * 24 * 60 * 60,
+          path: "/",
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "lax",
+        });
+
+        const searchParams = new URLSearchParams(window.location.search);
+        const returnUrl = searchParams.get("returnUrl");
+        if (returnUrl && !returnUrl.includes("/auth")) {
+          router.push(returnUrl);
+        } else {
+          router.push("/account");
+        }
       } catch (popupError) {
         console.error("Popup error:", popupError);
-        // Attempt to get the token and sign in with credentials
+        // If the popup fails, you can try to get the credential from the token
         const token = await auth.currentUser?.getIdToken(); // Get the token from the current user
         if (token) {
           const credential = GoogleAuthProvider.credential(null, token);
           const result = await signInWithCredential(auth, credential);
-          await handleUserAuthentication(result.user);
-        } else {
-          console.error("No token available for credential sign-in.");
+          const user: CustomUser = {
+            uid: result.user.uid,
+            id: result.user.uid,
+            name: result.user.displayName || "",
+            email: result.user.email || "",
+            role: "user",
+            photoURL: result.user.photoURL || undefined,
+          };
+
+          await updateUserInFirestore(user);
+          setCurrentUser(user);
+          setCookie("user", JSON.stringify(user), {
+            maxAge: 30 * 24 * 60 * 60,
+            path: "/",
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+          });
+
+          const searchParams = new URLSearchParams(window.location.search);
+          const returnUrl = searchParams.get("returnUrl");
+          if (returnUrl && !returnUrl.includes("/auth")) {
+            router.push(returnUrl);
+          } else {
+            router.push("/account");
+          }
         }
       }
     } catch (error) {
@@ -168,35 +214,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       throw error;
     } finally {
       setIsLoggingIn(false);
-    }
-  };
-
-  // Helper function to handle user authentication
-  const handleUserAuthentication = async (user: User) => {
-    const customUser: CustomUser = {
-      uid: user.uid,
-      id: user.uid,
-      name: user.displayName || "",
-      email: user.email || "",
-      role: "user",
-      photoURL: user.photoURL || undefined,
-    };
-
-    await updateUserInFirestore(customUser);
-    setCurrentUser(customUser);
-    setCookie("user", JSON.stringify(customUser), {
-      maxAge: 30 * 24 * 60 * 60,
-      path: "/",
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-    });
-
-    const searchParams = new URLSearchParams(window.location.search);
-    const returnUrl = searchParams.get("returnUrl");
-    if (returnUrl && !returnUrl.includes("/auth")) {
-      router.push(returnUrl);
-    } else {
-      router.push("/home");
     }
   };
 
