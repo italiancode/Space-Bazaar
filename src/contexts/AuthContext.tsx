@@ -77,15 +77,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Handle Google redirect sign-in
   useEffect(() => {
-    getRedirectResult(auth)
-      .then((result) => {
+    const handleRedirectResult = async () => {
+      try {
+        const result = await getRedirectResult(auth);
         if (result?.user) {
-          handleUserAuthentication(result.user);
+          await handleUserAuthentication(result.user);
+        } else {
+          console.warn("No user found in redirect result.");
+          setNotice("No user found. Please try again.");
         }
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Redirect sign-in error:", error);
-      });
+        setNotice("Error during sign-in. Please try again."); // Set notice for error
+      }
+    };
+
+    handleRedirectResult();
   }, []);
 
   const signInWithGoogle = async (): Promise<void> => {
