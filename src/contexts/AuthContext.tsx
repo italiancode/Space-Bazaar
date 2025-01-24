@@ -10,7 +10,6 @@ import {
   GoogleAuthProvider,
   signOut,
   onAuthStateChanged,
-  getRedirectResult,
   User,
   signInWithPopup,
   setPersistence,
