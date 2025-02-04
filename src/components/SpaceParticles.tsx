@@ -101,4 +101,6 @@ export const SpaceParticles = () => {
       />
     </div>
   );
-}; 
+};
+
+export default SpaceParticles; 
