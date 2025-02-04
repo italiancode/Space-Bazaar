@@ -1,7 +1,6 @@
 import Header from "./Header";
 import Footer from "./Footer";
 import { StarryBackground } from "../effects/StarryBackground";
-import SpaceBazaarBanner from "../SpaceBazaarBanner";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
