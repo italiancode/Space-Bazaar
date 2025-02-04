@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+
 import AddToCart from "./shop/AddToCart";
 
 interface ProductCardProps {
@@ -9,7 +9,6 @@ interface ProductCardProps {
   price: number;
   imageUrl: string;
 }
-
 
 export default function ProductCard({
   id,
@@ -36,6 +35,5 @@ export default function ProductCard({
         </div>
       </div>
     </div>
-
   );
 }
