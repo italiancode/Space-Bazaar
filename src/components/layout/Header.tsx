@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X, Search, ShoppingCart, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/contexts/CartContext";
@@ -11,8 +11,18 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [logoError, setLogoError] = useState(false);
   const navItems = ["Shop", "Categories", "About", "Contact"];
+  const [isCartBadgeAnimating, setIsCartBadgeAnimating] = useState(false);
   const { cart } = useCart();
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+
+  // Add effect to handle cart changes
+  useEffect(() => {
+    if (cartCount > 0) {
+      setIsCartBadgeAnimating(true);
+      const timer = setTimeout(() => setIsCartBadgeAnimating(false), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [cartCount]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
@@ -71,13 +81,37 @@ export default function Header() {
               </button>
               <Link
                 href="/shop/cart"
-                className="relative p-1 sm:p-2 header-hover text-white/90"
+                className="relative p-1 sm:p-2 header-hover text-white/90 group"
               >
                 <ShoppingCart className="w-5 h-5" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-accent-red text-white rounded-full text-xs px-1.5 py-0.5 min-w-[1.2rem] text-center">
+                  <motion.span
+                    initial={{ scale: 0.5, opacity: 0 }}
+                    animate={{ 
+                      scale: isCartBadgeAnimating ? [1, 1.2, 1] : 1,
+                      opacity: 1,
+                      background: isCartBadgeAnimating 
+                        ? ['linear-gradient(to right, #ef4444, #7c3aed)', 
+                           'linear-gradient(to right, #7c3aed, #ef4444)',
+                           'linear-gradient(to right, #ef4444, #7c3aed)']
+                        : 'linear-gradient(to right, #ef4444, #7c3aed)'
+                    }}
+                    transition={{ 
+                      duration: isCartBadgeAnimating ? 2 : 0.3,
+                      ease: "easeInOut",
+                      times: isCartBadgeAnimating ? [0, 0.5, 1] : [0, 1]
+                    }}
+                    className="absolute -top-2 -right-2 
+                      text-white text-xs font-bold
+                      min-w-[20px] h-[20px]
+                      rounded-full flex items-center justify-center
+                      shadow-[0_0_10px_rgba(239,68,68,0.5)]
+                      border-2 border-white/20
+                      group-hover:scale-110 
+                      backdrop-blur-sm"
+                  >
                     {cartCount}
-                  </span>
+                  </motion.span>
                 )}
               </Link>
               <Link
