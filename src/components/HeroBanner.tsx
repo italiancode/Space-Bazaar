@@ -92,7 +92,7 @@ export default function HeroBanner() {
               )}
             >
               <Store className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
-              <span className="whitespace-nowrap">I'm a Seller</span>
+              <span className="whitespace-nowrap">{"I'm a Seller"}</span>
             </Link>
           </motion.div>
         </div>
