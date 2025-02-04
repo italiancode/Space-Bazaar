@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ShoppingCart, Star } from "lucide-react";
-// 
+// put this in the featured categories component
 export const SpaceParticles = () => {
   return (
     <div className="relative w-full h-full flex items-center justify-center">
