@@ -25,6 +25,11 @@ export default {
 
         "gradient-mid": "#1e1b4b" /* Midnight Blue */,
         "gradient-end": "#312e81" /* Deep Indigo */,
+
+        "header-bg": "#030014", // Deep Space Black base
+        "header-blur": "rgba(3, 0, 20, 0.8)", // Matching space theme with transparency
+        "header-border": "#4F46E5", // Electric Indigo for the bottom border
+        "header-hover": "#4f46e5", // Electric Indigo for hover states
       },
       fontFamily: {
         "space-mono": ['"Space Mono"', "monospace"],
@@ -32,6 +37,7 @@ export default {
       animation: {
         float: "float 5s ease-in-out infinite",
         glow: "glow 2s ease-in-out infinite",
+        'fade-in-down': 'fadeInDown 0.5s ease-out',
       },
       keyframes: {
         float: {
@@ -41,6 +47,16 @@ export default {
         glow: {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.5" },
+        },
+        fadeInDown: {
+          '0%': {
+            opacity: '0',
+            transform: 'translateY(-10px)'
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateY(0)'
+          }
         },
       },
     },

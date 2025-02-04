@@ -1,108 +1,144 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 :root {
-  /* Deep Space Theme */
-  --background: #030014; /* Deep Space Black */
-  --foreground: #e6e7ff; /* Light Color for Text */
-
-  /* Primary Accent Colors */
-  --accent-blue: #4f46e5; /* Electric Indigo */
-  --accent-purple: #7c3aed; /* Royal Purple */
-  --accent-red: #ef4444; /* Cosmic Red */
-
-  /* Supporting Colors */
-  --space-gray: #0a0a1e; /* Deep Space Gray */
-  --space-light: #e2e8f0;
-  --nebula-pink: #ec4899; /* Nebula Pink */
-  --cosmic-gold: #f59e0b; /* Cosmic Gold */
-
-  /* Gradient Stops */
-  --gradient-start: #030014; /* Deep Space Black */
-  --gradient-mid: #1e1b4b; /* Midnight Blue */
-  --gradient-end: #312e81; /* Deep Indigo */
-
-  /* Font Settings */
-  --font-geist-sans: "Geist Sans", sans-serif;
+    /* Deep Space Theme */
+    --background: #030014;
+    /* Deep Space Black */
+    --foreground: #e6e7ff;
+    /* Light Color for Text */
+    /* Primary Accent Colors */
+    --accent-blue: #4f46e5;
+    /* Electric Indigo */
+    --accent-purple: #7c3aed;
+    /* Royal Purple */
+    --accent-red: #ef4444;
+    /* Cosmic Red */
+    /* Supporting Colors */
+    --space-gray: #0a0a1e;
+    /* Deep Space Gray */
+    --space-light: #e2e8f0;
+    --nebula-pink: #ec4899;
+    /* Nebula Pink */
+    --cosmic-gold: #f59e0b;
+    /* Cosmic Gold */
+    /* Gradient Stops */
+    --gradient-start: #030014;
+    /* Deep Space Black */
+    --gradient-mid: #1e1b4b;
+    /* Midnight Blue */
+    --gradient-end: #312e81;
+    /* Deep Indigo */
+    /* Font Settings */
+    --font-geist-sans: "Geist Sans", sans-serif;
 }
 
 body {
-  background-color: var(--space-gray);
-  color: var(--space-light);
-  font-family: "Space Mono", monospace;
-  background: var(--background);
-  background-image: radial-gradient(
-    circle at center,
-    var(--gradient-mid) 0%,
-    var(--gradient-start) 100%
-  );
+    background-color: var(--space-gray);
+    color: var(--space-light);
+    font-family: "Space Mono", monospace;
+    background: var(--background);
+    background-image: radial-gradient( circle at center, var(--gradient-mid) 0%, var(--gradient-start) 100%);
 }
 
 .shadow-neon {
-  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.3);
 }
 
 .shadow-neon-intense {
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.7), 0 0 40px rgba(59, 130, 246, 0.5);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.7), 0 0 40px rgba(59, 130, 246, 0.5);
 }
 
 .perspective-1000 {
-  perspective: 1000px;
+    perspective: 1000px;
 }
 
 .perspective-1500 {
-  perspective: 1500px;
+    perspective: 1500px;
 }
 
 .parent-container {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
 }
 
 .toggle-checkbox:checked {
-  right: 0;
-  border-color: #68d391;
+    right: 0;
+    border-color: #68d391;
 }
 
-.toggle-checkbox:checked + .toggle-label {
-  background-color: #68d391;
+.toggle-checkbox:checked+.toggle-label {
+    background-color: #68d391;
 }
 
 * {
-  transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
 @keyframes scroll-rtl {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
 }
 
 .animate-scroll-rtl {
-  display: inline-block;
-  padding-left: 100%;
-  animation: scroll-rtl 20s linear infinite;
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll-rtl 20s linear infinite;
 }
 
+
 /* Pause the animation when hovering */
+
 .animate-scroll-rtl:hover {
-  animation-play-state: paused;
+    animation-play-state: paused;
 }
 
 .notice {
-  position: fixed; /* Make it fixed to the viewport */
-  top: 20px; /* Position it at the top */
-  left: 50%; /* Center it horizontally */
-  transform: translateX(-50%); /* Adjust for centering */
-  background-color: #4caf50; /* Green background */
-  color: white; /* White text */
-  padding: 10px 20px; /* Some padding */
-  border-radius: 5px; /* Rounded corners */
-  z-index: 1000; /* Ensure it appears above other content */
-  transition: opacity 0.5s; /* Smooth transition */
+    position: fixed;
+    /* Make it fixed to the viewport */
+    top: 20px;
+    /* Position it at the top */
+    left: 50%;
+    /* Center it horizontally */
+    transform: translateX(-50%);
+    /* Adjust for centering */
+    background-color: #4caf50;
+    /* Green background */
+    color: white;
+    /* White text */
+    padding: 10px 20px;
+    /* Some padding */
+    border-radius: 5px;
+    /* Rounded corners */
+    z-index: 1000;
+    /* Ensure it appears above other content */
+    transition: opacity 0.5s;
+    /* Smooth transition */
+}
+
+
+/* Header-specific styles */
+
+.header-glass {
+    background: rgba(3, 0, 20, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(79, 70, 229, 0.2);
+    /* Electric Indigo with low opacity */
+}
+
+.header-glow {
+    box-shadow: 0 0 20px rgba(79, 70, 229, 0.1);
+}
+
+.header-hover {
+    transition: color 0.2s ease-in-out;
+}
+
+.header-hover:hover {
+    color: var(--accent-blue);
 }

@@ -25,7 +25,7 @@ export default function HeroBanner() {
   }, [controls]);
 
   return (
-    <section className="h-[60vh] md:h-[60vh] max-h-[800px] overflow-hidden relative bg-gradient-to-b from-[#0a1128] to-[#1c3a70] z-10">
+    <section className="h-[50vh] md:h-[60vh] max-h-[800px] overflow-hidden relative bg-gradient-to-b from-[#0a1128] to-[#1c3a70] z-10">
       <div className="absolute inset-0 z-10">
         <StarryBackground />
       </div>
