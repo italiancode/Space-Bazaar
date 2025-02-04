@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ShoppingCart, Star } from "lucide-react";
 
-export const SpaceParticles = () => {
+export const SpaceParticle = () => {
   return (
     <div className="relative w-full h-full flex items-center justify-center">
       {/* Featured Product Card */}
