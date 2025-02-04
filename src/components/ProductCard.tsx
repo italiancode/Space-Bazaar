@@ -42,7 +42,7 @@ export default function ProductCard({
           {description}
         </p>
         <div className="mt-4">
-          <AddToCart productId={id} />
+          <AddToCar productId={id} />
         </div>
       </div>
     </div>
