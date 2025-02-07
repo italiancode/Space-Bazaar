@@ -6,11 +6,13 @@ import AddToCart from "@/components/shop/AddToCart";
 import productsData from "@/products.json";
 import { motion } from "framer-motion";
 import { Star, Truck, Shield } from "lucide-react";
+import { useState } from "react";
 
 export default function ProductDetailPage() {
   const { id } = useParams();
   const productId = Number(id);
   const product = productsData.find((item) => item.id === productId);
+  const [quantity, setQuantity] = useState(1);
 
   if (!product) {
     return (
@@ -75,7 +77,7 @@ export default function ProductDetailPage() {
             </div>
 
             <div className="mt-8">
-              <AddToCart productId={product.id} />
+            <AddToCart productId={product.id} quantity={quantity} disabled={product.stock === 0} className="w-full" />
             </div>
 
             {/* Additional Details */}
