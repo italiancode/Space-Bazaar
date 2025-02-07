@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
 import { StarryBackground } from "./effects/StarryBackground";
 import { ShoppingCart } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default function HeroBanner() {
   const [showDescription, setShowDescription] = useState(false);
-  const controls = useAnimation();
+  // const controls = useAnimation();
 
   useEffect(() => {
     const timer = setTimeout(() => setShowDescription(true), 1500);
@@ -33,14 +33,15 @@ export default function HeroBanner() {
                 Space Bazaar
               </span>
             </h1>
-            
+
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: showDescription ? 1 : 0 }}
               transition={{ duration: 1 }}
               className="mt-8 text-xl sm:text-2xl text-gray-300/90 max-w-2xl mx-auto font-light"
             >
-              Discover authentic space collectibles and gear from the frontiers of exploration
+              Discover authentic space collectibles and gear from the frontiers
+              of exploration
             </motion.p>
           </motion.div>
 
