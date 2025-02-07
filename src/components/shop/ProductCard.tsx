@@ -10,6 +10,7 @@ import { db } from "@/config/firebase"
 import { initializeProduct } from "@/lib/initializeProducts"
 import type React from "react"
 import { useAuth } from "@/contexts/AuthContext"
+import Link from "next/link"
 
 
 interface ProductCardProps {
@@ -162,17 +163,25 @@ export default function ProductCard({ product }: ProductCardProps) {
           className="w-full h-48 sm:h-56 md:h-64 object-cover transition-transform duration-300 group-hover:scale-105"
           priority
         />
-        <div
-          className="absolute top-3 right-3 bg-black/80 backdrop-blur-sm px-3 py-1 
-          rounded-full border border-indigo-500/50 z-20"
-        >
+        <div className="absolute top-3 right-3 bg-black/80 backdrop-blur-sm px-3 py-1 
+          rounded-full border border-indigo-500/50 z-20">
           <span className="text-indigo-300 font-mono font-semibold whitespace-nowrap">${product.price.toFixed(2)}</span>
         </div>
+        <Link
+          href={`/shop/products/${product.id}`}
+          className={`absolute bottom-3 left-3 right-3 bg-indigo-500/90 hover:bg-indigo-600/90 
+            text-white text-center py-2 rounded-lg backdrop-blur-sm transition-all duration-300 z-20
+            sm:opacity-0 sm:group-hover:opacity-100
+            ${showDetails ? 'opacity-100' : 'opacity-0'}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          View Full Details
+        </Link>
       </div>
 
       <div className="p-4 flex flex-col flex-grow">
         <div className="mb-2">
-          <h3 className={`text-base sm:text-lg font-semibold text-white ${showDetails ? "" : "truncate"} pr-2`}>
+          <h3 className={`text-base sm:text-lg font-semibold text-white ${showDetails ? "" : "truncate"}`}>
             {product.name}
           </h3>
           <div className="flex items-center text-sm text-gray-400 mt-1">

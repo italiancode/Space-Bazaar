@@ -1,29 +1,42 @@
-"use client";
+"use client"
 
-import { useParams } from "next/navigation";
-import Image from "next/image";
-import AddToCart from "@/components/shop/AddToCart";
-import productsData from "@/products.json";
-import { motion } from "framer-motion";
-import { Star, Truck, Shield } from "lucide-react";
-import { useState } from "react";
+import { useParams } from "next/navigation"
+import Image from "next/image"
+import AddToCart from "@/components/shop/AddToCart"
+import productsData from "@/products.json"
+import { motion, AnimatePresence } from "framer-motion"
+import { Star, Truck, Shield, Minus, Plus } from "lucide-react"
+import { useState } from "react"
 
 export default function ProductDetailPage() {
-  const { id } = useParams();
-  const productId = Number(id);
-  const product = productsData.find((item) => item.id === productId);
-  const [quantity, setQuantity] = useState(1);
+  const { id } = useParams()
+  const productId = Number(id)
+  const product = productsData.find((item) => item.id === productId)
+  const [quantity, setQuantity] = useState(1)
+  const [activeTab, setActiveTab] = useState("description")
 
   if (!product) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-space-dark">
         <p className="text-2xl text-gray-400">Product not found in this galaxy...</p>
       </div>
-    );
+    )
+  }
+
+  const incrementQuantity = () => {
+    if (quantity < product.stock) {
+      setQuantity((prev) => prev + 1)
+    }
+  }
+
+  const decrementQuantity = () => {
+    if (quantity > 1) {
+      setQuantity((prev) => prev - 1)
+    }
   }
 
   return (
-    <div className="min-h-screen py-32 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen py-32 px-4 sm:px-6 lg:px-8 bg-space-dark text-space-light">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Image Section */}
@@ -31,16 +44,26 @@ export default function ProductDetailPage() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="relative aspect-square rounded-2xl overflow-hidden 
-              bg-gradient-to-br from-gray-800/50 to-gray-900/50
-              backdrop-blur-md border border-gray-700/50"
+              bg-gradient-to-br from-space-accent/20 to-space-accent/10
+              backdrop-blur-md border border-space-accent/30"
           >
-            <Image 
-              src={product.image} 
-              alt={product.name} 
+            <Image
+              src={product.image || "/placeholder.svg"}
+              alt={product.name}
               fill
               className="object-cover hover:scale-105 transition-transform duration-500"
               priority
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-space-dark/80 to-transparent" />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="absolute bottom-4 left-4 right-4 bg-space-accent/20 backdrop-blur-md rounded-lg p-4"
+            >
+              <h2 className="text-xl font-semibold text-space-light mb-2">{product.name}</h2>
+              <p className="text-space-light/80">{product.category}</p>
+            </motion.div>
           </motion.div>
 
           {/* Content Section */}
@@ -49,50 +72,113 @@ export default function ProductDetailPage() {
             animate={{ opacity: 1, x: 0 }}
             className="flex flex-col justify-center"
           >
-            <h1 className="text-3xl sm:text-4xl font-bold 
-              bg-gradient-to-r from-white to-indigo-400 bg-clip-text text-transparent">
+            <h1
+              className="text-3xl sm:text-4xl font-bold 
+              bg-gradient-to-r from-space-light via-space-accent to-space-highlight bg-clip-text text-transparent"
+            >
               {product.name}
             </h1>
-            
+
             <div className="flex items-center gap-2 mt-4">
-              <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
-              <span className="text-gray-400">{product.ratings} ({product.reviews} reviews)</span>
+              <Star className="w-5 h-5 text-space-highlight fill-space-highlight" />
+              <span className="text-space-light/80">
+                {product.ratings} ({product.reviews} reviews)
+              </span>
             </div>
 
-            <p className="text-2xl font-mono text-indigo-400 mt-4">
-              ${product.price.toFixed(2)}
-            </p>
+            <p className="text-2xl font-mono text-space-accent mt-4">${product.price.toFixed(2)}</p>
 
-            <p className="text-gray-300 mt-6">{product.description}</p>
+            <div className="mt-6 space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-space-light/80">Quantity:</span>
+                <div className="flex items-center space-x-2 bg-space-accent/20 rounded-full">
+                  <button
+                    onClick={decrementQuantity}
+                    disabled={quantity <= 1}
+                    className="p-2 text-space-light hover:bg-space-accent/30 disabled:opacity-50 disabled:cursor-not-allowed transition-colors rounded-l-full"
+                    aria-label="Decrease quantity"
+                  >
+                    <Minus size={16} />
+                  </button>
+                  <span className="text-sm text-space-light font-mono px-2">{quantity}</span>
+                  <button
+                    onClick={incrementQuantity}
+                    disabled={quantity >= product.stock}
+                    className="p-2 text-space-light hover:bg-space-accent/30 disabled:opacity-50 disabled:cursor-not-allowed transition-colors rounded-r-full"
+                    aria-label="Increase quantity"
+                  >
+                    <Plus size={16} />
+                  </button>
+                </div>
+              </div>
+
+              <AddToCart
+                productId={product.id}
+                quantity={quantity}
+                disabled={product.stock === 0}
+                className="w-full bg-space-accent hover:bg-space-accent/80 text-space-dark font-semibold py-3 rounded-lg transition-colors"
+              />
+            </div>
 
             <div className="grid grid-cols-2 gap-4 mt-8">
-              <div className="flex items-center gap-2 text-gray-400">
-                <Truck className="w-5 h-5" />
-                <span>Free Shipping</span>
+              <div className="flex items-center gap-2 text-space-light/80">
+                <Truck className="w-5 h-5 text-space-highlight" />
+                <span>Free Interstellar Shipping</span>
               </div>
-              <div className="flex items-center gap-2 text-gray-400">
-                <Shield className="w-5 h-5" />
-                <span>1 Year Warranty</span>
+              <div className="flex items-center gap-2 text-space-light/80">
+                <Shield className="w-5 h-5 text-space-highlight" />
+                <span>1 Light-Year Warranty</span>
               </div>
             </div>
 
-            <div className="mt-8">
-            <AddToCart productId={product.id} quantity={quantity} disabled={product.stock === 0} className="w-full" />
-            </div>
-
-            {/* Additional Details */}
-            <div className="mt-8 p-4 rounded-xl bg-gray-800/30 border border-gray-700/50">
-              <h3 className="font-semibold mb-2">Product Details</h3>
-              <div className="grid grid-cols-2 gap-4 text-sm text-gray-400">
-                <div>SKU: {product.sku}</div>
-                <div>Category: {product.category}</div>
-                <div>Stock: {product.stock} units</div>
-                <div>Weight: {product.weight}</div>
+            {/* Tabs for Additional Information */}
+            <div className="mt-12">
+              <div className="flex space-x-4 border-b border-space-accent/30">
+                {["description", "details", "reviews"].map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={`pb-2 font-medium transition-colors ${
+                      activeTab === tab
+                        ? "text-space-highlight border-b-2 border-space-highlight"
+                        : "text-space-light/60 hover:text-space-light"
+                    }`}
+                  >
+                    {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                  </button>
+                ))}
               </div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeTab}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.2 }}
+                  className="mt-4"
+                >
+                  {activeTab === "description" && <p className="text-space-light/80">{product.description}</p>}
+                  {activeTab === "details" && (
+                    <div className="grid grid-cols-2 gap-4 text-sm text-space-light/80">
+                      <div>SKU: {product.sku}</div>
+                      <div>Category: {product.category}</div>
+                      <div>Stock: {product.stock} units</div>
+                      <div>Weight: {product.weight}</div>
+                      <div>Dimensions: {product.dimensions}</div>
+                    </div>
+                  )}
+                  {activeTab === "reviews" && (
+                    <div className="space-y-4">
+                      <p className="text-space-light/80">Customer reviews coming soon...</p>
+                    </div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
             </div>
           </motion.div>
         </div>
       </div>
     </div>
-  );
-} 
+  )
+}
+
