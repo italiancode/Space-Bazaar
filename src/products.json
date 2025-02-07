@@ -27,7 +27,7 @@
         "sku": "SPX-MARS-ROVER-002",
         "dimensions": "20cm x 10cm x 10cm",
         "weight": "0.5kg",
-        "featured": true
+        "featured": false
     },
     {
         "id": 3,
@@ -42,7 +42,7 @@
         "sku": "SPX-POSTER-003",
         "dimensions": "60cm x 90cm",
         "weight": "0.3kg",
-        "featured": true
+        "featured": false
     },
     {
         "id": 4,
@@ -61,9 +61,9 @@
     },
     {
         "id": 5,
-        "name": "Astronaut Helmet Replica",
-        "image": "/products/helmet.webp",
-        "price": 199.99,
+        "name": "Starship Adjustable Cap",
+        "image": "https://shop.spacex.com/cdn/shop/products/MicrosoftTeams-image_23_400x.png?v=1668472985",
+        "price": 35.0,
         "category": "Collectibles",
         "stock": 10,
         "description": "A life-sized replica of an astronaut helmet. A stunning piece for collectors and space enthusiasts.",
@@ -72,13 +72,13 @@
         "sku": "SPX-HELMET-005",
         "dimensions": "30cm x 30cm x 35cm",
         "weight": "2.5kg",
-        "featured": false
+        "featured": true
     },
     {
         "id": 6,
-        "name": "SpaceX Keychain",
-        "image": "/products/keychain.webp",
-        "price": 7.99,
+        "name": "Remove Before Flight SpaceX Key Chains",
+        "image": "https://shop.spacex.com/cdn/shop/products/NewRBF_Starship_Dragon_700x.png?v=1660350179",
+        "price": 15.0,
         "category": "Accessories",
         "stock": 300,
         "description": "A sleek keychain featuring the SpaceX logo, crafted from premium materials for durability.",
@@ -87,6 +87,6 @@
         "sku": "SPX-KEYCHAIN-006",
         "dimensions": "5cm x 3cm",
         "weight": "0.1kg",
-        "featured": false
+        "featured": true
     }
 ]

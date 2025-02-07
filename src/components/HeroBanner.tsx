@@ -2,9 +2,8 @@
 
 import { motion, useAnimation } from "framer-motion";
 import { StarryBackground } from "./effects/StarryBackground";
-import { ShoppingCart, Store } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { useState, useEffect } from "react";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 export default function HeroBanner() {
@@ -12,97 +11,62 @@ export default function HeroBanner() {
   const controls = useAnimation();
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowDescription(true), 2000);
+    const timer = setTimeout(() => setShowDescription(true), 1500);
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    controls.start({
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: "easeOut" },
-    });
-  }, [controls]);
-
   return (
-    <section className="h-[50vh] md:h-[60vh] max-h-[800px] overflow-hidden relative bg-gradient-to-b from-[#0a1128] to-[#1c3a70] z-10">
+    <section className="h-[60vh] md:h-[75vh] max-h-[800px] min-h-[500px] overflow-hidden relative bg-gradient-to-b from-[#0a1128] to-[#1c3a70] z-10">
       <div className="absolute inset-0 z-10">
         <StarryBackground />
       </div>
 
-      <div className="absolute inset-0 flex flex-col-reverse lg:flex-row items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div className="text-center lg:text-center z-20 max-w-4xl lg:w-1/2 mx-auto my-auto">
+      <div className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
+        <div className="text-center z-20 max-w-4xl mx-auto">
           <motion.div
-            className="flex flex-col items-center justify-center space-y-2"
-            initial={{ opacity: 0, y: -50 }}
-            animate={controls}
-          >
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-white to-[var(--accent-blue)] bg-clip-text text-transparent px-4">
-              <span className="inline-block whitespace-nowrap">Explore the Universe</span>
-              <br className="hidden sm:block" />
-              <span className="inline-block whitespace-nowrap">of SpaceX Collectibles</span>
-            </h1>
-          </motion.div>
-
-          <motion.p
-            className="text-sm sm:text-base md:text-lg text-gray-300 max-w-2xl mx-auto mb-8 mt-6 px-4"
             initial={{ opacity: 0, y: 20 }}
-            animate={{
-              opacity: showDescription ? 1 : 0,
-              y: showDescription ? 0 : 20,
-            }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
           >
-            An online marketplace where users can buy and sell SpaceX merchandise, 
-            with a portion of the profits going towards funding future space exploration missions.
-          </motion.p>
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight">
+              <span className="bg-gradient-to-r from-white via-blue-100 to-indigo-200 bg-clip-text text-transparent">
+                Space Bazaar
+              </span>
+            </h1>
+            
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: showDescription ? 1 : 0 }}
+              transition={{ duration: 1 }}
+              className="mt-8 text-xl sm:text-2xl text-gray-300/90 max-w-2xl mx-auto font-light"
+            >
+              Discover authentic space collectibles and gear from the frontiers of exploration
+            </motion.p>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2, duration: 0.5 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 px-4"
+            transition={{ delay: 0.8, duration: 0.8 }}
+            className="mt-12"
           >
             <Link
               href="/shop"
-              className={cn(
-                "bg-[var(--accent-blue)] text-white hover:bg-[var(--accent-blue)]/90",
-                "w-full sm:w-auto",
-                "px-6 py-2 sm:px-8 sm:py-3 lg:px-10 lg:py-4",
-                "text-sm sm:text-base lg:text-lg font-semibold",
-                "rounded-full shadow-md hover:shadow-xl transition-all duration-300",
-                "flex items-center justify-center gap-2",
-                "hover:scale-105 transform transition-transform"
-              )}
+              className="group relative inline-flex items-center justify-center
+                bg-gradient-to-r from-accent-blue to-accent-purple px-8 py-3
+                text-lg font-medium text-white overflow-hidden rounded-full
+                transition-all duration-300
+                hover:shadow-[0_0_30px_rgba(79,70,229,0.5)]"
             >
-              <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
-              <span className="whitespace-nowrap">Start Shopping</span>
-            </Link>
-
-            <Link
-              href="/about"
-              className={cn(
-                "border border-white text-white hover:bg-white hover:text-[var(--accent-blue)]",
-                "w-full sm:w-auto",
-                "px-6 py-2 sm:px-8 sm:py-3 lg:px-10 lg:py-4",
-                "text-sm sm:text-base lg:text-lg font-semibold",
-                "rounded-full shadow-md hover:shadow-lg transition-all duration-300",
-                "flex items-center justify-center gap-2",
-                "hover:scale-105 transform transition-transform"
-              )}
-            >
-              <Store className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
-              <span className="whitespace-nowrap">{"I'm a Seller"}</span>
+              <span className="relative z-10 flex items-center gap-2">
+                <ShoppingCart className="w-5 h-5" />
+                Explore Collection
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-accent-purple to-accent-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </Link>
           </motion.div>
         </div>
       </div>
-
-      {/* Subtle Sound Effects */}
-      {/* <audio autoPlay loop>
-        <source src="/space-ambience.mp3" type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio> */}
     </section>
   );
 }

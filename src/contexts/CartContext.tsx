@@ -13,7 +13,7 @@ interface CartItem {
 
 interface CartContextType {
   cart: CartItem[];
-  addToCart: (id: number) => void;
+  addToCart: (productId: number, quantity?: number) => void;
   removeFromCart: (id: number) => void;
   updateQuantity: (id: number, quantity: number) => void;
 }
@@ -36,7 +36,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = (productId: number) => {
+  const addToCart = (productId: number, quantity: number = 1) => {
     const product = products.find(p => p.id === productId);
     if (!product) return;
 
@@ -44,7 +44,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       const existingItem = prevCart.find(item => item.id === productId);
       if (existingItem) {
         return prevCart.map(item =>
-          item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
+          item.id === productId ? { ...item, quantity: item.quantity + quantity } : item
         );
       }
       return [...prevCart, { 
@@ -52,7 +52,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         name: product.name,
         price: product.price,
         image: product.image,
-        quantity: 1 
+        quantity: quantity 
       }];
     });
   };

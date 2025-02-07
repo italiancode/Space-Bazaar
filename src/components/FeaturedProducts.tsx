@@ -1,4 +1,4 @@
-import ProductCard from "@/components/ProductCard";
+import ProductCard from "@/components/shop/ProductCard";
 import { motion, useAnimation } from "framer-motion";
 import { useEffect } from "react";
 import products from "@/products.json";
@@ -9,7 +9,11 @@ const featuredProducts = products.filter(product => product.featured).map(produc
   name: product.name,
   description: product.description,
   price: product.price,
-  imageUrl: product.image  // note: mapping 'image' from json to 'imageUrl' expected by ProductCard
+  image: product.image,
+  stock: product.stock,
+  ratings: product.ratings,
+  reviews: product.reviews,
+  sku: product.sku
 }));
 
 export default function FeaturedProducts() {
@@ -39,7 +43,7 @@ export default function FeaturedProducts() {
         </motion.h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {featuredProducts.map((product, index) => (
-            <ProductCard key={index} {...product} />
+            <ProductCard key={index} product={product} />
           ))}
         </div>
       </div>

@@ -6,33 +6,37 @@ import { ShoppingCart } from "lucide-react";
 
 interface AddToCartProps {
   productId: number;
+  quantity: number;
+  disabled?: boolean;
+  className?: string;
 }
 
-const AddToCart: React.FC<AddToCartProps> = ({ productId }) => {
+export default function AddToCart({ productId, quantity, disabled, className }: AddToCartProps) {
   const { addToCart } = useCart();
   const [addedToCart, setAddedToCart] = useState(false);
 
   const handleAddToCart = () => {
-    addToCart(productId);
+    addToCart(productId, quantity);
     setAddedToCart(true);
     setTimeout(() => setAddedToCart(false), 2000);
   };
 
   return (
-    <div className="relative">
-      <button 
+    <div className={`relative ${className}`}>
+      <button
         onClick={handleAddToCart}
-        className="group inline-flex items-center justify-center gap-2 
-          bg-gradient-to-r from-accent-blue to-accent-purple
+        disabled={disabled}
+        className="w-full min-w-[120px] whitespace-nowrap bg-gradient-to-r from-accent-blue to-accent-purple 
           hover:from-accent-purple hover:to-accent-blue
-          text-white rounded-full px-6 py-2 
-          transition-all duration-300 transform hover:scale-105
-          shadow-[0_0_10px_rgba(79,70,229,0.3)] 
-          hover:shadow-[0_0_20px_rgba(79,70,229,0.5)]
-          mx-auto"
+          text-white rounded-lg px-4 py-2
+          transition-all duration-300 transform hover:scale-[1.02]
+          disabled:opacity-50 disabled:cursor-not-allowed
+          disabled:hover:scale-100"
       >
-        <ShoppingCart className="w-5 h-5 transition-transform group-hover:rotate-12" />
-        <span className="whitespace-nowrap">Add to Cart</span>
+        <span className="flex items-center justify-center gap-2">
+          <ShoppingCart className="w-5 h-5" />
+          {disabled ? "Out of Stock" : "Add to Cart"}
+        </span>
       </button>
       
       {addedToCart && (
@@ -45,6 +49,4 @@ const AddToCart: React.FC<AddToCartProps> = ({ productId }) => {
       )}
     </div>
   );
-};
-
-export default AddToCart; 
+} 
