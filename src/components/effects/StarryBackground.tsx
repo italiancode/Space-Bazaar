@@ -23,21 +23,23 @@ interface StarryBackgroundProps {
 export function StarryBackground({ className }: StarryBackgroundProps) {
   const stars = useMemo(() => {
     const random = mulberry32(FIXED_SEED);
-    return Array.from({ length: 100 }, () => ({
-      left: `${random() * 100}%`,
-      top: `${random() * 100}%`,
-      size: random() * 2 + 1,
-      duration: random() * 3 + 2,
-      delay: random() * 2,
-    }));
-  }, []); // Empty dependency array ensures this only runs once
+    return Array.from({ length: 50 }) // Reduce from default number to 50 stars
+      .map(() => ({
+        left: `${random() * 100}%`,
+        top: `${random() * 100}%`,
+        size: `${random() * 2 + 1}px`,
+        duration: random() * 3 + 2,
+        delay: random() * 2,
+      }));
+  }, []);
 
   return (
-    <div className={`starry-background ${className}`}>
+    <div className={`fixed inset-0 overflow-hidden ${className}`}>
       {stars.map((star, i) => (
         <motion.div
           key={i}
-          className="absolute rounded-full bg-white"
+          className="absolute bg-white rounded-full"
+          initial={{ opacity: 0.2, scale: 0.8 }}
           animate={{
             opacity: [0.2, 1, 0.2],
             scale: [0.8, 1.2, 0.8],
@@ -46,13 +48,15 @@ export function StarryBackground({ className }: StarryBackgroundProps) {
             duration: star.duration,
             delay: star.delay,
             repeat: Infinity,
-            ease: "easeInOut",
+            ease: "linear",
+            repeatType: "loop"
           }}
           style={{
             left: star.left,
             top: star.top,
             width: star.size,
             height: star.size,
+            willChange: "transform, opacity" // Add will-change for better performance
           }}
         />
       ))}
