@@ -2,8 +2,6 @@ import ProductCard from "@/components/shop/ProductCard";
 import { motion, useAnimation } from "framer-motion";
 import { useEffect } from "react";
 import products from "@/products.json";
-import Link from "next/link";
-import { ShoppingBag } from "lucide-react";
 
 // Replace the hardcoded featuredProducts with filtered products from json
 const featuredProducts = products
