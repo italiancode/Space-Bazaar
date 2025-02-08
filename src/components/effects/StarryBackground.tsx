@@ -23,7 +23,7 @@ interface StarryBackgroundProps {
 export function StarryBackground({ className }: StarryBackgroundProps) {
   const stars = useMemo(() => {
     const random = mulberry32(FIXED_SEED);
-    return Array.from({ length: 50 }) // Reduce from default number to 50 stars
+    return Array.from({ length: 50 })
       .map(() => ({
         left: `${random() * 100}%`,
         top: `${random() * 100}%`,
@@ -34,7 +34,7 @@ export function StarryBackground({ className }: StarryBackgroundProps) {
   }, []);
 
   return (
-    <div className={`fixed inset-0 overflow-hidden ${className}`}>
+    <div className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}>
       {stars.map((star, i) => (
         <motion.div
           key={i}
@@ -56,7 +56,7 @@ export function StarryBackground({ className }: StarryBackgroundProps) {
             top: star.top,
             width: star.size,
             height: star.size,
-            willChange: "transform, opacity" // Add will-change for better performance
+            willChange: "transform, opacity"
           }}
         />
       ))}

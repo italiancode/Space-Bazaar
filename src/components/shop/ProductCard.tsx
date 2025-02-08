@@ -73,12 +73,15 @@ export default function ProductCard({ product }: ProductCardProps) {
   const handleLike = async (e: React.MouseEvent) => {
     e.stopPropagation()
 
+    // Optimistically update UI
+    setLiked(!liked)
+    setLikes((prev) => liked ? prev - 1 : prev + 1)
+
     try {
       const timestamp = new Date().toISOString()
       const productRef = doc(db, "products", product.id.toString())
 
       if (currentUser) {
-        // For logged in users, only use Firebase
         const userLikeRef = doc(db, `products/${product.id}/likes/${currentUser.uid}`)
         
         if (liked) {
@@ -92,7 +95,6 @@ export default function ProductCard({ product }: ProductCardProps) {
           })
         }
       } else {
-        // For guests, only use localStorage
         const guestLikes = JSON.parse(localStorage.getItem("guestLikes") || "{}")
         
         if (liked) {
@@ -105,10 +107,10 @@ export default function ProductCard({ product }: ProductCardProps) {
         
         localStorage.setItem("guestLikes", JSON.stringify(guestLikes))
       }
-
-      setLikes((prev) => liked ? prev - 1 : prev + 1)
-      setLiked(!liked)
     } catch (error) {
+      // Revert UI on error
+      setLiked(liked)
+      setLikes((prev) => liked ? prev + 1 : prev - 1)
       console.error("Error updating likes:", error)
     }
   }

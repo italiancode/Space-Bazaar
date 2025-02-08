@@ -2,19 +2,23 @@ import ProductCard from "@/components/shop/ProductCard";
 import { motion, useAnimation } from "framer-motion";
 import { useEffect } from "react";
 import products from "@/products.json";
+import Link from "next/link";
+import { ShoppingBag } from "lucide-react";
 
 // Replace the hardcoded featuredProducts with filtered products from json
-const featuredProducts = products.filter(product => product.featured).map(product => ({
-  id: product.id,
-  name: product.name,
-  description: product.description,
-  price: product.price,
-  image: product.image,
-  stock: product.stock,
-  ratings: product.ratings,
-  reviews: product.reviews,
-  sku: product.sku
-}));
+const featuredProducts = products
+  .filter((product) => product.featured)
+  .map((product) => ({
+    id: product.id,
+    name: product.name,
+    description: product.description,
+    price: product.price,
+    image: product.image,
+    stock: product.stock,
+    ratings: product.ratings,
+    reviews: product.reviews,
+    sku: product.sku,
+  }));
 
 export default function FeaturedProducts() {
   const controls = useAnimation();
@@ -26,6 +30,7 @@ export default function FeaturedProducts() {
   return (
     <section className="relative py-14 px-4">
       {/* Top fade & glow effect - blending with hero */}
+
       <div className="absolute inset-x-0 top-0 h-40 z-0">
         <div className="absolute inset-x-0 top-0 h-full bg-gradient-to-b from-[#1c3a70] via-background/10 to-transparent" />
 
