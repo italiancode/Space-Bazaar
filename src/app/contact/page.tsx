@@ -6,17 +6,15 @@ import StarryBackground from "@/components/effects/StarryBackground";
 import { useState } from "react";
 
 export default function Contact() {
-  const [formStatus, setFormStatus] = useState<
-    "idle" | "sending" | "sent" | "error"
-  >("idle");
+  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormStatus("sending");
+    setFormStatus('sending');
 
     // Add your form submission logic here
     // For now, we'll simulate a submission
-    setTimeout(() => setFormStatus("sent"), 1000);
+    setTimeout(() => setFormStatus('sent'), 1000);
   };
 
   return (
@@ -32,7 +30,7 @@ export default function Contact() {
             Contact Space Bazaar
           </h1>
           <p className="text-xl text-gray-400">
-            Have questions? We'd love to hear from you.
+            Have questions? We&apos;d love to hear from you.
           </p>
         </motion.div>
 
@@ -49,7 +47,7 @@ export default function Contact() {
                   <h3 className="text-lg font-semibold text-white">Email Us</h3>
                   <p className="text-gray-400">support@spacebazaar.com</p>
                   <p className="text-sm text-gray-500">
-                    We'll respond within 24 hours
+                    We&apos;ll respond within 24 hours
                   </p>
                 </div>
               </div>
@@ -132,19 +130,19 @@ export default function Contact() {
 
               <button
                 type="submit"
-                disabled={formStatus === "sending" || formStatus === "sent"}
+                disabled={formStatus === 'sending' || formStatus === 'sent'}
                 className={`w-full px-6 py-3 rounded-lg text-white font-medium
                   transition-all duration-300 ${
-                    formStatus === "sent"
-                      ? "bg-green-600"
-                      : "bg-gradient-to-r from-accent-blue to-accent-purple hover:from-accent-purple hover:to-accent-blue"
+                    formStatus === 'sent'
+                      ? 'bg-green-600'
+                      : 'bg-gradient-to-r from-accent-blue to-accent-purple hover:from-accent-purple hover:to-accent-blue'
                   }`}
               >
-                {formStatus === "sending"
-                  ? "Sending..."
-                  : formStatus === "sent"
-                  ? "Message Sent!"
-                  : "Send Message"}
+                {formStatus === 'sending'
+                  ? 'Sending...'
+                  : formStatus === 'sent'
+                  ? 'Message Sent!'
+                  : 'Send Message'}
               </button>
             </form>
           </motion.div>
