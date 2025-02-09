@@ -1,12 +1,31 @@
 import type { NextConfig } from "next";
 
-
-
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   images: {
-    domains: ["shop.spacex.com"], // Add the domain here
+    domains: [
+      'space-bazaar.vercel.app',
+      'shop.spacex.com'
+    ],
+    remotePatterns: [{
+      protocol: 'https',
+      hostname: 'space-bazaar.vercel.app',
+      port: '',
+      pathname: '/**',
+    },
+    {
+      protocol: 'https',
+      hostname: 'shop.spacex.com',
+      port: '',
+      pathname: '/cdn/**',
+    }],
+  },
+  swcMinify: true,
+  reactStrictMode: true,
+  poweredByHeader: false,
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production",
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
