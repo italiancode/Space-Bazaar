@@ -1,20 +1,22 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, MessageSquare, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 import StarryBackground from "@/components/effects/StarryBackground";
 import { useState } from "react";
 
 export default function Contact() {
-  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [formStatus, setFormStatus] = useState<
+    "idle" | "sending" | "sent" | "error"
+  >("idle");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormStatus('sending');
-    
+    setFormStatus("sending");
+
     // Add your form submission logic here
     // For now, we'll simulate a submission
-    setTimeout(() => setFormStatus('sent'), 1000);
+    setTimeout(() => setFormStatus("sent"), 1000);
   };
 
   return (
@@ -46,7 +48,9 @@ export default function Contact() {
                 <div>
                   <h3 className="text-lg font-semibold text-white">Email Us</h3>
                   <p className="text-gray-400">support@spacebazaar.com</p>
-                  <p className="text-sm text-gray-500">We'll respond within 24 hours</p>
+                  <p className="text-sm text-gray-500">
+                    We'll respond within 24 hours
+                  </p>
                 </div>
               </div>
 
@@ -55,7 +59,9 @@ export default function Contact() {
                 <div>
                   <h3 className="text-lg font-semibold text-white">Call Us</h3>
                   <p className="text-gray-400">+1 (555) 123-4567</p>
-                  <p className="text-sm text-gray-500">Mon-Fri from 9am to 6pm EST</p>
+                  <p className="text-sm text-gray-500">
+                    Mon-Fri from 9am to 6pm EST
+                  </p>
                 </div>
               </div>
 
@@ -77,7 +83,10 @@ export default function Contact() {
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-300">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-300"
+                >
                   Name
                 </label>
                 <input
@@ -90,7 +99,10 @@ export default function Contact() {
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-300"
+                >
                   Email
                 </label>
                 <input
@@ -103,7 +115,10 @@ export default function Contact() {
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-300">
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium text-gray-300"
+                >
                   Message
                 </label>
                 <textarea
@@ -117,17 +132,19 @@ export default function Contact() {
 
               <button
                 type="submit"
-                disabled={formStatus === 'sending' || formStatus === 'sent'}
+                disabled={formStatus === "sending" || formStatus === "sent"}
                 className={`w-full px-6 py-3 rounded-lg text-white font-medium
                   transition-all duration-300 ${
-                    formStatus === 'sent'
-                      ? 'bg-green-600'
-                      : 'bg-gradient-to-r from-accent-blue to-accent-purple hover:from-accent-purple hover:to-accent-blue'
+                    formStatus === "sent"
+                      ? "bg-green-600"
+                      : "bg-gradient-to-r from-accent-blue to-accent-purple hover:from-accent-purple hover:to-accent-blue"
                   }`}
               >
-                {formStatus === 'sending' ? 'Sending...' : 
-                 formStatus === 'sent' ? 'Message Sent!' : 
-                 'Send Message'}
+                {formStatus === "sending"
+                  ? "Sending..."
+                  : formStatus === "sent"
+                  ? "Message Sent!"
+                  : "Send Message"}
               </button>
             </form>
           </motion.div>
@@ -135,4 +152,4 @@ export default function Contact() {
       </div>
     </div>
   );
-} 
+}

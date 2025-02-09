@@ -29,7 +29,9 @@ export default function About() {
           className="prose prose-invert max-w-none mb-16"
         >
           <p className="text-lg text-gray-300 leading-relaxed mb-8">
-            Space Bazaar was born from a passion for space exploration and the desire to make space-related merchandise accessible to enthusiasts worldwide. We believe that every purchase is more than just a transaction—it's an investment in humanity's future among the stars.
+            {
+              "Space Bazaar was born from a passion for space exploration and the desire to make space-related merchandise accessible to enthusiasts worldwide. We believe that every purchase is more than just a transaction—it's an investment in humanity's future among the stars."
+            }
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
@@ -37,23 +39,27 @@ export default function About() {
               {
                 icon: Shield,
                 title: "Authenticity Guaranteed",
-                description: "Every item in our collection is verified authentic SpaceX merchandise."
+                description:
+                  "Every item in our collection is verified authentic SpaceX merchandise.",
               },
               {
                 icon: Rocket,
                 title: "Mission Support",
-                description: "A portion of every sale supports space exploration initiatives."
+                description:
+                  "A portion of every sale supports space exploration initiatives.",
               },
               {
                 icon: Users,
                 title: "Community First",
-                description: "Built by space enthusiasts, for space enthusiasts."
+                description:
+                  "Built by space enthusiasts, for space enthusiasts.",
               },
               {
                 icon: Star,
                 title: "Quality Assured",
-                description: "Rigorous quality control for every product we offer."
-              }
+                description:
+                  "Rigorous quality control for every product we offer.",
+              },
             ].map((feature, index) => (
               <motion.div
                 key={index}
@@ -74,14 +80,18 @@ export default function About() {
           <div className="text-gray-300 space-y-6">
             <h2 className="text-2xl font-bold text-white mb-4">Our Vision</h2>
             <p>
-              We envision a future where space exploration is not just a dream but a shared human endeavor. Space Bazaar serves as a bridge between space enthusiasts and authentic SpaceX merchandise, fostering a community that actively participates in humanity's journey to the stars.
+              {
+                "We envision a future where space exploration is not just a dream but a shared human endeavor. Space Bazaar serves as a bridge between space enthusiasts and authentic SpaceX merchandise, fostering a community that actively participates in humanity's journey to the stars."
+              }
             </p>
             <p>
-              Through our platform, we're not just selling products—we're fueling dreams, supporting innovation, and building a community of space enthusiasts who believe in a multi-planetary future for humanity.
+              {
+                "Through our platform, we're not just selling products—we're fueling dreams, supporting innovation, and building a community of space enthusiasts who believe in a multi-planetary future for humanity."
+              }
             </p>
           </div>
         </motion.div>
       </div>
     </div>
   );
-} 
+}
