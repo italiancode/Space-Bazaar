@@ -10,7 +10,12 @@ import { useCart } from "@/contexts/CartContext";
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [logoError, setLogoError] = useState(false);
-  const navItems = ["Shop", "Categories", "About", "Contact"];
+  const navItems = [
+    { name: "Shop", path: "/shop" },
+    { name: "Categories", path: "/shop/categories" },
+    { name: "About", path: "/about" },
+    { name: "Contact", path: "/contact" }
+  ];
   const [isCartBadgeAnimating, setIsCartBadgeAnimating] = useState(false);
   const { cart } = useCart();
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
@@ -65,11 +70,11 @@ export default function Header() {
             <nav className="hidden md:flex items-center space-x-4 lg:space-x-8">
               {navItems.map((item) => (
                 <Link
-                  key={item}
-                  href={`/${item.toLowerCase()}`}
+                  key={item.name}
+                  href={item.path}
                   className="header-hover text-sm lg:text-base text-white/90 hover:text-white transition-colors whitespace-nowrap"
                 >
-                  {item}
+                  {item.name}
                 </Link>
               ))}
             </nav>
@@ -150,13 +155,13 @@ export default function Header() {
               <nav className="relative flex flex-col px-4 py-4 space-y-4">
                 {navItems.map((item) => (
                   <Link
-                    key={item}
-                    href={`/${item.toLowerCase()}`}
+                    key={item.name}
+                    href={item.path}
                     className="text-base sm:text-lg header-hover text-white/90 group"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <span className="relative">
-                      {item}
+                      {item.name}
                       <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-header-hover transition-all group-hover:w-full" />
                     </span>
                   </Link>

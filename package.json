@@ -11,7 +11,6 @@
     "git-commit-push-force": "git add . && git commit -m \"Something just got updated!\" --no-verify && git push origin main --force"
   },
   "dependencies": {
-    "@next/font": "^14.2.15",
     "@radix-ui/react-avatar": "^1.1.2",
     "@radix-ui/react-dialog": "^1.1.4",
     "@radix-ui/react-progress": "^1.1.1",
