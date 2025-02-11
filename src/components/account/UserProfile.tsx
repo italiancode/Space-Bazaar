@@ -42,7 +42,7 @@ export default function UserProfile({ user }: UserProfileProps) {
           </Button>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 mt-6">
+        {/* <div className="grid grid-cols-2 gap-4 mt-6">
           <div className="bg-indigo-700 p-4 rounded-lg">
             <p className="text-indigo-200">Reputation</p>
             <p className="text-2xl font-bold flex items-center">
@@ -53,7 +53,7 @@ export default function UserProfile({ user }: UserProfileProps) {
             <p className="text-indigo-200">Trades</p>
             <p className="text-2xl font-bold">42</p>
           </div>
-        </div>
+        </div> */}
       </CardContent>
     </Card>
   );
