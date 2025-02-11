@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Bell, Rocket, LogOut, ShoppingBag } from "lucide-react";
