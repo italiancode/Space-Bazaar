@@ -11,8 +11,6 @@ import {
   signOut,
   onAuthStateChanged,
   User,
-  setPersistence,
-  browserSessionPersistence,
 } from "firebase/auth";
 import { auth, db } from "../config/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -31,8 +29,15 @@ interface CustomUser {
 
 interface AuthContextType {
   currentUser: CustomUser | null;
-  signInWithEmailAndPassword: (email: string, password: string) => Promise<void>;
-  signUpWithEmailAndPassword: (email: string, password: string, name: string) => Promise<void>;
+  signInWithEmailAndPassword: (
+    email: string,
+    password: string
+  ) => Promise<void>;
+  signUpWithEmailAndPassword: (
+    email: string,
+    password: string,
+    name: string
+  ) => Promise<void>;
   logout: () => Promise<void>;
   isLoggingOut: boolean;
   isLoggingIn: boolean;
@@ -69,11 +74,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => unsubscribe();
   }, []);
 
-  const signInWithEmailAndPasswordHandler = async (email: string, password: string): Promise<void> => {
+  const signInWithEmailAndPasswordHandler = async (
+    email: string,
+    password: string
+  ): Promise<void> => {
     if (isLoggingIn) return;
     try {
       setIsLoggingIn(true);
-      await setPersistence(auth, browserSessionPersistence);
+
       await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
       console.error("Sign in error:", error);
@@ -82,12 +90,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const signUpWithEmailAndPasswordHandler = async (email: string, password: string, name: string): Promise<void> => {
+  const signUpWithEmailAndPasswordHandler = async (
+    email: string,
+    password: string,
+    name: string
+  ): Promise<void> => {
     if (isLoggingIn) return;
     try {
       setIsLoggingIn(true);
-      await setPersistence(auth, browserSessionPersistence);
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = userCredential.user;
       const userData: CustomUser = {
         uid: user.uid,
@@ -98,7 +114,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       };
       await updateUserInFirestore(userData);
       setCurrentUser(userData);
-      setCookie("user", JSON.stringify(userData), { maxAge: 30 * 24 * 60 * 60, path: "/" });
+      setCookie("user", JSON.stringify(userData), {
+        maxAge: 30 * 24 * 60 * 60,
+        path: "/",
+      });
       redirectToReturnUrl();
     } catch (error) {
       console.error("Sign up error:", error);
@@ -122,7 +141,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       await updateUserInFirestore(userData);
       setCurrentUser(userData);
-      setCookie("user", JSON.stringify(userData), { maxAge: 30 * 24 * 60 * 60, path: "/" });
+      setCookie("user", JSON.stringify(userData), {
+        maxAge: 30 * 24 * 60 * 60,
+        path: "/",
+      });
       redirectToReturnUrl();
     } catch (error) {
       console.error("Authentication error:", error);
