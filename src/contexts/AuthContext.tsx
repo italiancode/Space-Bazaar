@@ -6,12 +6,11 @@ import React, {
   useCallback,
 } from "react";
 import {
-  signInWithRedirect,
-  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
   User,
-  signInWithPopup,
   setPersistence,
   browserSessionPersistence,
 } from "firebase/auth";
@@ -32,7 +31,8 @@ interface CustomUser {
 
 interface AuthContextType {
   currentUser: CustomUser | null;
-  signInWithGoogle: () => Promise<void>;
+  signInWithEmailAndPassword: (email: string, password: string) => Promise<void>;
+  signUpWithEmailAndPassword: (email: string, password: string, name: string) => Promise<void>;
   logout: () => Promise<void>;
   isLoggingOut: boolean;
   isLoggingIn: boolean;
@@ -69,19 +69,39 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => unsubscribe();
   }, []);
 
-  const signInWithGoogle = async (): Promise<void> => {
+  const signInWithEmailAndPasswordHandler = async (email: string, password: string): Promise<void> => {
     if (isLoggingIn) return;
     try {
       setIsLoggingIn(true);
-      const provider = new GoogleAuthProvider();
       await setPersistence(auth, browserSessionPersistence);
-      if (typeof window !== "undefined" && window.innerWidth < 768) {
-        await signInWithRedirect(auth, provider);
-      } else {
-        await signInWithPopup(auth, provider);
-      }
+      await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
       console.error("Sign in error:", error);
+    } finally {
+      setIsLoggingIn(false);
+    }
+  };
+
+  const signUpWithEmailAndPasswordHandler = async (email: string, password: string, name: string): Promise<void> => {
+    if (isLoggingIn) return;
+    try {
+      setIsLoggingIn(true);
+      await setPersistence(auth, browserSessionPersistence);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      const userData: CustomUser = {
+        uid: user.uid,
+        id: user.uid,
+        name: name,
+        email: user.email || "",
+        role: "user", // Default role for new users
+      };
+      await updateUserInFirestore(userData);
+      setCurrentUser(userData);
+      setCookie("user", JSON.stringify(userData), { maxAge: 30 * 24 * 60 * 60, path: "/" });
+      redirectToReturnUrl();
+    } catch (error) {
+      console.error("Sign up error:", error);
     } finally {
       setIsLoggingIn(false);
     }
@@ -112,7 +132,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const updateUserInFirestore = async (user: CustomUser) => {
     try {
       const userRef = doc(db, "users", user.uid);
-      await setDoc(userRef, { ...user, lastLogin: new Date().toISOString() }, { merge: true });
+      const userDataToUpdate = {
+        ...user,
+        lastLogin: new Date().toISOString(),
+      };
+
+      // Remove photoURL if it's undefined
+      if (userDataToUpdate.photoURL === undefined) {
+        delete userDataToUpdate.photoURL;
+      }
+
+      await setDoc(userRef, userDataToUpdate, { merge: true });
     } catch (error) {
       console.error("Firestore update error:", error);
     }
@@ -154,7 +184,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <AuthContext.Provider
-      value={{ currentUser, signInWithGoogle, logout, isLoggingOut, isLoggingIn, user: currentUser, loading, initiateAuth }}
+      value={{
+        currentUser,
+        signInWithEmailAndPassword: signInWithEmailAndPasswordHandler,
+        signUpWithEmailAndPassword: signUpWithEmailAndPasswordHandler,
+        logout,
+        isLoggingOut,
+        isLoggingIn,
+        user: currentUser,
+        loading,
+        initiateAuth,
+      }}
     >
       {children}
     </AuthContext.Provider>
