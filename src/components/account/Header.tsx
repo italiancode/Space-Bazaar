@@ -41,7 +41,7 @@ const notifications = [
 
 export default function Header() {
   const { currentUser, logout } = useAuth();
-  const [activeNotification, setActiveNotification] = useState(0);
+  // const [activeNotification, setActiveNotification] = useState(0);
 
   return (
     <div className="bg-space-dark border-b border-space-accent/30 py-4 px-6">
