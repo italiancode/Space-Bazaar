@@ -32,6 +32,11 @@
     /* Font Settings */
     --font-geist-sans: "Geist Sans", sans-serif;
     --font-space: "Space Mono", monospace;
+    /* New Colors for the theme    */
+    --space-dark: #0a0b0e;
+    --space-light: #e0e7ff;
+    --space-accent: #4f46e5;
+    --space-highlight: #60a5fa;
 }
 
 body {
