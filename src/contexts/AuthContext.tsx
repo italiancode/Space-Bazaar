@@ -27,7 +27,6 @@ interface CustomUser {
   email: string;
   role: string;
   photoURL?: string;
-  avatar?: string;
 }
 
 interface AuthContextType {

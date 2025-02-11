@@ -1,7 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
-
 import UserProfile from "@/components/account/UserProfile";
 
 import { useAuth } from "@/contexts/AuthContext";

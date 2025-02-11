@@ -8,6 +8,7 @@ import AccountLayout from "@/components/layout/AccountLayout";
 import { Providers } from "@/components/providers/index";
 import { usePathname } from "next/navigation";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const metadata: Metadata = {
   title: "Space Bazaar | SpaceX Merchandise Marketplace",
   description:

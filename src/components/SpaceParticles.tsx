@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ShoppingCart, Star } from "lucide-react";
+import Image from "next/image";
 // put this in the featured categories component
 export const SpaceParticles = () => {
   return (
@@ -17,10 +18,12 @@ export const SpaceParticles = () => {
         </div>
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded-md bg-blue-400/20 flex items-center justify-center">
-            <img 
+            <Image 
               src="https://shop.spacex.com/cdn/shop/files/Unisex_SpaceX_PulloverHoodie_Charcoal_Front_600x.png?v=1731544477" 
               alt="Featured SpaceX Product"
               className="w-10 h-10 object-contain"
+              width={40}
+              height={40}
             />
           </div>
           <div>
