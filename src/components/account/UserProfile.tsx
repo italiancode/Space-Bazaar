@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LogOut, Shield, Star } from 'lucide-react';
+import { LogOut, Shield } from 'lucide-react';
 import { User } from "@/components/types/customer_user";
 import { Button } from "../ui/button";
 import { useAuth } from "@/contexts/AuthContext";
