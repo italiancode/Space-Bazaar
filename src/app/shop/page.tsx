@@ -3,12 +3,20 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ShoppingBag, Rocket, Star } from "lucide-react";
+import ProductCard from "@/components/shop/ProductCard";
+import productsData from "@/products.json";
+
 
 export default function ShopPage() {
+  const recommendedProducts = productsData.filter(product => 
+    // Example criteria - you can modify these based on your actual recommendation logic
+    product.category === "popular" || product.ratings >= 4
+  ).slice(0, 3);
+
   return (
     <div className="min-h-screen py-32 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
@@ -16,14 +24,28 @@ export default function ShopPage() {
           <h1 className="text-5xl font-bold bg-gradient-to-r from-white to-indigo-400 bg-clip-text text-transparent mb-4">
             Space Bazaar Store
           </h1>
-          <p className="text-xl text-gray-400">Your Gateway to Cosmic Collectibles</p>
+          <p className="text-xl text-gray-400">
+            Your Gateway to Cosmic Collectibles
+          </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {[
-            { icon: ShoppingBag, title: "Exclusive Products", desc: "Authentic SpaceX merchandise" },
-            { icon: Rocket, title: "Fast Shipping", desc: "Worldwide delivery" },
-            { icon: Star, title: "Premium Quality", desc: "Certified collectibles" }
+            {
+              icon: ShoppingBag,
+              title: "Exclusive Products",
+              desc: "Authentic SpaceX merchandise",
+            },
+            {
+              icon: Rocket,
+              title: "Fast Shipping",
+              desc: "Worldwide delivery",
+            },
+            {
+              icon: Star,
+              title: "Premium Quality",
+              desc: "Certified collectibles",
+            },
           ].map((feature, index) => (
             <motion.div
               key={index}
@@ -44,10 +66,32 @@ export default function ShopPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
+          className="mb-16"
+        >
+          <h2 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-white to-indigo-400 bg-clip-text text-transparent">
+            Recommended For You
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {recommendedProducts.map((product, index) => (
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <ProductCard product={product} />
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           className="text-center"
         >
           <Link
-            href="/shop/products" 
+            href="/shop/collections"
             className="inline-flex items-center gap-2 
               bg-gradient-to-r from-accent-blue to-accent-purple
               hover:from-accent-purple hover:to-accent-blue
@@ -58,10 +102,10 @@ export default function ShopPage() {
               text-lg font-semibold"
           >
             <ShoppingBag className="w-6 h-6" />
-            Explore Products
+            Explore Collections
           </Link>
         </motion.div>
       </div>
     </div>
   );
-} 
+}

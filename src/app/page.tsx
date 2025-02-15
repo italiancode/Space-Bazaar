@@ -18,7 +18,7 @@ export default function HomePage() {
           className="text-center mt-16 z-10"
         >
           <Link
-            href="/shop/products"
+            href="/shop"
             className="inline-flex items-center gap-2 
               bg-gradient-to-r from-accent-blue to-accent-purple
               hover:from-accent-purple hover:to-accent-blue
@@ -29,7 +29,7 @@ export default function HomePage() {
               text-lg font-semibold"
           >
             <ShoppingBag className="w-6 h-6" />
-            View All Products
+            Shop Now
           </Link>
         </motion.div>
       </div>

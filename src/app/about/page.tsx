@@ -2,12 +2,12 @@
 
 import { motion } from "framer-motion";
 import { Rocket, Shield, Users, Star } from "lucide-react";
-import StarryBackground from "@/components/effects/StarryBackground";
+// import StarryBackground from "@/components/effects/StarryBackground";
 
 export default function About() {
   return (
     <div className="relative min-h-screen py-32 px-4 sm:px-6 lg:px-8">
-      <StarryBackground className="z-0" />
+      {/* <StarryBackground className="z-0" /> */}
       <div className="max-w-4xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

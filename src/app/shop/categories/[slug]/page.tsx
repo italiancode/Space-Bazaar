@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useParams } from "next/navigation";
-import StarryBackground from "@/components/effects/StarryBackground";
+// import StarryBackground from "@/components/effects/StarryBackground";
 import ProductCard from "@/components/shop/ProductCard";
 import products from "products.json"; // Import the products JSON
 
@@ -21,7 +21,7 @@ export default function CategoryPage() {
 
   return (
     <div className="relative min-h-screen py-32 px-4 sm:px-6 lg:px-8">
-      <StarryBackground className="z-0" />
+      {/* <StarryBackground className="z-0" /> */}
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

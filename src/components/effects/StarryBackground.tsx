@@ -23,12 +23,13 @@ interface StarryBackgroundProps {
 export function StarryBackground({ className }: StarryBackgroundProps) {
   const stars = useMemo(() => {
     const random = mulberry32(FIXED_SEED);
-    return Array.from({ length: 50 })
+    // Reduced number of stars from 50 to 20
+    return Array.from({ length: 20 })
       .map(() => ({
         left: `${random() * 100}%`,
         top: `${random() * 100}%`,
         size: `${random() * 2 + 1}px`,
-        duration: random() * 3 + 2,
+        duration: random() * 4 + 3, // Slowed down animation
         delay: random() * 2,
       }));
   }, []);
@@ -38,11 +39,10 @@ export function StarryBackground({ className }: StarryBackgroundProps) {
       {stars.map((star, i) => (
         <motion.div
           key={i}
-          className="absolute bg-white rounded-full"
-          initial={{ opacity: 0.2, scale: 0.8 }}
+          className="absolute bg-white rounded-full opacity-40"
           animate={{
-            opacity: [0.2, 1, 0.2],
-            scale: [0.8, 1.2, 0.8],
+            opacity: [0.4, 0.8, 0.4], // Simplified opacity range
+            scale: [0.9, 1.1, 0.9], // Reduced scale range
           }}
           transition={{
             duration: star.duration,

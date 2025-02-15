@@ -17,9 +17,7 @@ export default function HeroBanner() {
 
   return (
     <section className="h-[60vh] md:h-[75vh] max-h-[800px] min-h-[500px] overflow-hidden relative bg-gradient-to-b from-[#0a1128] to-[#1c3a70] z-10">
-      <div className="absolute inset-0 z-10">
-        <StarryBackground />
-      </div>
+      <div className="absolute inset-0 z-10"><StarryBackground /></div>
 
       <div className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="text-center z-20 max-w-4xl mx-auto">
@@ -52,7 +50,7 @@ export default function HeroBanner() {
             className="mt-12"
           >
             <Link
-              href="/shop"
+              href="/shop/collections"
               className="group relative inline-flex items-center justify-center
                 bg-gradient-to-r from-accent-blue to-accent-purple px-8 py-3
                 text-lg font-medium text-white overflow-hidden rounded-full
