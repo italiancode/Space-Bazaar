@@ -76,7 +76,7 @@ const footerLinks = [
   {
     title: "Shop",
     links: [
-      { name: "All Products", href: "/shop/products" },
+      { name: "All Collections", href: "/shop/collections" },
       { name: "Categories", href: "/shop/categories" },
       // { name: "New Arrivals", href: "/new-arrivals" },
       // { name: "Best Sellers", href: "/best-sellers" },
