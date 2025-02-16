@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ShoppingBag, Rocket, Star } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 import ProductCard from "@/components/shop/ProductCard";
 import productsData from "@/products.json";
 
