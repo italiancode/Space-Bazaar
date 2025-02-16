@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
-import { useState, useEffect } from "react";
+import {  useEffect } from "react";
 import Link from "next/link";
 import { BannerStars } from "./effects/BannerStars";
 
