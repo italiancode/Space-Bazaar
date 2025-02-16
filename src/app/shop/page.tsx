@@ -41,7 +41,7 @@ export default function ShopPage() {
           className="mb-16"
         >
           <div className="flex justify-between items-center mb-8 whitespace-nowrap">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-white to-indigo-400 bg-clip-text text-transparent">
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-blue-100 to-indigo-200 bg-clip-text text-transparent">
               Recommended For You
             </h2>
             <Link

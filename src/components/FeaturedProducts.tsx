@@ -37,7 +37,7 @@ export default function FeaturedProducts() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.h2
-          className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-16 whitespace-nowrap bg-gradient-to-r from-white to-[#4F46E5] bg-clip-text text-transparent"
+          className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-16 whitespace-nowrap bg-gradient-to-r from-white via-blue-100 to-indigo-200 bg-clip-text text-transparent"
           initial={{ opacity: 0, y: 50 }}
           animate={controls}
           transition={{ duration: 0.8, ease: "easeOut" }}
