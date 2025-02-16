@@ -34,14 +34,16 @@ export default function HeroBanner() {
               </span>
             </h1>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="mt-4 text-lg font-light"
-            >
-              Authentic space collectibles and gear.
-            </motion.p>
+            {showDescription && (
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                className="mt-4 text-lg font-light"
+              >
+                Authentic space collectibles and gear.
+              </motion.p>
+            )}
           </motion.div>
 
           <motion.div
