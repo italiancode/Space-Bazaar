@@ -22,7 +22,7 @@ export default function ShopPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16 relative p-12 rounded-2xl overflow-hidden
-            bg-gradient-to-r from-transparent via-indigo-950/30 to-transparent
+            bg-gradient-to-b from-transparent to-indigo-950/30
              backdrop-blur-sm"
         >
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1),transparent)] animate-pulse" />
@@ -86,6 +86,7 @@ export default function ShopPage() {
           </Link>
         </motion.div>
       </div>
+      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-space-dark to-transparent" />
     </div>
   );
 }
