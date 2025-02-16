@@ -80,7 +80,7 @@ export default function Header() {
                   ></div>
                 </div>
 
-                <span className="inline text-md sm:text-xl font-bold text-white relative">
+                <span className="inline text-sm sm:text-xl font-bold text-white relative">
                   Space Bazaar
                   <span
                     className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 opacity-0 group-hover:opacity-50 transition-opacity duration-300 blur-sm"
@@ -129,11 +129,11 @@ export default function Header() {
                   )}
                 </Link>
 
-                <Link href="/account" className="relative p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors duration-200 shadow-[0_0_0_1px_rgba(255,255,255,0.1)] hover:shadow-[0_0_0_1px rgba(255,255,255,0.2)] focus:outline-none focus:ring-2 focus:ring-white/20">
+                <Link href="/account" className="hidden md:block relative p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors duration-200 shadow-[0_0_0_1px_rgba(255,255,255,0.1)] hover:shadow-[0_0_0_1px rgba(255,255,255,0.2)] focus:outline-none focus:ring-2 focus:ring-white/20">
                   <User className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 </Link>
 
-                <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="relative p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors duration-200 shadow-[0_0_0_1px_rgba(255,255,255,0.1)] hover:shadow-[0_0_0_1px rgba(255,255,255,0.2)] focus:outline-none focus:ring-2 focus:ring-white/20">
+                <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden relative p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors duration-200 shadow-[0_0_0_1px_rgba(255,255,255,0.1)] hover:shadow-[0_0_0_1px rgba(255,255,255,0.2)] focus:outline-none focus:ring-2 focus:ring-white/20">
                   {isMenuOpen ? (
                     <X className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   ) : (
@@ -170,6 +170,13 @@ export default function Header() {
                     {item.name}
                   </Link>
                 ))}
+                <Link
+                  href="/account"
+                  className="text-base text-white/90 hover:text-white transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Account
+                </Link>
               </nav>
             </motion.div>
           )}

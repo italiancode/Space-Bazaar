@@ -1,25 +1,15 @@
 "use client";
 
-
-
 import { ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { BannerStars } from "./effects/BannerStars";
 
 export default function HeroBanner() {
-  const [showDescription, setShowDescription] = useState(false);
-  // const controls = useAnimation();
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShowDescription(true), 1500);
-    return () => clearTimeout(timer);
-  }, []);
-
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      setShowDescription(scrollY > 100);
+      console.log(scrollY);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -38,11 +28,9 @@ export default function HeroBanner() {
               Space Bazaar
             </h1>
 
-            {showDescription && (
-              <p className="text-lg text-gray-300 mb-12">
-                Authentic space collectibles and gear
-              </p>
-            )}
+            <p className="text-lg text-gray-300 mb-12">
+              Authentic space collectibles and gear
+            </p>
 
             <div>
               <Link

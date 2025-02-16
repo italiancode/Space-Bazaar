@@ -4,6 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 // import { StarryBackground } from "../effects/StarryBackground";
 import { useEffect, useCallback } from "react";
+import { BannerStars } from "../effects/BannerStars";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const handleScroll = useCallback((entries: IntersectionObserverEntry[]) => {
@@ -30,7 +31,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="relative min-h-screen flex flex-col max-w-7xl mx-auto">
-      {/* <StarryBackground className="z-[0]" /> */}
+      <BannerStars />
       <Header />
       <main className="flex-grow pt-16 min-h-[90vh] xl:max-h-[50%] bg-background">
         {children}

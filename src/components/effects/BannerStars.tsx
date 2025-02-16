@@ -21,19 +21,18 @@ export const BannerStars: React.FC = () => {
     resizeCanvas()
     window.addEventListener("resize", resizeCanvas)
 
-    const stars: { x: number; y: number; radius: number; alpha: number; velocity: number }[] = []
+    const stars: { x: number; y: number; radius: number; alpha: number }[] = []
 
     for (let i = 0; i < 200; i++) {
       stars.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         radius: Math.random() * 1.5,
-        alpha: Math.random(),
-        velocity: Math.random() * 0.5,
+        alpha: Math.random() * 0.5,
       })
     }
 
-    const animate = () => {
+    const blinkStars = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       ctx.fillStyle = "white"
 
@@ -43,20 +42,16 @@ export const BannerStars: React.FC = () => {
         ctx.globalAlpha = star.alpha
         ctx.fill()
 
-        star.y += star.velocity
-        if (star.y > canvas.height) {
-          star.y = 0
-        }
-        star.alpha += 0.01
-        if (star.alpha > 1) {
-          star.alpha = 0
+        star.alpha += 0.005
+        if (star.alpha > 0.5) {
+          star.alpha = Math.random() * 0.2
         }
       })
 
-      requestAnimationFrame(animate)
+      requestAnimationFrame(blinkStars)
     }
 
-    animate()
+    blinkStars()
 
     return () => {
       window.removeEventListener("resize", resizeCanvas)
