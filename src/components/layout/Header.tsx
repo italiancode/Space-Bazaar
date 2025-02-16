@@ -30,29 +30,6 @@ export default function Header() {
     }
   }, [cartCount]);
 
-  const IconWrapper = ({
-    children,
-    href,
-    onClick = () => {},
-  }: {
-    children: ReactNode;
-    href?: string;
-    onClick?: () => void;
-  }) => {
-    const Component = href ? Link : "button";
-    return (
-      <Component
-        {...(href ? { href } : ({} as any))}
-        onClick={onClick}
-        className="relative p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors duration-200 
-                   shadow-[0_0_0_1px_rgba(255,255,255,0.1)] hover:shadow-[0_0_0_1px_rgba(255,255,255,0.2)]
-                   focus:outline-none focus:ring-2 focus:ring-white/20"
-      >
-        {children}
-      </Component>
-    );
-  };
-
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       <svg className="hidden">
@@ -125,12 +102,12 @@ export default function Header() {
               </nav>
 
               <div className="flex items-center space-x-2 sm:space-x-4">
-                <IconWrapper onClick={() => setIsSearchOverlayOpen(true)}>
-                  <Search className="w-5 h-5 text-white" />
-                </IconWrapper>
+                <Link href="#" onClick={() => setIsSearchOverlayOpen(true)} className="relative p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors duration-200 shadow-[0_0_0_1px_rgba(255,255,255,0.1)] hover:shadow-[0_0_0_1px rgba(255,255,255,0.2)] focus:outline-none focus:ring-2 focus:ring-white/20">
+                  <Search className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                </Link>
 
-                <IconWrapper href="/shop/cart">
-                  <ShoppingCart className="w-5 h-5 text-white" />
+                <Link href="/shop/cart" className="relative p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors duration-200 shadow-[0_0_0_1px_rgba(255,255,255,0.1)] hover:shadow-[0_0_0_1px rgba(255,255,255,0.2)] focus:outline-none focus:ring-2 focus:ring-white/20">
+                  <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   {cartCount > 0 && (
                     <motion.span
                       initial={{ scale: 0.5, opacity: 0 }}
@@ -150,19 +127,19 @@ export default function Header() {
                       {cartCount}
                     </motion.span>
                   )}
-                </IconWrapper>
+                </Link>
 
-                <IconWrapper href="/account">
-                  <User className="w-5 h-5 text-white" />
-                </IconWrapper>
+                <Link href="/account" className="relative p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors duration-200 shadow-[0_0_0_1px_rgba(255,255,255,0.1)] hover:shadow-[0_0_0_1px rgba(255,255,255,0.2)] focus:outline-none focus:ring-2 focus:ring-white/20">
+                  <User className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                </Link>
 
-                <IconWrapper onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="relative p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors duration-200 shadow-[0_0_0_1px_rgba(255,255,255,0.1)] hover:shadow-[0_0_0_1px rgba(255,255,255,0.2)] focus:outline-none focus:ring-2 focus:ring-white/20">
                   {isMenuOpen ? (
-                    <X className="w-5 h-5 text-white" />
+                    <X className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   ) : (
-                    <Menu className="w-5 h-5 text-white" />
+                    <Menu className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   )}
-                </IconWrapper>
+                </button>
               </div>
             </div>
           </div>
