@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, ShoppingBag } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import HeroBanner from "@/components/HeroBanner";
 
