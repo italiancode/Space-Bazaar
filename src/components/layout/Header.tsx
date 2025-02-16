@@ -102,6 +102,13 @@ export default function Header() {
                     animate={{
                       scale: isCartBadgeAnimating ? [1, 1.2, 1] : 1,
                       opacity: 1,
+                      background: isCartBadgeAnimating
+                        ? [
+                            "linear-gradient(to right, #ef4444, #7c3aed)",
+                            "linear-gradient(to right, #7c3aed, #ef4444)",
+                            "linear-gradient(to right, #ef4444, #7c3aed)",
+                          ]
+                        : "linear-gradient(to right, #ef4444, #7c3aed)",
                     }}
                     transition={{
                       duration: isCartBadgeAnimating ? 2 : 0.3,
