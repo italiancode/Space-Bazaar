@@ -213,8 +213,8 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
         </motion.div>
 
-        <div className="mt-auto pt-4">
-          <div className="flex flex-wrap items-center justify-between gap-2 mb-4 ">
+        <div className="mt-auto pt-4 flex justify-between items-center">
+          <div className="flex flex-wrap items-center justify-between gap-2 ">
             <div className="flex items-center gap-2">
               <button
                 onClick={handleLike}
@@ -252,7 +252,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               </button>
             </div>
           </div>
-          <AddToCart productId={product.id} quantity={quantity} disabled={product.stock === 0} className="w-full" />
+          <AddToCart productId={product.id} quantity={quantity} disabled={product.stock === 0} className="w-fit" />
         </div>
       </div>
     </motion.div>
