@@ -136,9 +136,9 @@ export default function Header() {
                   className="md:hidden relative p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors duration-200 shadow-[0_0_0_1px_rgba(255,255,255,0.1)] hover:shadow-[0_0_0_1px rgba(255,255,255,0.2)] focus:outline-none focus:ring-2 focus:ring-white/20"
                 >
                   {isMenuOpen ? (
-                    <X className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                    <div className="w-5 h-5 text-white"> {/* Close Icon */} X </div>
                   ) : (
-                    <Menu className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                    <div className="w-5 h-5 text-white"> {/* Dropdown Icon */} ▼ </div>
                   )}
                 </button>
               </div>
