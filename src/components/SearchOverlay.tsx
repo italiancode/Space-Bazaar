@@ -118,7 +118,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                 </div>
               ) : searchQuery.trim() !== "" ? (
                 <p className="text-center text-space-light/70">
-                  No results found for "{searchQuery}".
+                  No results found for &quot;{searchQuery}&quot;.
                 </p>
               ) : (
                 <p className="text-center text-space-light/70">
