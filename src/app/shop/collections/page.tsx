@@ -13,7 +13,7 @@ export default function ProductsPage() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16 relative p-12 rounded-2xl overflow-hidden
             bg-gradient-to-r from-transparent via-indigo-950/30 to-transparent
-            border border-white/10 backdrop-blur-sm"
+             backdrop-blur-sm"
         >
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1),transparent)] animate-pulse" />
           <div className="relative z-10">
