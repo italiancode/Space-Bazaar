@@ -101,7 +101,7 @@ export default function Header() {
                 ))}
               </nav>
 
-              <div className="flex items-center space-x-2 sm:space-x-4">
+              <div className="flex items-center space-x-4">
                 <Link href="#" onClick={() => setIsSearchOverlayOpen(true)} className="relative p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors duration-200 shadow-[0_0_0_1px_rgba(255,255,255,0.1)] hover:shadow-[0_0_0_1px rgba(255,255,255,0.2)] focus:outline-none focus:ring-2 focus:ring-white/20">
                   <Search className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 </Link>
