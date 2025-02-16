@@ -40,7 +40,7 @@ export default function Header() {
           <div className="absolute inset-0 header-glow" />
         </div>
 
-        <div className="backdrop-blur-md bg-black/30 border-b border-white/10">
+        <div className="backdrop-blur-md bg-gradient-to-b from-[#0a112813] to-[#1c397024]">
           <div className="px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16 sm:h-20">
               <Link href="/" className="flex items-center space-x-2 transition-opacity hover:opacity-80">
