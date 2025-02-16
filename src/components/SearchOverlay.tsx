@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CircleX, Search } from "lucide-react";
 import ProductCard from "./shop/ProductCard";
 import productsData from "@/products.json"; // Import products data
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 // Define the product interface
 interface Product {
@@ -33,6 +34,16 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
   const [searchResults, setSearchResults] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const previousPathname = useRef(pathname);
+  const previousSearchParams = useRef(searchParams);
+
+  const handleClose = useCallback(() => {
+    onClose();
+  }, [onClose]);
+
   // Reset search when overlay is closed
   useEffect(() => {
     if (!isOpen) {
@@ -40,6 +51,27 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
       setSearchResults([]);
     }
   }, [isOpen]);
+
+  // Detect route changes and close the overlay
+  useEffect(() => {
+    if (
+      isOpen &&
+      (pathname !== previousPathname.current ||
+        searchParams.toString() !== previousSearchParams.current.toString())
+    ) {
+      handleClose();
+      console.log("Route changed, overlay closed and search reset.");
+    }
+
+    // Update the previous route values
+    previousPathname.current = pathname;
+    previousSearchParams.current = searchParams;
+  }, [pathname, searchParams, isOpen, handleClose]);
+
+  // Log search query changes
+  useEffect(() => {
+    console.log("Search query updated:", searchQuery);
+  }, [searchQuery]);
 
   // Debounce search input
   useEffect(() => {
@@ -51,9 +83,13 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
     setIsLoading(true);
 
     const debounceTimer = setTimeout(() => {
-      const normalizedSearchQuery = searchQuery.replace(/\s+/g, "").toLowerCase();
+      const normalizedSearchQuery = searchQuery
+        .replace(/\s+/g, "")
+        .toLowerCase();
       const results = productsData.filter((product) => {
-        const normalizedProductName = product.name.replace(/\s+/g, "").toLowerCase();
+        const normalizedProductName = product.name
+          .replace(/\s+/g, "")
+          .toLowerCase();
         return normalizedProductName.includes(normalizedSearchQuery);
       });
       setSearchResults(results);
@@ -67,13 +103,13 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        onClose();
+        handleClose();
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [onClose]);
+  }, [handleClose]);
 
   return (
     <AnimatePresence>
@@ -104,7 +140,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
                 />
               </div>
               <button
-                onClick={onClose}
+                onClick={handleClose}
                 aria-label="Close search"
                 className="p-2 text-space-light hover:text-accent-blue transition-colors"
               >

@@ -27,8 +27,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={GeistSans.className}>
+      
         <Providers>
-          {isAccountRoute ? <AccountLayout>{children}</AccountLayout> : <Layout>{children}</Layout>}
+          {isAccountRoute ? (
+            <AccountLayout>{children}</AccountLayout>
+          ) : (
+            <Layout>{children}</Layout>
+          )}
         </Providers>
       </body>
     </html>
