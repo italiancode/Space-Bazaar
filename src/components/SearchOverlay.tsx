@@ -175,6 +175,7 @@ const SearchOverlay = ({ isOpen, onClose }: SearchOverlayProps) => {
     </AnimatePresence>
   );
 };
+// 
 
 interface WrappedSearchOverlayProps {
   isOpen: boolean;
