@@ -39,7 +39,7 @@ export default function FeaturedProducts() {
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-center mb-16 whitespace-nowrap bg-gradient-to-r from-white via-blue-100 to-indigo-200 bg-clip-text text-transparent">
           Featured SpaceX Merch
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {featuredProducts.map((product, index) => (
             <div key={index} className="h-fit">
               <ProductCard key={index} product={product} />

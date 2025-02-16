@@ -255,7 +255,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
         </motion.div>
 
-        <div className="mt-auto pt-4 flex justify-between items-center">
+        <div className="mt-auto pt-4 flex flex-wrap justify-between items-center space-y-3">
           <div className="flex items-center gap-2">
             <button
               onClick={handleLike}
@@ -276,7 +276,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             </button>
           </div>
 
-          <div className="flex flex-wrap items-center justify-end gap-2 ">
+          <div className="flex flex-wrap items-center justify-end gap-2 w-full">
             <div className="flex items-center bg-gray-700/50 rounded-full">
               <button
                 onClick={decrementQuantity}

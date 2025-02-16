@@ -33,15 +33,6 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
-      <svg className="hidden">
-        <filter id="glow">
-          <feGaussianBlur stdDeviation="3.5" result="coloredBlur" />
-          <feMerge>
-            <feMergeNode in="coloredBlur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-      </svg>
       <div className="max-w-7xl mx-auto z-50">
         {/* Background layers */}
         <div className="absolute inset-0 z-[-1]">
@@ -83,10 +74,6 @@ export default function Header() {
 
                 <span className="inline text-sm sm:text-xl font-bold text-white relative">
                   Space Bazaar
-                  <span
-                    className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 opacity-0 group-hover:opacity-50 transition-opacity duration-300 blur-sm"
-                    style={{ filter: "url(#glow)" }}
-                  ></span>
                 </span>
               </Link>
 
