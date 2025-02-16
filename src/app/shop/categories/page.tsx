@@ -22,22 +22,22 @@ const categories = [
     count: 28,
     slug: "collectibles"
   },
-  {
-    id: 3,
-    name: "Models",
-    description: "Scale models of rockets and spacecraft",
-    image: "/images/categories/models.webp",
-    count: 15,
-    slug: "models"
-  },
-  {
-    id: 4,
-    name: "Mission Gear",
-    description: "Equipment and gear from specific missions",
-    image: "/images/categories/mission-gear.webp",
-    count: 23,
-    slug: "mission-gear"
-  }
+  // {
+  //   id: 3,
+  //   name: "Models",
+  //   description: "Scale models of rockets and spacecraft",
+  //   image: "/images/categories/models.webp",
+  //   count: 15,
+  //   slug: "models"
+  // },
+  // {
+  //   id: 4,
+  //   name: "Mission Gear",
+  //   description: "Equipment and gear from specific missions",
+  //   image: "/images/categories/mission-gear.webp",
+  //   count: 23,
+  //   slug: "mission-gear"
+  // }
 ];
 
 export default function Categories() {

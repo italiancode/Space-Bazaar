@@ -44,12 +44,16 @@ export default function FeaturedProducts() {
         >
           Featured SpaceX Merch
         </motion.h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
           {featuredProducts.map((product, index) => (
-            <ProductCard key={index} product={product} />
+            <div key={index} className="h-fit">
+              <ProductCard key={index} product={product} />
+            </div>
           ))}
         </div>
       </div>
+
+      
     </section>
   );
 }

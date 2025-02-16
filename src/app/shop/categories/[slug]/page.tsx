@@ -7,17 +7,20 @@ import ProductCard from "@/components/shop/ProductCard";
 import products from "products.json"; // Import the products JSON
 
 const categoryTitles = {
-  "apparel": "SpaceX Apparel",
-  "collectibles": "Space Collectibles",
-  "models": "Spacecraft Models",
-  "mission-gear": "Mission Gear"
+  apparel: "SpaceX Apparel",
+  collectibles: "Space Collectibles",
+  models: "Spacecraft Models",
+  "mission-gear": "Mission Gear",
 };
 
 export default function CategoryPage() {
   const { slug } = useParams();
   const categorySlug = Array.isArray(slug) ? slug[0] : slug || "";
-  const filteredProducts = products.filter(product => product.category.toLowerCase() === categorySlug.toLowerCase());
-  const title = categoryTitles[categorySlug as keyof typeof categoryTitles] || "Products";
+  const filteredProducts = products.filter(
+    (product) => product.category.toLowerCase() === categorySlug.toLowerCase()
+  );
+  const title =
+    categoryTitles[categorySlug as keyof typeof categoryTitles] || "Products";
 
   return (
     <div className="relative min-h-screen py-32 px-4 sm:px-6 lg:px-8">
@@ -44,4 +47,4 @@ export default function CategoryPage() {
       </div>
     </div>
   );
-} 
+}

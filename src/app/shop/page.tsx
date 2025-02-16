@@ -6,72 +6,52 @@ import { ShoppingBag, Rocket, Star } from "lucide-react";
 import ProductCard from "@/components/shop/ProductCard";
 import productsData from "@/products.json";
 
-
 export default function ShopPage() {
-  const recommendedProducts = productsData.filter(product => 
-    // Example criteria - you can modify these based on your actual recommendation logic
-    product.category === "popular" || product.ratings >= 4
-  ).slice(0, 3);
+  const recommendedProducts = productsData
+    .filter(
+      (product) =>
+        // Example criteria - you can modify these based on your actual recommendation logic
+        product.category === "popular" || product.ratings >= 4
+    )
+    .slice(0, 3);
 
   return (
-    <div className="min-h-screen py-32 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen pb-32 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
+          className="text-center mb-16 relative p-12 rounded-2xl overflow-hidden
+            bg-gradient-to-r from-transparent via-indigo-950/30 to-transparent
+            border border-white/10 backdrop-blur-sm"
         >
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-white to-indigo-400 bg-clip-text text-transparent mb-4">
-            Space Bazaar Store
-          </h1>
-          <p className="text-xl text-gray-400">
-            Your Gateway to Cosmic Collectibles
-          </p>
-        </motion.div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1),transparent)] animate-pulse" />
+          <div className="relative z-10">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-white to-indigo-400 bg-clip-text text-transparent">
+              SpaceX Merch
+            </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {[
-            {
-              icon: ShoppingBag,
-              title: "Exclusive Products",
-              desc: "Authentic SpaceX merchandise",
-            },
-            {
-              icon: Rocket,
-              title: "Fast Shipping",
-              desc: "Worldwide delivery",
-            },
-            {
-              icon: Star,
-              title: "Premium Quality",
-              desc: "Certified collectibles",
-            },
-          ].map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.2 }}
-              className="p-6 rounded-xl bg-gradient-to-br from-gray-800/50 to-gray-900/50
-                backdrop-blur-md border border-gray-700/50
-                hover:border-indigo-500/50 transition-all duration-300"
-            >
-              <feature.icon className="w-12 h-12 text-indigo-400 mb-4 mx-auto" />
-              <h2 className="text-xl font-semibold mb-2">{feature.title}</h2>
-              <p className="text-gray-400">{feature.desc}</p>
-            </motion.div>
-          ))}
-        </div>
+            <p className="text-gray-400 mt-2">Discover our cosmic collection</p>
+          </div>
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="mb-16"
         >
-          <h2 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-white to-indigo-400 bg-clip-text text-transparent">
-            Recommended For You
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex justify-between items-center mb-8 whitespace-nowrap">
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-white to-indigo-400 bg-clip-text text-transparent">
+              Recommended For You
+            </h2>
+            <Link
+              href="/shop/collections"
+              className="ml-4 text-sm text-blue-400 hover:text-blue-300 transition-colors duration-200"
+            >
+              View More →
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
             {recommendedProducts.map((product, index) => (
               <motion.div
                 key={product.id}

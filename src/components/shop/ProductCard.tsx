@@ -214,49 +214,44 @@ export default function ProductCard({ product }: ProductCardProps) {
         </motion.div>
 
         <div className="mt-auto pt-4">
-          <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-            <div className="flex items-center space-x-2">
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-4 ">
+            <div className="flex items-center gap-2">
               <button
                 onClick={handleLike}
-                className={`p-2 rounded-full ${
-                  liked ? "bg-red-500 text-white" : "bg-gray-700 text-gray-300"
+                className={`p-1.5 rounded-full ${
+                  liked ? "bg-red-500 text-white" : "bg-gray-700/50 text-gray-300"
                 } hover:bg-red-600 transition-colors flex items-center gap-1`}
                 aria-label={liked ? "Unlike" : "Like"}
               >
-                <Heart size={16} className={liked ? "fill-current" : ""} />
-                <span className="text-sm">{likes}</span>
+                <Heart size={14} className={liked ? "fill-current" : ""} />
+                <span className="text-xs">{likes}</span>
               </button>
-            </div>
-            <div className="flex items-center space-x-2">
               <button
-                className="p-2 rounded-full bg-gray-700 text-gray-300 hover:bg-gray-600 transition-colors flex items-center gap-1"
+                className="p-1.5 rounded-full bg-gray-700/50 text-gray-300 hover:bg-gray-600 transition-colors flex items-center gap-1"
                 aria-label="View comments"
               >
-                <MessageCircle size={16} />
-                <span className="text-sm">{product.comments || 0}</span>
+                <MessageCircle size={14} />
+                <span className="text-xs">{product.comments || 0}</span>
               </button>
             </div>
-            <div className="flex items-center space-x-2 bg-gray-700 rounded-full">
+            <div className="flex items-center bg-gray-700/50 rounded-full">
               <button
                 onClick={decrementQuantity}
                 disabled={quantity <= 1}
-                className="p-2 text-gray-300 hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors rounded-l-full"
-                aria-label="Decrease quantity"
+                className="p-1.5 text-gray-300 hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors rounded-l-full"
               >
-                <Minus size={16} />
+                <Minus size={14} />
               </button>
-              <span className="text-sm text-white font-mono px-2">{quantity}</span>
+              <span className="text-xs text-white font-mono px-2">{quantity}</span>
               <button
                 onClick={incrementQuantity}
                 disabled={quantity >= product.stock}
-                className="p-2 text-gray-300 hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors rounded-r-full"
-                aria-label="Increase quantity"
+                className="p-1.5 text-gray-300 hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors rounded-r-full"
               >
-                <Plus size={16} />
+                <Plus size={14} />
               </button>
             </div>
           </div>
-
           <AddToCart productId={product.id} quantity={quantity} disabled={product.stock === 0} className="w-full" />
         </div>
       </div>
