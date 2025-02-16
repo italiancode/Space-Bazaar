@@ -12,7 +12,7 @@ const protectedPaths = [
 
 // Add paths that should be accessible only for non-authenticated users
 const authPaths = ['/auth'];
-
+// 
 // Public paths that don't need authentication
 // const publicPaths = [
 //   '/',
