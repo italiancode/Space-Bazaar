@@ -177,3 +177,18 @@ html {
     opacity: 1;
     transform: translateY(0);
 }
+
+
+/* Add this CSS to your styles */
+
+.scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+    /* Hide scrollbar for Chrome, Safari, and Opera */
+}
+
+.scrollbar-hidden {
+    -ms-overflow-style: none;
+    /* Hide scrollbar for Internet Explorer and Edge */
+    scrollbar-width: none;
+    /* Hide scrollbar for Firefox */
+}

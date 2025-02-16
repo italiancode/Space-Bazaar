@@ -6,15 +6,17 @@ import { useState, useEffect } from "react";
 import { Menu, X, Search, ShoppingCart, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/contexts/CartContext";
+import SearchOverlay from "@/components/SearchOverlay"; // Import the new SearchOverlay component
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [logoError, setLogoError] = useState(false);
+  const [isSearchOverlayOpen, setIsSearchOverlayOpen] = useState(false);
   const navItems = [
     { name: "Shop", path: "/shop" },
     { name: "Categories", path: "/shop/categories" },
     { name: "About", path: "/about" },
-    { name: "Contact", path: "/contact" }
+    { name: "Contact", path: "/contact" },
   ];
   const [isCartBadgeAnimating, setIsCartBadgeAnimating] = useState(false);
   const { cart } = useCart();
@@ -33,7 +35,7 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50">
       <div className="max-w-7xl mx-auto relative">
         {/* Background layers */}
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 z-[-1]">
           <div className="absolute inset-0 header-glass" />
           <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-header-border/20 to-transparent" />
           <div className="absolute inset-0 header-glow" />
@@ -81,9 +83,14 @@ export default function Header() {
 
             {/* Icons */}
             <div className="flex items-center space-x-2 sm:space-x-4">
-              <button className="p-1 sm:p-2 header-hover text-white/90">
+              {/* Search Button */}
+              <button
+                onClick={() => setIsSearchOverlayOpen(true)}
+                className="p-1 sm:p-2 header-hover text-white/90"
+              >
                 <Search className="w-5 h-5" />
               </button>
+
               <Link
                 href="/shop/cart"
                 className="relative p-1 sm:p-2 header-hover text-white/90 group"
@@ -92,19 +99,13 @@ export default function Header() {
                 {cartCount > 0 && (
                   <motion.span
                     initial={{ scale: 0.5, opacity: 0 }}
-                    animate={{ 
+                    animate={{
                       scale: isCartBadgeAnimating ? [1, 1.2, 1] : 1,
                       opacity: 1,
-                      background: isCartBadgeAnimating 
-                        ? ['linear-gradient(to right, #ef4444, #7c3aed)', 
-                           'linear-gradient(to right, #7c3aed, #ef4444)',
-                           'linear-gradient(to right, #ef4444, #7c3aed)']
-                        : 'linear-gradient(to right, #ef4444, #7c3aed)'
                     }}
-                    transition={{ 
+                    transition={{
                       duration: isCartBadgeAnimating ? 2 : 0.3,
                       ease: "easeInOut",
-                      times: isCartBadgeAnimating ? [0, 0.5, 1] : [0, 1]
                     }}
                     className="absolute -top-2 -right-2 
                       text-white text-xs font-bold
@@ -140,6 +141,12 @@ export default function Header() {
             </div>
           </div>
         </div>
+
+        {/* Search Overlay */}
+        <SearchOverlay
+          isOpen={isSearchOverlayOpen}
+          onClose={() => setIsSearchOverlayOpen(false)}
+        />
 
         {/* Mobile menu */}
         <AnimatePresence>
