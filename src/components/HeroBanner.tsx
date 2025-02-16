@@ -16,7 +16,7 @@ export default function HeroBanner() {
   }, []);
 
   return (
-    <section className="h-[60vh] md:h-[75vh] max-h-[800px] min-h-[500px] overflow-hidden relative bg-gradient-to-b from-[#0a1128] to-[#1c3a70] z-10">
+    <section className="h-[50vh] md:h-[60vh] max-h-[800px] min-h-[500px] overflow-hidden relative bg-gradient-to-b from-[#0a1128] to-[#1c3a70] z-10">
       <div className="absolute inset-0 z-10"><StarryBackground /></div>
 
       <div className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
@@ -52,16 +52,14 @@ export default function HeroBanner() {
             <Link
               href="/shop/collections"
               className="group relative inline-flex items-center justify-center
-                bg-gradient-to-r from-accent-blue to-accent-purple px-8 py-3
-                text-lg font-medium text-white overflow-hidden rounded-full
-                transition-all duration-300
-                hover:shadow-[0_0_30px_rgba(79,70,229,0.5)]"
+                bg-accent-blue px-4 py-2
+                text-lg font-medium text-white rounded
+                transition-all duration-200 transform hover:scale-105"
             >
-              <span className="relative z-10 flex items-center gap-2">
+              <span className="flex items-center gap-2">
                 <ShoppingCart className="w-5 h-5" />
                 Explore Collection
               </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-accent-purple to-accent-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </Link>
           </motion.div>
         </div>

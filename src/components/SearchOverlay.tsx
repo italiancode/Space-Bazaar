@@ -113,7 +113,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
             </div>
 
             {/* Search Results */}
-            <div className="p-4 max-h-[60vh] overflow-y-auto scrollbar-hidden">
+            <div className="p-4 h-full overflow-y-auto scrollbar-hidden">
               {isLoading ? (
                 <div className="flex justify-center items-center py-8">
                   <div className="w-8 h-8 border-2 border-space-light rounded-full animate-spin border-t-transparent" />
