@@ -1,11 +1,17 @@
 import Link from "next/link";
-import FadeGlowEffect from '../effects/FadeGlowEffect';
 
 export default function Footer() {
   return (
     <>
-      <FadeGlowEffect />
-      <footer className="bg-background mt-auto">
+      <section className="relative z-[-0]">
+        {/* Bottom fade & glow effect */}
+        <div className="absolute inset-x-0 bottom-0 h-10">
+          <div className="absolute inset-x-0 bottom-0 h-full bg-gradient-to-t from-background via-background to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-[#4F46E5]/50 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#4F46E5]/20 to-transparent" />
+        </div>
+      </section>
+      <footer className="bg-background mt-auto z-[50]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {/* Company Info */}
@@ -81,7 +87,6 @@ const footerLinks = [
       // { name: "New Arrivals", href: "/new-arrivals" },
       // { name: "Best Sellers", href: "/best-sellers" },
     ],
-
   },
   {
     title: "Support",

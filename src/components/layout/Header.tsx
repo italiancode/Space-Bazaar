@@ -42,7 +42,7 @@ export default function Header() {
           </feMerge>
         </filter>
       </svg>
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto z-50">
         {/* Background layers */}
         <div className="absolute inset-0 z-[-1]">
           <div className="absolute inset-0 header-glass" />
@@ -196,7 +196,7 @@ export default function Header() {
           )}
         </AnimatePresence>
       </div>
-      <FadeGlowEffect />
+      <FadeGlowEffect className="z-[-1]" />
     </header>
   );
 }
