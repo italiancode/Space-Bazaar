@@ -1,5 +1,5 @@
 import ProductCard from "@/components/shop/ProductCard";
-import { motion, useAnimation } from "framer-motion";
+import { useAnimation } from "framer-motion";
 import { useEffect } from "react";
 import products from "@/products.json";
 
