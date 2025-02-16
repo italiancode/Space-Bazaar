@@ -7,6 +7,7 @@ import { Menu, X, Search, ShoppingCart, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/contexts/CartContext";
 import SearchOverlay from "@/components/SearchOverlay";
+import FadeGlowEffect from "../effects/FadeGlowEffect";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -49,7 +50,7 @@ export default function Header() {
           <div className="absolute inset-0 header-glow" />
         </div>
 
-        <div className="backdrop-blur-md bg-transparent border-b border-white/10">
+        <div className="backdrop-blur-md bg-transparent">
           <div className="px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16 sm:h-20">
               <Link
@@ -102,11 +103,18 @@ export default function Header() {
               </nav>
 
               <div className="flex items-center space-x-4">
-                <Link href="#" onClick={() => setIsSearchOverlayOpen(true)} className="relative p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors duration-200 shadow-[0_0_0_1px_rgba(255,255,255,0.1)] hover:shadow-[0_0_0_1px rgba(255,255,255,0.2)] focus:outline-none focus:ring-2 focus:ring-white/20">
+                <Link
+                  href="#"
+                  onClick={() => setIsSearchOverlayOpen(true)}
+                  className="relative p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors duration-200 shadow-[0_0_0_1px_rgba(255,255,255,0.1)] hover:shadow-[0_0_0_1px rgba(255,255,255,0.2)] focus:outline-none focus:ring-2 focus:ring-white/20"
+                >
                   <Search className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 </Link>
 
-                <Link href="/shop/cart" className="relative p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors duration-200 shadow-[0_0_0_1px_rgba(255,255,255,0.1)] hover:shadow-[0_0_0_1px rgba(255,255,255,0.2)] focus:outline-none focus:ring-2 focus:ring-white/20">
+                <Link
+                  href="/shop/cart"
+                  className="relative p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors duration-200 shadow-[0_0_0_1px_rgba(255,255,255,0.1)] hover:shadow-[0_0_0_1px rgba(255,255,255,0.2)] focus:outline-none focus:ring-2 focus:ring-white/20"
+                >
                   <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   {cartCount > 0 && (
                     <motion.span
@@ -129,11 +137,17 @@ export default function Header() {
                   )}
                 </Link>
 
-                <Link href="/account" className="hidden md:block relative p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors duration-200 shadow-[0_0_0_1px_rgba(255,255,255,0.1)] hover:shadow-[0_0_0_1px rgba(255,255,255,0.2)] focus:outline-none focus:ring-2 focus:ring-white/20">
+                <Link
+                  href="/account"
+                  className="hidden md:block relative p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors duration-200 shadow-[0_0_0_1px_rgba(255,255,255,0.1)] hover:shadow-[0_0_0_1px rgba(255,255,255,0.2)] focus:outline-none focus:ring-2 focus:ring-white/20"
+                >
                   <User className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 </Link>
 
-                <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden relative p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors duration-200 shadow-[0_0_0_1px_rgba(255,255,255,0.1)] hover:shadow-[0_0_0_1px rgba(255,255,255,0.2)] focus:outline-none focus:ring-2 focus:ring-white/20">
+                <button
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  className="md:hidden relative p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors duration-200 shadow-[0_0_0_1px_rgba(255,255,255,0.1)] hover:shadow-[0_0_0_1px rgba(255,255,255,0.2)] focus:outline-none focus:ring-2 focus:ring-white/20"
+                >
                   {isMenuOpen ? (
                     <X className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   ) : (
@@ -182,6 +196,7 @@ export default function Header() {
           )}
         </AnimatePresence>
       </div>
+      <FadeGlowEffect />
     </header>
   );
 }
