@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CircleX, Search } from "lucide-react";
 import ProductCard from "./shop/ProductCard";
 import productsData from "@/products.json"; // Import products data
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 // Define the product interface
 interface Product {
@@ -34,7 +34,6 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
   const [searchResults, setSearchResults] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const previousPathname = useRef(pathname);
