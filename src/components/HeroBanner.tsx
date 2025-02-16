@@ -17,7 +17,9 @@ export default function HeroBanner() {
 
   return (
     <section className="h-[30vh] md:h-[45vh] max-h-[800px] min-h-[320px] overflow-hidden relative bg-gradient-to-b from-[#0a1128] to-[#1c3a70] z-10">
-      <div className="absolute inset-0 z-10"><StarryBackground /></div>
+      <div className="absolute inset-0 z-10">
+        <StarryBackground />
+      </div>
 
       <div className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="text-center z-20 max-w-4xl mx-auto">
@@ -26,7 +28,7 @@ export default function HeroBanner() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
               <span className="bg-gradient-to-r from-white via-blue-100 to-indigo-200 bg-clip-text text-transparent">
                 Space Bazaar
               </span>
@@ -34,12 +36,11 @@ export default function HeroBanner() {
 
             <motion.p
               initial={{ opacity: 0 }}
-              animate={{ opacity: showDescription ? 1 : 0 }}
-              transition={{ duration: 1 }}
-              className="mt-8 text-xl sm:text-2xl text-gray-300/90 max-w-2xl mx-auto font-light"
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="mt-4 text-lg font-light"
             >
-              Discover authentic space collectibles and gear from the frontiers
-              of exploration
+              Authentic space collectibles and gear.
             </motion.p>
           </motion.div>
 
@@ -52,7 +53,7 @@ export default function HeroBanner() {
             <Link
               href="/shop/collections"
               className="group relative inline-flex items-center justify-center
-                bg-accent-blue px-4 py-2
+                bg-accent-purple px-4 py-2
                 text-lg font-medium text-white rounded
                 transition-all duration-200 transform hover:scale-105"
             >

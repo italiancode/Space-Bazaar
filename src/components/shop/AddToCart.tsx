@@ -24,7 +24,7 @@ export default function AddToCart({ productId, quantity, disabled, className }: 
     <button
       onClick={handleAddToCart}
       disabled={disabled}
-      className={`bg-accent-blue text-white rounded-md px-2 py-1 text-sm transition-opacity duration-200 hover:opacity-90 disabled:opacity-50 ${className}`}
+      className={`bg-accent-purple text-white rounded-md px-2 py-1 text-sm transition-opacity duration-200 hover:opacity-90 disabled:opacity-50 ${className}`}
     >
       {addedToCart ? "Added!" : "Add to Cart"}
     </button>

@@ -73,7 +73,7 @@ export default function ShopPage() {
           <Link
             href="/shop/collections"
             className="inline-flex items-center gap-2 
-              bg-accent-blue
+              bg-accent-purple
               text-white rounded px-4 py-2 
               transition-all duration-200 transform hover:scale-105
               text-lg font-semibold"
