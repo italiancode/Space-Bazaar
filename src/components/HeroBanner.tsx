@@ -21,8 +21,8 @@ export default function HeroBanner() {
       const scrollY = window.scrollY;
       setShowDescription(scrollY > 100);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -33,32 +33,18 @@ export default function HeroBanner() {
         </div>
 
         <div className="absolute inset-0 flex flex-col items-center justify-center px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="text-center z-20 max-w-2xl mx-auto"
-          >
+          <div className="text-center z-20 max-w-2xl mx-auto">
             <h1 className="text-5xl sm:text-6xl md:text-7xl font-light tracking-tight bg-gradient-to-r from-white via-blue-100 to-indigo-200 bg-clip-text text-transparent mb-8">
               Space Bazaar
             </h1>
 
             {showDescription && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-                className="text-lg text-gray-300 mb-12"
-              >
+              <p className="text-lg text-gray-300 mb-12">
                 Authentic space collectibles and gear
-              </motion.p>
+              </p>
             )}
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
-            >
+            <div>
               <Link
                 href="/shop/collections"
                 className="group inline-flex items-center justify-center
@@ -69,8 +55,8 @@ export default function HeroBanner() {
                 <span className="mr-2">Explore Collection</span>
                 <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </section>
     </>

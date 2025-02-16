@@ -36,14 +36,9 @@ export default function FeaturedProducts() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.h2
-          className="text-2xl sm:text-3xl md:text-4xl font-light text-center mb-16 whitespace-nowrap bg-gradient-to-r from-white via-blue-100 to-indigo-200 bg-clip-text text-transparent"
-          initial={{ opacity: 0, y: 50 }}
-          animate={controls}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-light text-center mb-16 whitespace-nowrap bg-gradient-to-r from-white via-blue-100 to-indigo-200 bg-clip-text text-transparent">
           Featured SpaceX Merch
-        </motion.h2>
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {featuredProducts.map((product, index) => (
             <div key={index} className="h-fit">
@@ -52,8 +47,6 @@ export default function FeaturedProducts() {
           ))}
         </div>
       </div>
-
-      
     </section>
   );
 }
