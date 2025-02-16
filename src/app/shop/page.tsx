@@ -41,7 +41,7 @@ export default function ShopPage() {
           className="mb-16"
         >
           <div className="flex justify-between items-center mb-8 whitespace-nowrap">
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-white via-blue-100 to-indigo-200 bg-clip-text text-transparent">
+            <h2 className="text-2xl font-light bg-gradient-to-r from-white via-blue-100 to-indigo-200 bg-clip-text text-transparent">
               Recommended For You
             </h2>
             <Link
@@ -68,18 +68,18 @@ export default function ShopPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center"
+          transition={{ delay: 0.8, duration: 0.8 }}
+          className="text-center mt-16 z-10"
         >
           <Link
             href="/shop/collections"
-            className="inline-flex items-center gap-2 
-              bg-accent-purple
-              text-white rounded px-4 py-2 
-              transition-all duration-200 transform hover:scale-105
-              text-lg font-semibold"
+            className="group inline-flex items-center justify-center
+              border border-white px-6 py-3
+              text-sm font-medium text-white
+              transition-all duration-300 hover:bg-white hover:text-black"
           >
-            <ShoppingBag className="w-5 h-5" />
-            Explore Collections
+            <span className="mr-2"> All Collections</span>
+            <ShoppingBag className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </motion.div>
       </div>
