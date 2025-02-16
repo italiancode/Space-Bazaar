@@ -33,6 +33,14 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
   const [searchResults, setSearchResults] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Reset search when overlay is closed
+  useEffect(() => {
+    if (!isOpen) {
+      setSearchQuery("");
+      setSearchResults([]);
+    }
+  }, [isOpen]);
+
   // Debounce search input
   useEffect(() => {
     if (searchQuery.trim() === "") {
@@ -80,7 +88,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
             initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -50, opacity: 0 }}
-            className="bg-space-dark rounded-lg w-full max-w-3xl shadow-lg overflow-hidden border border-space-mid"
+            className="bg-space-dark rounded-lg w-full max-w-3xl shadow-lg overflow-hidden border border-space-mid h-screen"
           >
             {/* Search Header */}
             <div className="flex items-center justify-between p-4 border-b border-space-mid">

@@ -14,7 +14,7 @@ export default {
         "accent-blue": "var(--accent-blue)",
         "accent-purple": "#7c3aed",
         "space-dark": "#030014",
-        "space-mid": "var(--space-mid)",
+        "space-mid": "#1e1b4b",
 
         // "space-gray": "var(--space-gray)",
 
