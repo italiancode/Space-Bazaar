@@ -16,6 +16,15 @@ export default function HeroBanner() {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setShowDescription(scrollY > 100);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <>
       <section className="h-[30vh] md:h-[45vh] max-h-[800px] min-h-[320px] relative  overflow-hidden bg-gradient-to-b from-[#0a1128] to-[#1c3a70] z-10">
