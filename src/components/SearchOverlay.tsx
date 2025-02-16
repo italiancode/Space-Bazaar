@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CircleX, Search } from "lucide-react";
 import ProductCard from "./shop/ProductCard";
@@ -29,7 +29,7 @@ interface SearchOverlayProps {
   onClose: () => void;
 }
 
-export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
+const SearchOverlay = ({ isOpen, onClose }: SearchOverlayProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -173,5 +173,18 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
         </motion.div>
       )}
     </AnimatePresence>
+  );
+};
+
+interface WrappedSearchOverlayProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export default function WrappedSearchOverlay({ isOpen, onClose }: WrappedSearchOverlayProps) {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchOverlay isOpen={isOpen} onClose={onClose} />
+    </Suspense>
   );
 }
