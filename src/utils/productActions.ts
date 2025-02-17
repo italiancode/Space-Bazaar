@@ -16,7 +16,7 @@ import CryptoJS from "crypto-js";
 
 export const handleLikeProduct = async (
   productId: number,
-  currentUser: any,
+  currentUser: { uid: string } | null,
   liked: boolean,
   setLiked: (value: boolean) => void,
   setLikes: (value: number | ((prev: number) => number)) => void,
@@ -79,7 +79,7 @@ export const handleLikeProduct = async (
 
 export const handleShareProduct = async (
   productId: number,
-  currentUser: any,
+  currentUser: { uid: string } | null,
   shared: boolean,
   setShares: (value: number | ((prev: number) => number)) => void
 ) => {
@@ -130,7 +130,7 @@ export const handleShareProduct = async (
 
 export const handlePurchaseProduct = async (
   productId: number,
-  currentUser: any,
+  currentUser: { uid: string } | null,
   purchased: boolean
   //   setPurchases: (value: number | ((prev: number) => number)) => void
 ) => {
