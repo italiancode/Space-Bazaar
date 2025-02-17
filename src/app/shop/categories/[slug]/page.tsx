@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useParams } from "next/navigation";
 // import StarryBackground from "@/components/effects/StarryBackground";
 import ProductCard from "@/components/shop/ProductCard";
-import products from "products.json"; // Import the products JSON
+import products from "@/data/products.json"; // Import the products JSON
 
 const categoryTitles = {
   apparel: "SpaceX Apparel",
@@ -14,7 +14,7 @@ const categoryTitles = {
 };
 
 export default function CategoryPage() {
-  const { slug } = useParams();
+  const { slug } = useParams() || {};
   const categorySlug = Array.isArray(slug) ? slug[0] : slug || "";
   const filteredProducts = products.filter(
     (product) => product.category.toLowerCase() === categorySlug.toLowerCase()
