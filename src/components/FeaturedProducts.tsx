@@ -29,7 +29,6 @@ const featuredProducts = products
 const FeaturedProducts = () => {
   const controls = useAnimation();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -42,7 +41,7 @@ const FeaturedProducts = () => {
         // Fetch your products here
         setLoading(false); // Set loading to false after fetching
       } catch (error) {
-        setError("Failed to load products");
+        // Handle error if needed
         setLoading(false); // Also set loading to false on error
       }
     };
@@ -83,7 +82,7 @@ const FeaturedProducts = () => {
         </div>
 
         <div className="relative ">
-          {!loading && !error && (
+          {!loading && (
             <>
               <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10 -translate-x-full pl-4">
                 <Button
@@ -119,10 +118,6 @@ const FeaturedProducts = () => {
                   className="flex-none w-72 h-96 bg-gray-700 rounded-lg animate-pulse"
                 />
               ))
-            ) : error ? (
-              <div className="text-center w-full py-8 text-red-500">
-                Error: {error || "An unknown error occurred."}
-              </div>
             ) : featuredProducts.length > 0 ? (
               featuredProducts.slice(0, 10).map((product) => (
                 <div
