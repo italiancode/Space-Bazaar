@@ -121,7 +121,7 @@ const FeaturedProducts = () => {
               ))
             ) : error ? (
               <div className="text-center w-full py-8 text-red-500">
-                Error: {error}
+                Error: {error || "An unknown error occurred."}
               </div>
             ) : featuredProducts.length > 0 ? (
               featuredProducts.slice(0, 10).map((product) => (

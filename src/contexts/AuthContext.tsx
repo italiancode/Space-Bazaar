@@ -197,7 +197,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const initiateAuth = useCallback(
     (destination?: string) => {
       if (!loading && !currentUser) {
-        const returnPath = destination || pathname;
+        const returnPath = destination || pathname || "";
         router.push(`/auth?returnUrl=${encodeURIComponent(returnPath)}`);
       }
     },
