@@ -29,7 +29,6 @@ const featuredProducts = products
 const FeaturedProducts = () => {
   const controls = useAnimation();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -42,7 +41,7 @@ const FeaturedProducts = () => {
         // Fetch your products here
         setLoading(false); // Set loading to false after fetching
       } catch (error) {
-        setError("Failed to load products"); // Set error message
+        // Handle error if needed
         setLoading(false); // Also set loading to false on error
       }
     };
@@ -119,23 +118,22 @@ const FeaturedProducts = () => {
                   className="flex-none w-72 h-96 bg-gray-700 rounded-lg animate-pulse"
                 />
               ))
-            ) : error ? (
-              <div className="text-center w-full py-8 text-red-500">
-                Error: {error}
-              </div>
-            ) : featuredProducts.length > 0 ? (
-              featuredProducts.slice(0, 10).map((product) => (
-                <div
-                  key={product.id}
-                  className="flex-none w-72 transform transition-all duration-300 hover:scale-105 hover:-translate-y-2 mt-8"
-                >
-                  <ProductCard product={product as ProductInterface} />
-                </div>
-              ))
             ) : (
-              <div className="text-center w-full py-8 text-white">
-                No trending products available.
-              </div>
+              // Render featured products
+              featuredProducts.length > 0 ? (
+                featuredProducts.slice(0, 10).map((product) => (
+                  <div
+                    key={product.id}
+                    className="flex-none w-72 transform transition-all duration-300 hover:scale-105 hover:-translate-y-2 mt-8"
+                  >
+                    <ProductCard product={product as ProductInterface} />
+                  </div>
+                ))
+              ) : (
+                <div className="text-center w-full py-8 text-white">
+                  No trending products available.
+                </div>
+              )
             )}
 
             <div className="flex-none w-48 flex items-center justify-center">
