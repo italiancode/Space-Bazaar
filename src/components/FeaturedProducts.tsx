@@ -62,6 +62,11 @@ const FeaturedProducts = () => {
 
   return (
     <section className="relative py-14 px-4 overflow-hidden">
+      {/* Top fade & glow effect - blending with hero */}
+      <div className="absolute inset-x-0 top-0 h-40 z-0">
+        <div className="absolute inset-x-0 top-0 h-full bg-gradient-to-b from-[#4F46E5] via-background/10 to-transparent" />
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="flex justify-between items-center mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-light bg-gradient-to-r from-white via-blue-100 to-indigo-200 bg-clip-text text-transparent text-white flex items-center z-20">
@@ -119,22 +124,20 @@ const FeaturedProducts = () => {
                   className="flex-none w-72 h-96 bg-gray-700 rounded-lg animate-pulse"
                 />
               ))
-            ) : (
-              // Render featured products
-              featuredProducts.length > 0 ? (
-                featuredProducts.slice(0, 10).map((product) => (
-                  <div
-                    key={product.id}
-                    className="flex-none w-72 transform transition-all duration-300 hover:scale-105 hover:-translate-y-2 mt-8"
-                  >
-                    <ProductCard product={product as ProductInterface} />
-                  </div>
-                ))
-              ) : (
-                <div className="text-center w-full py-8 text-white">
-                  No trending products available.
+            ) : // Render featured products
+            featuredProducts.length > 0 ? (
+              featuredProducts.slice(0, 10).map((product) => (
+                <div
+                  key={product.id}
+                  className="flex-none w-72 transform transition-all duration-300 hover:scale-105 hover:-translate-y-2 mt-8"
+                >
+                  <ProductCard product={product as ProductInterface} />
                 </div>
-              )
+              ))
+            ) : (
+              <div className="text-center w-full py-8 text-white">
+                No trending products available.
+              </div>
             )}
 
             <div className="flex-none w-48 flex items-center justify-center">

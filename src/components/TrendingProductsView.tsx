@@ -48,10 +48,7 @@ const TrendingProductsView = () => {
 
   return (
     <section className="relative py-14 px-4 overflow-hidden">
-      {/* Top fade & glow effect - blending with hero */}
-      <div className="absolute inset-x-0 top-0 h-40 z-0">
-        <div className="absolute inset-x-0 top-0 h-full bg-gradient-to-b from-[#4F46E5] via-background/10 to-transparent" />
-      </div>
+     
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="flex justify-between items-center mb-12">
