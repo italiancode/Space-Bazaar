@@ -13,14 +13,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import AddToCart from "./AddToCart";
-import {
-  doc,
-  updateDoc,
-  getDoc,
-  increment,
-  setDoc,
-  deleteDoc,
-} from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import { initializeProduct } from "@/lib/initializeProducts";
 import type React from "react";
@@ -97,7 +90,14 @@ export default function ProductCard({ product }: ProductCardProps) {
   const handleLike = async (e: React.MouseEvent) => {
     e.stopPropagation();
     if (userIp) {
-      await handleLikeProduct(product.id, currentUser, liked, setLiked, setLikes, userIp);
+      await handleLikeProduct(
+        product.id,
+        currentUser,
+        liked,
+        setLiked,
+        setLikes,
+        userIp
+      );
     }
   };
 

@@ -4,13 +4,13 @@ import {
   increment,
   setDoc,
   deleteDoc,
-  getDoc,
+ 
   collection,
   getDocs,
 } from "firebase/firestore";
 import { db } from "@/config/firebase";
-import { initializeProduct } from "@/lib/initializeProducts";
-import { useAuth } from "@/contexts/AuthContext";
+// import { initializeProduct } from "@/lib/initializeProducts";
+// import { useAuth } from "@/contexts/AuthContext";
 // import { v4 as uuidv4 } from 'uuid';
 import CryptoJS from "crypto-js";
 

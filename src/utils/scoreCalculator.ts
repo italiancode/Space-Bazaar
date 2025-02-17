@@ -1,11 +1,4 @@
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/config/firebase"; // Ensure you have your Firestore db instance
 import { ProductInterface } from "@/types/ProductInterface";
 

@@ -10,6 +10,8 @@ import { useState } from "react";
 
 export default function ProductDetailPage() {
   const params = useParams<{ id: string }>();
+  const [quantity, setQuantity] = useState(1);
+  const [activeTab, setActiveTab] = useState("description");
   
   if (!params || !params.id) {
     return <div>Product not found.</div>;
@@ -17,8 +19,6 @@ export default function ProductDetailPage() {
 
   const productId = Number(params.id);
   const product = productsData.find((item) => item.id === productId);
-  const [quantity, setQuantity] = useState(1);
-  const [activeTab, setActiveTab] = useState("description");
 
   if (!product) {
     return (
