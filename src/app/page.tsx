@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { ShoppingBag } from "lucide-react";
+// import Link from "next/link";
+// import { motion } from "framer-motion";
+// import { ShoppingBag } from "lucide-react";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import HeroBanner from "@/components/HeroBanner";
 import TrendingProductsView from "@/components/TrendingProductsView";
@@ -12,11 +12,10 @@ export default function HomePage() {
     <div className="min-h-screen pb-32">
       <div className="max-w-7xl mx-auto">
         <HeroBanner />
-        <TrendingProductsView />
         <FeaturedProducts />
+        <TrendingProductsView />
 
-
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.8 }}
@@ -32,7 +31,7 @@ export default function HomePage() {
             <span className="mr-2"> Shop Now</span>
             <ShoppingBag className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
-        </motion.div>
+        </motion.div> */}
       </div>
     </div>
   );
