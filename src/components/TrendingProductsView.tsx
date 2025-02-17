@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import type { ProductInterface } from "@/types/ProductInterface";
 import ProductCard from "./shop/ProductCard";
-import { ChevronRight, ChevronLeft, TrendingUp } from "lucide-react";
+import { ChevronRight, ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -53,7 +53,7 @@ const TrendingProductsView = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="flex justify-between items-center mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-light bg-gradient-to-r from-white via-blue-100 to-indigo-200 bg-clip-text text-transparent text-white flex items-center z-20">
-            <TrendingUp className="mr-4 h-10 w-10 text-yellow-400 animate-pulse" />
+            {/* <TrendingUp className="mr-4 h-10 w-10 text-yellow-400 animate-pulse" /> */}
             Trending Products
           </h2>
           <Link href="/trending" passHref>
