@@ -42,6 +42,7 @@ const FeaturedProducts = () => {
         setLoading(false); // Set loading to false after fetching
       } catch (error) {
         // Handle error if needed
+        console.error("Error fetching products:", error);
         setLoading(false); // Also set loading to false on error
       }
     };
