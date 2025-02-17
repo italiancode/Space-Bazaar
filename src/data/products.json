@@ -11,7 +11,10 @@
         "sku": "SPX-HOODIE-001",
         "dimensions": "L, XL, XXL",
         "weight": "0.8kg",
-        "featured": true
+        "featured": true,
+        "purchases": 100,
+        "shares": 50,
+        "likes": 20
     },
     {
         "id": 2,
@@ -27,7 +30,10 @@
         "sku": "SPX-MARS-ROVER-002",
         "dimensions": "20cm x 10cm x 10cm",
         "weight": "0.5kg",
-        "featured": false
+        "featured": false,
+        "purchases": 100,
+        "shares": 50,
+        "likes": 20
     },
     {
         "id": 3,
@@ -42,7 +48,10 @@
         "sku": "SPX-POSTER-003",
         "dimensions": "60cm x 90cm",
         "weight": "0.3kg",
-        "featured": false
+        "featured": false,
+        "purchases": 100,
+        "shares": 50,
+        "likes": 20
     },
     {
         "id": 4,
@@ -57,7 +66,10 @@
         "sku": "SPX-MUG-004",
         "dimensions": "10cm x 8cm",
         "weight": "0.4kg",
-        "featured": true
+        "featured": true,
+        "purchases": 100,
+        "shares": 50,
+        "likes": 20
     },
     {
         "id": 5,
@@ -72,7 +84,10 @@
         "sku": "SPX-HELMET-005",
         "dimensions": "30cm x 30cm x 35cm",
         "weight": "2.5kg",
-        "featured": true
+        "featured": true,
+        "purchases": 100,
+        "shares": 50,
+        "likes": 20
     },
     {
         "id": 6,
@@ -87,6 +102,9 @@
         "sku": "SPX-KEYCHAIN-006",
         "dimensions": "5cm x 3cm",
         "weight": "0.1kg",
-        "featured": true
+        "featured": true,
+        "purchases": 100,
+        "shares": 50,
+        "likes": 20
     }
 ]

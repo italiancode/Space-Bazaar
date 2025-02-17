@@ -26,29 +26,20 @@ import { initializeProduct } from "@/lib/initializeProducts";
 import type React from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import Link from "next/link";
+import { handleLikeProduct } from "@/utils/productActions";
+import { ProductInterface } from "@/types/ProductInterface";
 
 interface ProductCardProps {
-  product: {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    image: string;
-    stock: number;
-    ratings: number;
-    reviews: number;
-    sku: string;
-    likes?: number;
-    comments?: number;
-  };
+  product: ProductInterface;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
   const { currentUser } = useAuth();
   const [quantity, setQuantity] = useState(1);
   const [showDetails, setShowDetails] = useState(false);
-  const [likes, setLikes] = useState(0);
+  const [likes, setLikes] = useState<number>(0);
   const [liked, setLiked] = useState(false);
+  const [userIp, setUserIp] = useState<string | null>(null);
 
   useEffect(() => {
     const checkLikeStatus = async () => {
@@ -89,53 +80,24 @@ export default function ProductCard({ product }: ProductCardProps) {
     checkLikeStatus();
   }, [product.id, currentUser, product.name]);
 
+  useEffect(() => {
+    const fetchUserIp = async () => {
+      try {
+        const response = await fetch("https://api.ipify.org?format=json");
+        const data = await response.json();
+        setUserIp(data.ip);
+      } catch (error) {
+        console.error("Error fetching user IP:", error);
+      }
+    };
+
+    fetchUserIp();
+  }, []);
+
   const handleLike = async (e: React.MouseEvent) => {
     e.stopPropagation();
-
-    // Optimistically update UI
-    setLiked(!liked);
-    setLikes((prev) => (liked ? prev - 1 : prev + 1));
-
-    try {
-      const timestamp = new Date().toISOString();
-      const productRef = doc(db, "products", product.id.toString());
-
-      if (currentUser) {
-        const userLikeRef = doc(
-          db,
-          `products/${product.id}/likes/${currentUser.uid}`
-        );
-
-        if (liked) {
-          await updateDoc(productRef, { likes: increment(-1) });
-          await deleteDoc(userLikeRef);
-        } else {
-          await updateDoc(productRef, { likes: increment(1) });
-          await setDoc(userLikeRef, {
-            timestamp,
-            userId: currentUser.uid,
-          });
-        }
-      } else {
-        const guestLikes = JSON.parse(
-          localStorage.getItem("guestLikes") || "{}"
-        );
-
-        if (liked) {
-          delete guestLikes[product.id];
-          await updateDoc(productRef, { likes: increment(-1) });
-        } else {
-          guestLikes[product.id] = { timestamp };
-          await updateDoc(productRef, { likes: increment(1) });
-        }
-
-        localStorage.setItem("guestLikes", JSON.stringify(guestLikes));
-      }
-    } catch (error) {
-      // Revert UI on error
-      setLiked(liked);
-      setLikes((prev) => (liked ? prev + 1 : prev - 1));
-      console.error("Error updating likes:", error);
+    if (userIp) {
+      await handleLikeProduct(product.id, currentUser, liked, setLiked, setLikes, userIp);
     }
   };
 

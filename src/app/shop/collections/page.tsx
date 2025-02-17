@@ -1,12 +1,12 @@
 "use client";
 
 import ProductCard from "@/components/shop/ProductCard";
-import productsData from "@/products.json";
+import productsData from "@/data/products.json";
 import { motion } from "framer-motion";
 
 export default function ProductsPage() {
   return (
-    <div className="min-h-screen pb-32 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen pb-32 px-4 sm:px-6 lg:px-8 z-10">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -27,7 +27,7 @@ export default function ProductsPage() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 z-[20]"
         >
           {productsData.map((product, index) => (
             <motion.div

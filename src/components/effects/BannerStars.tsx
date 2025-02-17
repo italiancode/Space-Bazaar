@@ -58,6 +58,6 @@ export const BannerStars: React.FC = () => {
     }
   }, [])
 
-  return <canvas ref={canvasRef} className="absolute inset-0" />
+  return <canvas ref={canvasRef} className="fixed inset-0 z-[0] w-full h-full" />
 }
 

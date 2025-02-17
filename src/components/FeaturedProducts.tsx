@@ -1,7 +1,8 @@
 import ProductCard from "@/components/shop/ProductCard";
 import { useAnimation } from "framer-motion";
 import { useEffect } from "react";
-import products from "@/products.json";
+import products from "@/data/products.json";
+import { ProductInterface } from "@/types/ProductInterface";
 
 // Replace the hardcoded featuredProducts with filtered products from json
 const featuredProducts = products
@@ -42,10 +43,10 @@ export default function FeaturedProducts() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {featuredProducts.map((product, index) => (
             <div key={index} className="h-fit">
-              <ProductCard key={index} product={product} />
+              <ProductCard key={index} product={product as ProductInterface} />
             </div>
           ))}
-        </div>
+        </div>  
       </div>
     </section>
   );

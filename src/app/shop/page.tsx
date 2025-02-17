@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
 import ProductCard from "@/components/shop/ProductCard";
-import productsData from "@/products.json";
+import productsData from "@/data/products.json";
 
 export default function ShopPage() {
   const recommendedProducts = productsData

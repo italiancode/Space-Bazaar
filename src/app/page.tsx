@@ -5,12 +5,14 @@ import { motion } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import HeroBanner from "@/components/HeroBanner";
+import TrendingProductsView from "@/components/TrendingProductsView";
 
 export default function HomePage() {
   return (
     <div className="min-h-screen pb-32">
       <div className="max-w-7xl mx-auto">
         <HeroBanner />
+        <TrendingProductsView />
         <FeaturedProducts />
 
         <motion.div

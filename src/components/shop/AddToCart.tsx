@@ -10,7 +10,12 @@ interface AddToCartProps {
   className?: string;
 }
 
-export default function AddToCart({ productId, quantity, disabled, className }: AddToCartProps) {
+export default function AddToCart({
+  productId,
+  quantity,
+  disabled,
+  className,
+}: AddToCartProps) {
   const { addToCart } = useCart();
   const [addedToCart, setAddedToCart] = useState(false);
 
@@ -24,9 +29,11 @@ export default function AddToCart({ productId, quantity, disabled, className }: 
     <button
       onClick={handleAddToCart}
       disabled={disabled}
-      className={`bg-accent-purple text-white rounded-md px-2 py-1 text-sm transition-opacity duration-200 hover:opacity-90 disabled:opacity-50 ${className}`}
+      className={`bg-indigo-500/90 hover:bg-indigo-600/90 
+            text-white text-center backdrop-blur-smz-20
+             rounded-md px-2 py-1 text-sm transition-opacity duration-200 hover:opacity-90 disabled:opacity-50 ${className}`}
     >
       {addedToCart ? "Added!" : "Add to Cart"}
     </button>
   );
-} 
+}

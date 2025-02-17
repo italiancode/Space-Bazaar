@@ -1,42 +1,49 @@
-"use client"
+"use client";
 
-import { useParams } from "next/navigation"
-import Image from "next/image"
-import AddToCart from "@/components/shop/AddToCart"
-import productsData from "@/products.json"
-import { motion, AnimatePresence } from "framer-motion"
-import { Star, Truck, Shield, Minus, Plus } from "lucide-react"
-import { useState } from "react"
+import { useParams } from "next/navigation";
+import Image from "next/image";
+import AddToCart from "@/components/shop/AddToCart";
+import productsData from "@/data/products.json";
+import { motion, AnimatePresence } from "framer-motion";
+import { Star, Truck, Shield, Minus, Plus } from "lucide-react";
+import { useState } from "react";
 
 export default function ProductDetailPage() {
-  const { id } = useParams()
-  const productId = Number(id)
-  const product = productsData.find((item) => item.id === productId)
-  const [quantity, setQuantity] = useState(1)
-  const [activeTab, setActiveTab] = useState("description")
+  const params = useParams<{ id: string }>();
+  
+  if (!params || !params.id) {
+    return <div>Product not found.</div>;
+  }
+
+  const productId = Number(params.id);
+  const product = productsData.find((item) => item.id === productId);
+  const [quantity, setQuantity] = useState(1);
+  const [activeTab, setActiveTab] = useState("description");
 
   if (!product) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-space-dark">
-        <p className="text-2xl text-gray-400">Product not found in this galaxy...</p>
+        <p className="text-2xl text-gray-400">
+          Product not found in this galaxy...
+        </p>
       </div>
-    )
+    );
   }
 
   const incrementQuantity = () => {
     if (quantity < product.stock) {
-      setQuantity((prev) => prev + 1)
+      setQuantity((prev) => prev + 1);
     }
-  }
+  };
 
   const decrementQuantity = () => {
     if (quantity > 1) {
-      setQuantity((prev) => prev - 1)
+      setQuantity((prev) => prev - 1);
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen pt-8 pb-32 px-4 sm:px-6 lg:px-8 bg-space-dark text-space-light">
+    <div className="min-h-screen pt-8 md:pt-24 pb-32 px-4 sm:px-6 lg:px-8 text-space-light z-[10]">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Image Section */}
@@ -61,7 +68,9 @@ export default function ProductDetailPage() {
               transition={{ delay: 0.2 }}
               className="absolute bottom-4 left-4 right-4 bg-space-accent/20 backdrop-blur-md rounded-lg p-4"
             >
-              <h2 className="text-xl font-semibold text-space-light mb-2">{product.name}</h2>
+              <h2 className="text-xl font-semibold text-space-light mb-2">
+                {product.name}
+              </h2>
               <p className="text-space-light/80">{product.category}</p>
             </motion.div>
           </motion.div>
@@ -70,7 +79,7 @@ export default function ProductDetailPage() {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex flex-col justify-center"
+            className="flex flex-col justify-center z-10"
           >
             <h1
               className="text-3xl sm:text-4xl font-bold 
@@ -86,7 +95,9 @@ export default function ProductDetailPage() {
               </span>
             </div>
 
-            <p className="text-2xl font-mono text-space-accent mt-4">${product.price.toFixed(2)}</p>
+            <p className="text-2xl font-mono text-space-accent mt-4">
+              ${product.price.toFixed(2)}
+            </p>
 
             <div className="mt-6 space-y-4">
               <div className="flex items-center justify-between">
@@ -100,7 +111,9 @@ export default function ProductDetailPage() {
                   >
                     <Minus size={16} />
                   </button>
-                  <span className="text-sm text-space-light font-mono px-2">{quantity}</span>
+                  <span className="text-sm text-space-light font-mono px-2">
+                    {quantity}
+                  </span>
                   <button
                     onClick={incrementQuantity}
                     disabled={quantity >= product.stock}
@@ -157,7 +170,9 @@ export default function ProductDetailPage() {
                   transition={{ duration: 0.2 }}
                   className="mt-4"
                 >
-                  {activeTab === "description" && <p className="text-space-light/80">{product.description}</p>}
+                  {activeTab === "description" && (
+                    <p className="text-space-light/80">{product.description}</p>
+                  )}
                   {activeTab === "details" && (
                     <div className="grid grid-cols-2 gap-4 text-sm text-space-light/80">
                       <div>SKU: {product.sku}</div>
@@ -169,7 +184,9 @@ export default function ProductDetailPage() {
                   )}
                   {activeTab === "reviews" && (
                     <div className="space-y-4">
-                      <p className="text-space-light/80">Customer reviews coming soon...</p>
+                      <p className="text-space-light/80">
+                        Customer reviews coming soon...
+                      </p>
                     </div>
                   )}
                 </motion.div>
@@ -179,6 +196,5 @@ export default function ProductDetailPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-

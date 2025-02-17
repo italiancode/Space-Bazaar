@@ -22,12 +22,11 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
 
-  const isAccountRoute = pathname.startsWith("/account");
+  const isAccountRoute = pathname ? pathname.startsWith("/account") : false;
 
   return (
     <html lang="en">
-      <body className={GeistSans.className}>
-      
+      <body className={`${GeistSans.className} bg-space-dark`}>
         <Providers>
           {isAccountRoute ? (
             <AccountLayout>{children}</AccountLayout>

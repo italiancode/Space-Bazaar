@@ -4,25 +4,9 @@ import { useState, useEffect, useCallback, useRef, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CircleX, Search } from "lucide-react";
 import ProductCard from "./shop/ProductCard";
-import productsData from "@/products.json"; // Import products data
+import productsData from "@/data/products.json";
 import { usePathname, useSearchParams } from "next/navigation";
-
-// Define the product interface
-interface Product {
-  id: number;
-  name: string;
-  image: string;
-  price: number;
-  category: string;
-  stock: number;
-  description: string;
-  ratings: number;
-  reviews: number;
-  sku: string;
-  dimensions: string;
-  weight: string;
-  featured: boolean;
-}
+import { ProductInterface } from '@/types/ProductInterface';
 
 interface SearchOverlayProps {
   isOpen: boolean;
@@ -31,7 +15,7 @@ interface SearchOverlayProps {
 
 const SearchOverlay = ({ isOpen, onClose }: SearchOverlayProps) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<Product[]>([]);
+  const [searchResults, setSearchResults] = useState<ProductInterface[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const pathname = usePathname();
@@ -56,7 +40,7 @@ const SearchOverlay = ({ isOpen, onClose }: SearchOverlayProps) => {
     if (
       isOpen &&
       (pathname !== previousPathname.current ||
-        searchParams.toString() !== previousSearchParams.current.toString())
+        (previousSearchParams.current && searchParams && searchParams.toString() !== previousSearchParams.current.toString()))
     ) {
       handleClose();
       console.log("Route changed, overlay closed and search reset.");

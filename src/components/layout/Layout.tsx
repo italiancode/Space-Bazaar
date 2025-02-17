@@ -1,16 +1,17 @@
-"use client"
+"use client";
 
 import Header from "./Header";
 import Footer from "./Footer";
 // import { StarryBackground } from "../effects/StarryBackground";
 import { useEffect, useCallback } from "react";
-import { BannerStars } from "../effects/BannerStars";
+import { BannerStars } from "@/components/effects/BannerStars";
+import { ReactNode } from "react";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }: { children: ReactNode }) {
   const handleScroll = useCallback((entries: IntersectionObserverEntry[]) => {
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
+        entry.target.classList.add("visible");
       }
     });
   }, []);
@@ -18,11 +19,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const observer = new IntersectionObserver(handleScroll, {
       threshold: 0.1,
-      rootMargin: '50px'
+      rootMargin: "50px",
     });
 
     // Observe all elements with data-animate attribute
-    document.querySelectorAll('[data-animate]').forEach(element => {
+    document.querySelectorAll("[data-animate]").forEach((element) => {
       observer.observe(element);
     });
 
