@@ -9,7 +9,7 @@ export default function HeroBanner() {
   useEffect(() => {}, []);
 
   return (
-    <section className="h-[30vh] md:h-[45vh] max-h-[800px] min-h-[320px] relative  overflow-hidden bg-gradient-to-b from-[#0a1128] to-[#1c3a70] z-10">
+    <section className="h-[30vh] md:h-[45vh] max-h-[800px] min-h-[320px] relative  overflow-hidden bg-gradient-to-b from-[#0a1128] to-[#4F46E5] z-10">
       <div className="absolute inset-0 flex flex-col items-center justify-center px-4">
         <div className="text-center z-20 max-w-2xl mx-auto">
           <h1 className="text-5xl sm:text-6xl md:text-7xl font-light tracking-tight bg-gradient-to-r from-white via-blue-100 to-indigo-200 bg-clip-text text-transparent mb-8">

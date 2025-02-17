@@ -192,3 +192,13 @@ html {
     scrollbar-width: none;
     /* Hide scrollbar for Firefox */
 }
+
+@layer utilities {
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}

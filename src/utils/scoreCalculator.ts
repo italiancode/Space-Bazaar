@@ -29,11 +29,11 @@ export const calculateScore = async (product: ProductInterface) => {
     recentShares * shareWeight +
     recentLikes * likeWeight;
 
-  console.log(`Product ID: ${product.id}`);
-  console.log("Likes in the last 24 hours:", likes.length);
-  console.log("Purchases in the last 24 hours:", purchases.length);
-  console.log("Shares in the last 24 hours:", shares.length);
-  console.log("Score:", score);
+  // console.log(`Product ID: ${product.id}`);
+  // console.log("Likes in the last 24 hours:", likes.length);
+  // console.log("Purchases in the last 24 hours:", purchases.length);
+  // console.log("Shares in the last 24 hours:", shares.length);
+  // console.log("Score:", score);
 
   return score;
 };
