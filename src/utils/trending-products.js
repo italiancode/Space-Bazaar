@@ -1,6 +1,6 @@
 import { calculateScore } from "@/utils/scoreCalculator";
 import { getAllProducts } from "@/utils/productActions"; // Assuming you have a function to get all products
-
+// 
 const handleTrendingProducts = async() => {
     try {
         const products = await getAllProducts();
