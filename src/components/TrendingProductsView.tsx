@@ -54,7 +54,7 @@ const TrendingProductsView = () => {
         <div className="flex justify-between items-center mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-light bg-gradient-to-r from-white via-blue-100 to-indigo-200 bg-clip-text text-transparent text-white flex items-center z-20">
             <TrendingUp className="mr-4 h-10 w-10 text-yellow-400 animate-pulse" />
-            Trending Products
+            Trending SpaceX Merch
           </h2>
           <Link href="/trending" passHref>
             <Button
