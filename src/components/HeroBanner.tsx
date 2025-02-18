@@ -14,7 +14,7 @@ export default function HeroBanner() {
 
   return (
     <section className="relative h-[45vh] max-h-[800px] min-h-[320px] overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a1128] to-[#4F46E5] z-0">
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0a1128] to-indigo-950 z-0">
         <BannerStars />
       </div>
       <div className="relative h-full z-10">
@@ -24,7 +24,7 @@ export default function HeroBanner() {
               isLoaded ? "opacity-100" : "opacity-0"
             }`}
           >
-            <h1 className="text-5xl sm:text-6xl md:text-7xl font-light tracking-tight bg-gradient-to-r from-white via-blue-100 to-indigo-200 bg-clip-text text-transparent mb-8">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-light tracking-tight bg-gradient-to-r from-white to-indigo-400 bg-clip-text text-transparent mb-8">
               Space Bazaar
             </h1>
 
